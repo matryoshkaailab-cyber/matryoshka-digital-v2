@@ -341,7 +341,7 @@ hermes mcp setup
 
 | Level | Video (David Andre) | MATRYOSHKA | Gap |
 |-------|---------------------|------------|-----|
-| 1. VPS + Hermes | ✅ Hostinger + OpenRouter | ✅ VPS + MiniMax | Модель |
+| 1. VPS + Hermes | ✅ Hostinger + OpenRouter | ✅ VPS + MiniMax | Up to date ✓ |
 | 2. Messaging | Discord integration | Telegram | Platform |
 | 3. Curator | ✅ Enabled | ✅ Enabled | — |
 | 4. Cron/Auto-Backup | GitHub autosync daily | ✅ Autosync active (cron 15min) | — |
