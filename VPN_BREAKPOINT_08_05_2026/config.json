@@ -6,7 +6,7 @@
   },
   "inbounds": [
     {
-      "tag": "inbound-443",
+      "tag": "inbound-443-pc",
       "listen": "0.0.0.0",
       "port": 443,
       "protocol": "vless",
@@ -15,7 +15,39 @@
           {
             "id": "28625ddc-ce9b-4086-b4b8-9a77b9a448ec",
             "flow": "xtls-rprx-vision",
-            "email": "datalink@vpn"
+            "email": "datalink-pc@vpn"
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "reality",
+        "realitySettings": {
+          "show": false,
+          "dest": "www.microsoft.com:443",
+          "xver": 0,
+          "serverNames": ["www.microsoft.com", "microsoft.com"],
+          "privateKey": "UJAUyqjT2CvAmsthrC3y46m0VATjYF8SkXVEBRdvIGE",
+          "shortIds": ["4818db014702038b", ""]
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"]
+      }
+    },
+    {
+      "tag": "inbound-2053-mobile",
+      "listen": "0.0.0.0",
+      "port": 2053,
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "28625ddc-ce9b-4086-b4b8-9a77b9a448ec",
+            "flow": "",
+            "email": "datalink-mobile@vpn"
           }
         ],
         "decryption": "none"
