@@ -14,9 +14,9 @@
 | Hermes v0.12 | ✅ Установлено | Обновить до latest |
 | Telegram подключение | ✅ Работает | Расширить на Discord |
 | Curator | ✅ ENABLE | — |
-| GitHub Autosync | ❌ Отсутствует | Настроить |
+| GitHub Autosync | ✅ matryoshka-digital-v2 | — |
 | Kanban | ✅ База есть | Multi-agent pipeline |
-| Holographic Memory | ❌ Отсутствует | Установить |
+| Holographic Memory | ✅ provider: holographic | — |
 | MCP Server | ❌ Отсутствует | Настроить |
 
 ---
@@ -285,8 +285,8 @@ hermes mcp setup
 ## ПРИОРИТЕТЫ РЕАЛИЗАЦИИ
 
 ### 🔴 КРИТИЧНО (Влияние на продуктивность):
-1. **Holographic Memory** — сейчас Hermes забывает всё между сессиями
-2. **GitHub Autosync** — риск потери данных
+1. ~~Holographic Memory~~ — ✅ ГОТОВО
+2. ~~GitHub Autosync~~ — ✅ ГОТОВО
 
 ### 🟡 ВАЖНО (Улучшение workflow):
 3. **Multi-agent Kanban pipeline** — параллельная работа агентов
@@ -344,10 +344,10 @@ hermes mcp setup
 | 1. VPS + Hermes | ✅ Hostinger + OpenRouter | ✅ VPS + MiniMax | Модель |
 | 2. Messaging | Discord integration | Telegram | Platform |
 | 3. Curator | ✅ Enabled | ✅ Enabled | — |
-| 4. Cron/Auto-Backup | GitHub autosync daily | Cache clean only | Backup |
-| 5. Kanban | Multi-agent pipeline | Kanban DB only | Pipeline |
-| 6. Holographic Memory | ✅ Setup | ❌ Missing | Memory |
-| 7. MCP Server | ✅ Exposed | ❌ Missing | Integration |
+| 4. Cron/Auto-Backup | GitHub autosync daily | ✅ Autosync active (cron 15min) | — |
+| 5. Kanban | Multi-agent pipeline | ✅ Pipeline working (t_ebb5e301 running) | — |
+| 6. Holographic Memory | ✅ Setup | ✅ Provider: holographic | — |
+| 7. MCP Server | ✅ Exposed | ⚠️ hermes mcp serve active | SSH tunnel needed for remote |
 
 ---
 
