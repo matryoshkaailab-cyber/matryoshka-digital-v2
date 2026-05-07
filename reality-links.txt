@@ -1,0 +1,18 @@
+=== VLESS REALITY VPN LINKS ===
+=== Server: 85.137.166.209 ===
+=== Protocol: VLESS + Reality (TCP) ===
+=== SNI: www.microsoft.com ===
+=== Fingerprint: chrome ===
+
+--- Порт 443 ---
+vless://4ea33e69-8a88-4811-b1f7-e433b46b8f5a@85.137.166.209:443?encryption=none&flow=&type=tcp&security=reality&sni=www.microsoft.com&fp=chrome&pbk=eiA5hKeJIfikI7zPw4HxZBqyWg3IPzveATsokrK3UCo&sid=42ba5a090b2bdeaa&allowlnsecure=false#Reality-443
+
+--- Порт 2053 ---
+vless://4ea33e69-8a88-4811-b1f7-e433b46b8f5a@85.137.166.209:2053?encryption=none&flow=&type=tcp&security=reality&sni=www.microsoft.com&fp=chrome&pbk=eiA5hKeJIfikI7zPw4HxZBqyWg3IPzveATsokrK3UCo&sid=42ba5a090b2bdeaa&allowlnsecure=false#Reality-2053
+
+=== НАСТРОЙКА v2rayNG ===
+1. Нажми + -> Импорт с URL
+2. Вставь ссылку
+3. Или отсканируй QR код
+
+=== QR коды смотри ниже ===

@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  hermes:
+    image: nikolaik/python-nodejs:python3.11-nodejs20
+    container_name: hermes-local
+    volumes:
+      - ./hermes_data:/root/.hermes
+    environment:
+      - HERMES_HOME=/root/.hermes
+    env_file:
+      - .env
+    command: >
+      bash -c "pip install hermes-agent && hermes gateway run"
+    ports:
+      - "9110:9110"
+    restart: unless-stopped
+    stdin_open: true
+    tty: true

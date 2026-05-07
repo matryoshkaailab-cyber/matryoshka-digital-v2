@@ -1,0 +1,15 @@
+=== DATALINK PRO VLESS Reality Links ===
+Updated: May 3, 2026
+
+PORT 443 (microsoft):
+vless://4ea33e69-8a88-4811-b1f7-e433b46b8f5a@85.137.166.209:443?encryption=none&flow=xtls-rprx-vision&type=tcp&security=reality&sni=www.microsoft.com&fp=chrome&pbk=eiA5hKeJIfikI7zPw4HxZBqyWg3IPzveATsokrK3UCo&sid=42ba5a090b2bdeaa&allowlnsecure=false#DataLink-443
+
+PORT 2053 (microsoft, mobile backup):
+vless://4ea33e69-8a88-4811-b1f7-e433b46b8f5a@85.137.166.209:2053?encryption=none&flow=xtls-rprx-vision&type=tcp&security=reality&sni=www.microsoft.com&fp=chrome&pbk=eiA5hKeJIfikI7zPw4HxZBqyWg3IPzveATsokrK3UCo&sid=42ba5a090b2bdeaa&allowlnsecure=false#DataLink-2053
+
+PORT 2082 (APPLE SNI, less blocked on mobile):
+vless://4ea33e69-8a88-4811-b1f7-e433b46b8f5a@85.137.166.209:2082?encryption=none&flow=xtls-rprx-vision&type=tcp&security=reality&sni=www.apple.com&fp=chrome&pbk=eiA5hKeJIfikI7zPw4HxZBqyWg3IPzveATsokrK3UCo&sid=42ba5a090b2bdeaa&allowlnsecure=false#DataLink-2082-apple
+
+Flow: xtls-rprx-vision ✓
+Fingerprint: chrome ✓
+UUID: 4ea33e69-8a88-4811-b1f7-e433b46b8f5a

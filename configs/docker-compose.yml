@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  n8n_worker:
+    image: n8nio/n8n:latest
+    container_name: n8n_worker
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=matryoshka-digital.ru
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+      - N8N_PUBLIC_API_ENABLED=true
+      - WEBHOOK_URL=https://matryoshka-digital.ru/
+      - N8N_ENCRYPTION_KEY=z/dAXn63aTYlTCJxSMDBoVy5QaZde0wg
+      - GENERIC_TIMEZONE=Europe/Moscow
+    volumes:
+      - n8n_data:/home/node/.n8n
+    networks:
+      - matryoshka_net
+
+  caddy:
+    image: caddy:2.8-alpine
+    container_name: caddy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+    networks:
+      - matryoshka_net
+
+volumes:
+  n8n_data:
+  caddy_data:
+
+networks:
+  matryoshka_net:
+    driver: bridge

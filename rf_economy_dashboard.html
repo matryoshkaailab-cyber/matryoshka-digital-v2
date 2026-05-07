@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анализ экономики РФ — Май 2026</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #0a0a12;
+            --bg-card: #12121c;
+            --bg-card-hover: #1a1a28;
+            --accent: #c9a227;
+            --accent-dim: #8a7019;
+            --text-primary: #e8e8ec;
+            --text-secondary: #8888a0;
+            --danger: #e53935;
+            --warning: #ff9800;
+            --success: #4caf50;
+            --info: #2196f3;
+        }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-primary) 100%);
+            border-bottom: 1px solid rgba(201, 162, 39, 0.2);
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--accent), #f0d060);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .header .subtitle { color: var(--text-secondary); font-size: 1.1rem; }
+        .header .badge {
+            display: inline-block;
+            background: rgba(201, 162, 39, 0.15);
+            border: 1px solid var(--accent-dim);
+            color: var(--accent);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 15px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+        .card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(201, 162, 39, 0.3);
+            transform: translateY(-3px);
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-title .icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .stat-item {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+        .stat-value.danger { color: var(--danger); }
+        .stat-value.warning { color: var(--warning); }
+        .stat-value.success { color: var(--success); }
+        .stat-label { font-size: 0.8rem; color: var(--text-secondary); }
+        .trend {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            margin-left: 8px;
+        }
+        .trend.up { background: rgba(229, 57, 53, 0.2); color: var(--danger); }
+        .trend.down { background: rgba(76, 175, 80, 0.2); color: var(--success); }
+        .trend.stable { background: rgba(255, 152, 0, 0.2); color: var(--warning); }
+        .chart-container { position: relative; height: 220px; margin-top: 15px; }
+        .scenario-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent);
+        }
+        .scenario-card.negative { border-left-color: var(--danger); }
+        .scenario-card.reform { border-left-color: var(--success); }
+        .scenario-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .scenario-name { font-weight: 600; font-size: 1rem; }
+        .scenario-prob {
+            background: rgba(201, 162, 39, 0.2);
+            color: var(--accent);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .scenario-prob.negative { background: rgba(229, 57, 53, 0.2); color: var(--danger); }
+        .scenario-prob.reform { background: rgba(76, 175, 80, 0.2); color: var(--success); }
+        .scenario-metrics { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px; }
+        .scenario-metric { font-size: 0.85rem; color: var(--text-secondary); }
+        .scenario-metric strong { color: var(--text-primary); }
+        .trigger-list { list-style: none; }
+        .trigger-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .trigger-item:last-child { border-bottom: none; }
+        .trigger-icon { font-size: 1.5rem; }
+        .trigger-content { flex: 1; }
+        .trigger-name { font-weight: 500; margin-bottom: 3px; }
+        .trigger-desc { font-size: 0.8rem; color: var(--text-secondary); }
+        .trigger-prob { text-align: right; }
+        .trigger-prob .value { font-weight: 600; font-size: 1.1rem; }
+        .trigger-prob .label { font-size: 0.7rem; color: var(--text-secondary); }
+        .full-width { grid-column: 1 / -1; }
+        .conclusion-box {
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.1), rgba(201, 162, 39, 0.05));
+            border: 1px solid var(--accent-dim);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+        }
+        .conclusion-box h3 { color: var(--accent); font-size: 1.3rem; margin-bottom: 15px; }
+        .conclusion-box p { color: var(--text-secondary); line-height: 1.7; max-width: 800px; margin: 0 auto; }
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.8rem; }
+            .grid { grid-template-columns: 1fr; }
+            .stat-grid { grid-template-columns: 1fr; }
+            .scenario-metrics { flex-direction: column; gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Комплексный анализ экономики РФ</h1>
+        <p class="subtitle">Структурная стагнация, инфляционное давление, технологическая изоляция</p>
+        <span class="badge">Май 2026 • Версия 1.0</span>
+    </div>
+    
+    <div class="grid">
+        <div class="card">
+            <div class="card-title">
+                <div class="icon" style="background: rgba(201, 162, 39, 0.15);">📊</div>
+                Макроэкономика
+            </div>
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <div class="stat-value">0.5–1.5%</div>
+                    <div class="stat-label">Рост ВВП/год</div>
+                    <span class="trend stable">Стагнация</span>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value danger">5.9% / 13–15%</div>
+                    <div class="stat-label">Инфляция офиц./реал.</div>
+                    <span class="trend up">Разрыв</span>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value warning">3% ВВП</div>
+                    <div class="stat-label">Дефицит бюджета</div>
+                    <span class="trend up">До 2042</span>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value danger">-1–3%</div>
+                    <div class="stat-label">Реальные доходы</div>
+                    <span class="trend down">Падение</span>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="gdpChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-title">
+                <div class="icon" style="background: rgba(229, 57, 53, 0.15);">👥</div>
+                Демографический кризис
+            </div>
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <div class="stat-value danger">500–600 тыс.</div>
+                    <div class="stat-label">Естественная убыль/год</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value warning">130–135 млн</div>
+                    <div class="stat-label">Население к 2050</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value warning">100–150 тыс.</div>
+                    <div class="stat-label">ИТ-специалистов уехало</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value danger">30–40%</div>
+                    <div class="stat-label">Дефицит инженеров</div>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="demoChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-title">
+                <div class="icon" style="background: rgba(255, 152, 0, 0.15);">💰</div>
+                Бюджетная система
+            </div>
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <div class="stat-value warning">5.7 трлн ₽</div>
+                    <div class="stat-label">Дефицит 2025</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value danger">21.6 трлн ₽</div>
+                    <div class="stat-label">Прогноз 2042</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value danger">12.6 трлн ₽</div>
+                    <div class="stat-label">Военные расходы 2026</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">42.8 → 125.8</div>
+                    <div class="stat-label">Расходы 2025→2042 (трлн ₽)</div>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="budgetChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-title">
+                <div class="icon" style="background: rgba(33, 150, 243, 0.15);">💻</div>
+                Цифровизация и технологии
+            </div>
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <div class="stat-value danger">$11.9 млрд</div>
+                    <div class="stat-label">Ущерб от блокировок/год</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">7.1 трлн ₽</div>
+                    <div class="stat-label">Совокупные расходы 2025</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value danger">>80%</div>
+                    <div class="stat-label">Импорт в высокотехе</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value warning">~50%</div>
+                    <div class="stat-label">Провальных ИТ-проектов</div>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="digitalChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="card full-width">
+            <div class="card-title">
+                <div class="icon" style="background: rgba(76, 175, 80, 0.15);">🔮</div>
+                Сценарии развития (2026–2030)
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div class="scenario-card">
+                    <div class="scenario-header">
+                        <span class="scenario-name">Сценарий А: Инерционный</span>
+                        <span class="scenario-prob">60%</span>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 10px;">
+                        Сохранение текущей модели управления, умеренные цены на нефть
+                    </p>
+                    <div class="scenario-metrics">
+                        <div class="scenario-metric"><strong>ВВП:</strong> +0.5–1.5%/год</div>
+                        <div class="scenario-metric"><strong>Инфляция:</strong> 6–9%</div>
+                        <div class="scenario-metric"><strong>Доходы:</strong> -1%/год</div>
+                    </div>
+                </div>
+                
+                <div class="scenario-card negative">
+                    <div class="scenario-header">
+                        <span class="scenario-name">Сценарий Б: Негативный</span>
+                        <span class="scenario-prob negative">25%</span>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 10px;">
+                        Падение нефти, усиление санкций, политические потрясения
+                    </p>
+                    <div class="scenario-metrics">
+                        <div class="scenario-metric"><strong>ВВП:</strong> -1–0.5%</div>
+                        <div class="scenario-metric"><strong>Инфляция:</strong> 10–15%</div>
+                        <div class="scenario-metric"><strong>Курс ₽:</strong> 100–120/$</div>
+                    </div>
+                </div>
+                
+                <div class="scenario-card reform">
+                    <div class="scenario-header">
+                        <span class="scenario-name">Сценарий В: Реформаторский</span>
+                        <span class="scenario-prob reform">15%</span>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 10px;">
+                        Системные реформы, снижение военных расходов, инвестиции в кадры
+                    </p>
+                    <div class="scenario-metrics">
+                        <div class="scenario-metric"><strong>ВВП:</strong> +2–3%/год</div>
+                        <div class="scenario-metric"><strong>Инфляция:</strong> 4–6%</div>
+                        <div class="scenario-metric"><strong>Доходы:</strong> +1–2%/год</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card full-width">
+            <div class="card-title">
+                <div class="icon" style="background: rgba(229, 57, 53, 0.15);">🚨</div>
+                Критические триггеры (12 месяцев)
+            </div>
+            <ul class="trigger-list">
+                <li class="trigger-item">
+                    <span class="trigger-icon">🛢</span>
+                    <div class="trigger-content">
+                        <div class="trigger-name">Падение цен на нефть ниже $50/баррель</div>
+                        <div class="trigger-desc">Дефицит бюджета >5% ВВП, девальвация рубля</div>
+                    </div>
+                    <div class="trigger-prob">
+                        <div class="value" style="color: var(--warning);">25–30%</div>
+                        <div class="label">вероятность</div>
+                    </div>
+                </li>
+                <li class="trigger-item">
+                    <span class="trigger-icon">💸</span>
+                    <div class="trigger-content">
+                        <div class="trigger-name">Инфляция выше 10% официально</div>
+                        <div class="trigger-desc">Социальная напряжённость, ужесточение ДКП</div>
+                    </div>
+                    <div class="trigger-prob">
+                        <div class="value" style="color: var(--warning);">35–40%</div>
+                        <div class="label">вероятность</div>
+                    </div>
+                </li>
+                <li class="trigger-item">
+                    <span class="trigger-icon">👥</span>
+                    <div class="trigger-content">
+                        <div class="trigger-name">Чистая убыль населения >400 тыс./год</div>
+                        <div class="trigger-desc">Долгосрочное снижение экономического потенциала</div>
+                    </div>
+                    <div class="trigger-prob">
+                        <div class="value" style="color: var(--danger);">80–90%</div>
+                        <div class="label">вероятность</div>
+                    </div>
+                </li>
+                <li class="trigger-item">
+                    <span class="trigger-icon">🏦</span>
+                    <div class="trigger-content">
+                        <div class="trigger-name">Волна дефолтов по кредитам >10%</div>
+                        <div class="trigger-desc">Кризис банковской системы, рецессия</div>
+                    </div>
+                    <div class="trigger-prob">
+                        <div class="value" style="color: var(--warning);">20–25%</div>
+                        <div class="label">вероятность</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="card full-width">
+            <div class="conclusion-box">
+                <h3>📌 Ключевой вывод</h3>
+                <p>
+                    Россия движется по наклонной плоскости — проблемы носят <strong>структурный характер</strong>, 
+                    а не циклический. Косметические меры не решат системных дисбалансов: 
+                    <strong>демография</strong>, <strong>низкая эффективность инвестиций</strong>, 
+                    <strong>технологическая зависимость</strong>.
+                    <br><br>
+                    Успешные стратегии = <strong>гибкость</strong>, <strong>диверсификация</strong>, 
+                    <strong>управление рисками</strong> — не ставка на «прорыв» без системных изменений.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        Источники: МЭФ-2026, Счётная палата, Росстат, ЦБ РФ, ВШЭ, Top10VPN<br>
+        Конфиденциально • Май 2026
+    </div>
+    
+    <script>
+        const colors = {
+            accent: '#c9a227',
+            accentDim: 'rgba(201, 162, 39, 0.3)',
+            danger: '#e53935',
+            warning: '#ff9800',
+            success: '#4caf50',
+            info: '#2196f3',
+            text: '#e8e8ec',
+            textDim: '#8888a0'
+        };
+        
+        Chart.defaults.color = colors.textDim;
+        Chart.defaults.borderColor = 'rgba(255,255,255,0.05)';
+        
+        new Chart(document.getElementById('gdpChart'), {
+            type: 'bar',
+            data: {
+                labels: ['2015', '2017', '2019', '2021', '2023', '2025', '2026'],
+                datasets: [{
+                    label: 'Рост ВВП (%)',
+                    data: [1.3, 1.8, 2.2, 5.6, 3.6, 1.1, 0.8],
+                    backgroundColor: colors.accent,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { 
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255,255,255,0.03)' },
+                        ticks: { callback: v => v + '%' }
+                    },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+        
+        new Chart(document.getElementById('demoChart'), {
+            type: 'line',
+            data: {
+                labels: ['2020', '2022', '2024', '2026', '2030', '2040', '2050'],
+                datasets: [{
+                    label: 'Население (млн)',
+                    data: [146.2, 145.0, 143.5, 142.2, 138.5, 134.0, 132.0],
+                    borderColor: colors.danger,
+                    backgroundColor: 'rgba(229, 57, 53, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { 
+                        min: 125,
+                        max: 150,
+                        grid: { color: 'rgba(255,255,255,0.03)' }
+                    },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+        
+        new Chart(document.getElementById('budgetChart'), {
+            type: 'line',
+            data: {
+                labels: ['2025', '2028', '2032', '2036', '2040', '2042'],
+                datasets: [{
+                    label: 'Дефицит (трлн ₽)',
+                    data: [5.7, 8.2, 12.1, 16.5, 20.0, 21.6],
+                    borderColor: colors.warning,
+                    backgroundColor: 'rgba(255, 152, 0, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { 
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255,255,255,0.03)' }
+                    },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+        
+        new Chart(document.getElementById('digitalChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Импортозамещение ПО', 'Госуслуги', 'Блокировки/цензура', 'Прочее'],
+                datasets: [{
+                    data: [200, 300, 100, 50],
+                    backgroundColor: [colors.info, colors.accent, colors.danger, colors.textDim],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: { boxWidth: 12, padding: 10, font: { size: 11 } }
+                    }
+                },
+                cutout: '65%'
+            }
+        });
+    </script>
+</body>
+</html>

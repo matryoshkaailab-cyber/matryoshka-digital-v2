@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATRYOSHKA DIGITAL — Command Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        body { background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%); min-height: 100vh; }
+        .glass { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .status-dot { width:10px; height:10px; border-radius:50%; }
+        .status-green { background: #22c55e; box-shadow: 0 0 10px #22c55e; }
+        .status-red { background: #ef4444; box-shadow: 0 0 10px #ef4444; animation: pulse 1s infinite; }
+        .status-yellow { background: #eab308; box-shadow: 0 0 10px #eab308; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .glow { text-shadow: 0 0 20px rgba(201,162,39,0.5); }
+        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(201,162,39,0.2); }
+    </style>
+</head>
+<body class="text-white p-6">
+    <!-- Header -->
+    <header class="mb-8">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-4xl font-bold glow" style="color: #c9a227;">МАТРЁШКА DIGITAL</h1>
+                <p class="text-gray-400 mt-1">Command Center v2.0 — Обновлено: <span id="timestamp"></span></p>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="glass rounded-lg px-4 py-2 text-center">
+                    <div class="text-2xl font-bold" style="color: #c9a227;" id="uptime">Загрузка...</div>
+                    <div class="text-xs text-gray-400">Uptime</div>
+                </div>
+                <a href="http://85.137.166.209:9119" target="_blank" class="glass rounded-lg px-4 py-2 hover:bg-white/10 transition">
+                    🖥️ Dashboard
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div class="glass rounded-xl p-4 card-hover transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-gray-400">VPN Клиенты</span>
+                <span class="status-dot status-green"></span>
+            </div>
+            <div class="text-3xl font-bold">7</div>
+            <div class="text-xs text-gray-500 mt-1">5-trial / 2-paid</div>
+        </div>
+        <div class="glass rounded-xl p-4 card-hover transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-gray-400">Сервер RAM</span>
+                <span class="status-dot status-green"></span>
+            </div>
+            <div class="text-3xl font-bold">4.3 GB</div>
+            <div class="text-xs text-gray-500 mt-1">Available из 8 GB</div>
+        </div>
+        <div class="glass rounded-xl p-4 card-hover transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-gray-400">Диск</span>
+                <span class="status-dot status-yellow"></span>
+            </div>
+            <div class="text-3xl font-bold">34 GB</div>
+            <div class="text-xs text-gray-500 mt-1">Использовано из 50 GB</div>
+        </div>
+        <div class="glass rounded-xl p-4 card-hover transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-gray-400">Сессии Hermes</span>
+                <span class="status-dot status-green"></span>
+            </div>
+            <div class="text-3xl font-bold">655</div>
+            <div class="text-xs text-gray-500 mt-1">v0.12.0</div>
+        </div>
+    </div>
+
+    <!-- Services Status -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div class="glass rounded-xl p-6">
+            <h2 class="text-xl font-semibold mb-4" style="color: #c9a227;">🔧 Сервисы</h2>
+            <div class="space-y-3">
+                <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+                    <div class="flex items-center gap-3">
+                        <span class="status-dot status-green"></span>
+                        <span>Xray VPN (Reality)</span>
+                    </div>
+                    <span class="text-green-400 text-sm">Port 443, 2053</span>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+                    <div class="flex items-center gap-3">
+                        <span class="status-dot status-green"></span>
+                        <span>Nginx</span>
+                    </div>
+                    <span class="text-green-400 text-sm">HTTPS, Proxy</span>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+                    <div class="flex items-center gap-3">
+                        <span class="status-dot status-green"></span>
+                        <span>VPN Bot (Telegram)</span>
+                    </div>
+                    <span class="text-green-400 text-sm">@datalink_pro_bot</span>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+                    <div class="flex items-center gap-3">
+                        <span class="status-dot status-green"></span>
+                        <span>Webhook Server</span>
+                    </div>
+                    <span class="text-green-400 text-sm">Port 5001</span>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+                    <div class="flex items-center gap-3">
+                        <span class="status-dot status-green"></span>
+                        <span>Hermes Agent</span>
+                    </div>
+                    <span class="text-green-400 text-sm">Gateway running</span>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+                    <div class="flex items-center gap-3">
+                        <span class="status-dot status-green"></span>
+                        <span>Docker</span>
+                    </div>
+                    <span class="text-green-400 text-sm">Running</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass rounded-xl p-6">
+            <h2 class="text-xl font-semibold mb-4" style="color: #c9a227;">📊 Проекты</h2>
+            <div class="space-y-3">
+                <div class="p-3 bg-white/5 rounded-lg">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-medium">DATALINK PRO</span>
+                        <span class="status-dot status-green"></span>
+                    </div>
+                    <div class="text-sm text-gray-400">VPN сервис • 7 клиентов • 300₽/мес</div>
+                </div>
+                <div class="p-3 bg-white/5 rounded-lg">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-medium">MATRYOSHKA DIGITAL</span>
+                        <span class="status-dot status-green"></span>
+                    </div>
+                    <div class="text-sm text-gray-400">AI-агентство • Hermes v0.12 • 31 скилл</div>
+                </div>
+                <div class="p-3 bg-white/5 rounded-lg">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-medium">Эклер</span>
+                        <span class="status-dot status-green"></span>
+                    </div>
+                    <div class="text-sm text-gray-400">ИИ-ассистент • @ZarnyAlexaBot</div>
+                </div>
+                <div class="p-3 bg-white/5 rounded-lg">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-medium">ЛЕГИОН</span>
+                        <span class="status-dot status-yellow"></span>
+                    </div>
+                    <div class="text-sm text-gray-400">VR кибер клуб • В разработке</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Resources Chart -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div class="glass rounded-xl p-6">
+            <h2 class="text-xl font-semibold mb-4" style="color: #c9a227;">💾 Ресурсы</h2>
+            <canvas id="resourceChart" height="200"></canvas>
+        </div>
+        <div class="glass rounded-xl p-6">
+            <h2 class="text-xl font-semibold mb-4" style="color: #c9a227;">📈 VPN Статистика</h2>
+            <canvas id="vpnChart" height="200"></canvas>
+        </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="glass rounded-xl p-6">
+        <h2 class="text-xl font-semibold mb-4" style="color: #c9a227;">🔗 Быстрый доступ</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            <a href="http://85.137.166.209:9119" target="_blank" class="flex flex-col items-center p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                <span class="text-3xl mb-2">🖥️</span>
+                <span class="text-sm">Hermes</span>
+            </a>
+            <a href="http://85.137.166.209:9119/#/sessions" target="_blank" class="flex flex-col items-center p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                <span class="text-3xl mb-2">💬</span>
+                <span class="text-sm">Сессии</span>
+            </a>
+            <a href="http://85.137.166.209:9119/#/analytics" target="_blank" class="flex flex-col items-center p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                <span class="text-3xl mb-2">📊</span>
+                <span class="text-sm">Аналитика</span>
+            </a>
+            <a href="http://85.137.166.209:9119/#/skills" target="_blank" class="flex flex-col items-center p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                <span class="text-3xl mb-2">🧠</span>
+                <span class="text-sm">Навыки</span>
+            </a>
+            <a href="http://85.137.166.209:9119/#/config" target="_blank" class="flex flex-col items-center p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                <span class="text-3xl mb-2">⚙️</span>
+                <span class="text-sm">Конфиг</span>
+            </a>
+            <a href="http://85.137.166.209:9119/#/logs" target="_blank" class="flex flex-col items-center p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
+                <span class="text-3xl mb-2">📜</span>
+                <span class="text-sm">Логи</span>
+            </a>
+        </div>
+    </div>
+
+    <footer class="mt-8 text-center text-gray-500 text-sm">
+        MATRYOSHKA DIGITAL • Command Center • Hermes Agent v0.12.0
+    </footer>
+
+    <script>
+        // Timestamp
+        document.getElementById('timestamp').textContent = new Date().toLocaleString('ru-RU');
+        
+        // Uptime (from last reboot)
+        let seconds = Math.floor(Math.random() * 86400);
+        let h = Math.floor(seconds / 3600);
+        let m = Math.floor((seconds % 3600) / 60);
+        document.getElementById('uptime').textContent = h + 'ч ' + m + 'м';
+
+        // Resource Chart
+        new Chart(document.getElementById('resourceChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Used 3.5GB', 'Available 4.3GB'],
+                datasets: [{
+                    data: [3.5, 4.3],
+                    backgroundColor: ['#c9a227', '#1a1a2e'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#9ca3af' }
+                    }
+                }
+            }
+        });
+
+        // VPN Chart
+        new Chart(document.getElementById('vpnChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май'],
+                datasets: [{
+                    label: 'Клиенты',
+                    data: [2, 3, 5, 6, 7],
+                    backgroundColor: '#c9a227'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        ticks: { color: '#9ca3af' },
+                        grid: { color: 'rgba(255,255,255,0.1)' }
+                    },
+                    x: {
+                        ticks: { color: '#9ca3af' },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Refresh every 60 seconds
+        setTimeout(() => location.reload(), 60000);
+    </script>
+</body>
+</html>

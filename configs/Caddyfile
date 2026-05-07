@@ -1,0 +1,10 @@
+matryoshka-digital.ru {
+    reverse_proxy n8n_worker:5678 {
+        header_up Host {host}
+        header_up X-Real-IP {remote}
+        header_up X-Forwarded-For {remote}
+        header_up X-Forwarded-Proto {scheme}
+        header_up X-Forwarded-Host {host}
+        header_up X-Telegram-Bot-Api-Secret-Token {http.request.header.X-Telegram-Bot-Api-Secret-Token}
+    }
+}
