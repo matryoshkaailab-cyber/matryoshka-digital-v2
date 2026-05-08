@@ -853,3 +853,6 @@ VLESS Reality (v2rayNG):
 - Port 443: vless://4ea33e69-8a88-4811-b1f7-e433b46b8f5a@85.137.166.209:443?encryption=none&flow=xtls-rprx-vision&type=tcp&security=reality&sni=www.microsoft.com&fp=chrome&pbk=eiA5hKeJIfikI7zPw4HxZBqyWg3IPzveATsokrK3UCo&sid=42ba5a090b2bdeaa&allowlnsecure=false#DataLink-443
 - Port 2053: vless://4ea33e69-8a88-4811-b1f7-e433b46b8f5a@85.137.166.209:2053?encryption=none&flow=xtls-rprx-vision&type=tcp&security=reality&sni=www.microsoft.com&fp=chrome&pbk=eiA5hKeJIfikI7zPw4HxZBqyWg3IPzveATsokrK3UCo&sid=42ba5a090b2bdeaa&allowlnsecure=false#DataLink-2053
 - Port 2082: vless://4ea33e69-8a88-4811-b1f7-e433b46b8f5a@85.137.166.209:2082?encryption=none&flow=xtls-rprx-vision&type=tcp&security=reality&sni=www.apple.com&fp=chrome&pbk=eiA5hKeJIfikI7zPw4HxZBqyWg3IPzveATsokrK3UCo&sid=42ba5a090b2bdeaa&allowlnsecure=false#DataLink-2082
+
+## REBOOT/RESTART LOG
+- 2026-05-07 20:03:14 — Xray RESTARTED (found down at 20:01). PID=913682. Ports 443,2053 OK.
