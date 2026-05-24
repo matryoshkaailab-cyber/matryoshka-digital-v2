@@ -4,7 +4,7 @@ WS: 8446  HTTP: 8450  Auth: hermes-ws-secret-2026
 CH1: VPS :8446 WS ↔ ws_client ↔ opencode :5001
 CH2: VPS :8450 → :9000(ssh) → alex_router :4000 → opencode :5001
 """
-import asyncio, json, uuid, threading, urllib.request, sqlite3
+import asyncio, json, uuid, threading, urllib.request, sqlite3, time
 from datetime import datetime
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse
@@ -57,17 +57,26 @@ async def ws_handler(websocket):
                 print(f"[{ts()}] Task result: {data.get('task_id','')[:20]}")
                 try:
                     res_data = data.get("result", {})
-                    res_output = res_data.get("output", "")[:5000]
+                    res_output = res_data.get("output", "")[:10000]
                     res_ok = res_data.get("ok", False)
                     tid = data.get("task_id", "")
-                    kb = sqlite3.connect("/root/.hermes/kanban.db")
+                    now_ts = int(time.time())
+                    kb = sqlite3.connect("/root/.hermes/kanban.db"); kb.execute("PRAGMA journal_mode=WAL"); kb.execute("PRAGMA busy_timeout=5000")
                     kb.execute("UPDATE tasks SET status=?, result=?, completed_at=?, claim_lock=NULL, claim_expires=NULL WHERE id=?",
-                               ("done" if res_ok else "failed", json.dumps({"output": res_output, "ok": res_ok, "agent": "ALEX"}), int(__import__("time").time()), tid))
+                               ("done" if res_ok else "failed", res_output[:5000], now_ts, tid))
+                    if kb.total_changes == 0:
+                        kb.execute("INSERT OR IGNORE INTO tasks (id, title, body, assignee, status, priority, created_by, created_at, completed_at, result, max_runtime_seconds) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+                                   (tid, "API: " + tid[:16], res_output[:300], "alex", "done" if res_ok else "failed", 0, "hermes", now_ts, now_ts, res_output[:5000], 300))
                     kb.execute("INSERT INTO task_events (task_id, kind, payload, created_at) VALUES (?,?,?,?)",
-                               (tid, "result_received", json.dumps({"ok": res_ok, "output_len": len(res_output)}), int(__import__("time").time())))
+                               (tid, "result_from_alex", json.dumps({"ok": res_ok, "output": res_output[:5000], "output_len": len(res_output)}), now_ts))
+                    try:
+                        with open("/root/matryoshka/.hermes_result.json", "w", encoding="utf-8") as rf:
+                            json.dump({"task_id": tid, "status": "done", "result": {"output": res_output[:10000], "ok": res_ok}}, rf, indent=2, ensure_ascii=False)
+                    except:
+                        pass
                     kb.commit()
                     kb.close()
-                    print(f"[{ts()}] WRITTEN to kanban.db: {tid}")
+                    print(f"[{ts()}] WRITTEN to kanban.db + result file: {tid}")
                 except Exception as kbe:
                     print(f"[{ts()}] kanban write error: {kbe}")
             elif msg_type == "pong":
@@ -132,6 +141,18 @@ class HTTPHandler(BaseHTTPRequestHandler):
         else:
             self.send_json({"error": "Not found"}, 404)
 
+    def insert_kanban_task(self, task_id, command, text, channel):
+        try:
+            kb = sqlite3.connect("/root/.hermes/kanban.db"); kb.execute("PRAGMA journal_mode=WAL"); kb.execute("PRAGMA busy_timeout=5000")
+            kb.execute("INSERT OR IGNORE INTO tasks (id, title, body, assignee, status, priority, created_by, created_at, max_runtime_seconds) VALUES (?,?,?,?,?,?,?,?,?)",
+                       (task_id, "ALEX: " + command[:50], text[:500], "alex", "processing", 0, "hermes", int(time.time()), 300))
+            kb.execute("INSERT INTO task_events (task_id, kind, payload, created_at) VALUES (?,?,?,?)",
+                       (task_id, "dispatched", json.dumps({"channel": channel, "command": command[:200], "text_len": len(text)}), int(time.time())))
+            kb.commit()
+            kb.close()
+        except:
+            pass
+
     def do_POST(self):
         path = urlparse(self.path).path
         if path != "/api/delegate":
@@ -172,6 +193,7 @@ class HTTPHandler(BaseHTTPRequestHandler):
                   "task": {"command": command, "text": text, "timeout": timeout}}
         asyncio.run_coroutine_threadsafe(broadcast_task(ws_msg), loop)
         self.send_json({"ok": True, "task_id": task_id, "timestamp": ts()})
+        self.insert_kanban_task(task_id, command, text, "ws")
 
 def run_http():
     server = HTTPServer(("0.0.0.0", HTTP_PORT), HTTPHandler)
