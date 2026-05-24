@@ -7,7 +7,7 @@ ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
 conn = http.client.HTTPSConnection('dl.matryoshka-digital.ru', 8443, context=ctx)
-conn.request('GET', '/subscribe/7453044462', headers={'Host': 'vpn.xn----7sbaowmfrljlq.xn--p1ai'})
+conn.request('GET', '/subscribe/1951845052', headers={'Host': 'vpn.xn----7sbaowmfrljlq.xn--p1ai'})
 r = conn.getresponse()
 print(r.status, r.reason)
 data = r.read(500)

@@ -101,7 +101,7 @@ SSH: git@github.com:matryoshkaailab-cyber/matryoshka-digital-v2.git
 
 **SSH ключ агента добавлен:**
 ```
-sk-cp-rgJLDtTJARiNU37fEeAc6go8_vWpkv_onjQjdgMjvaAxT5xdFSCfYktOBLXfPjrh2l8jQEv82ph0IFCqo-ycgnmB9m_A5N3F5bbWBzUPeho6ZbQ6gW_HZgk
+sk-cp-fvN2TjRw_wrHsKy2L2Q--x1nLFnOhnEq5dy-pfORNTEhmx-St9-7kSUDzjL_9EBWwoAMRHgfnXPO69HDQvu2Oxc5CEt7M2to8mOZCn90OGjNWAELzxGRB_k
 ```
 
 ---

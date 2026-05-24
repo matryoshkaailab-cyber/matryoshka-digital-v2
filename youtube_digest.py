@@ -56,7 +56,7 @@ def save_state(state):
 def send_telegram(message):
     """Send message to Telegram"""
     token = "8349948703:AAFybtShN5Q6LlVM8nzUbEzTvQK1VrgAc5I"
-    chat_id = "7453044462"  # Oleg's ID
+    chat_id = "1951845052"  # Oleg
     
     subprocess.run([
         'curl', '-s', '-X', 'POST',

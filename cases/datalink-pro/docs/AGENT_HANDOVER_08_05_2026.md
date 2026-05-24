@@ -202,7 +202,7 @@ SNI: www.speedtest.net
 
 **Подключение:**
 - Telegram бот для Олега: @oleg_industry_bot
-- Telegram ID Олега: 7453044462
+- Telegram ID Олега: 1951845052
 
 ---
 

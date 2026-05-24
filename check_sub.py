@@ -9,7 +9,7 @@ ctx.verify_mode = ssl.CERT_NONE
 for host in ['vpn.xn----7sbaowmfrljlq.xn--p1ai', 'dl.matryoshka-digital.ru']:
     try:
         req = urllib.request.Request(
-            f'https://dl.matryoshka-digital.ru:8443/subscribe/7453044462',
+            f'https://dl.matryoshka-digital.ru:8443/subscribe/1951845052',
             headers={'Host': host}
         )
         r = urllib.request.urlopen(req, context=ctx, timeout=5)
