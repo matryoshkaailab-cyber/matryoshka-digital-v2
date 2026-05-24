@@ -1,14 +1,10 @@
 #!/usr/bin/env python3
+"""ws_server.py v9 — HERMES WebSocket Bridge + HTTP fallback
+WS: 8446  HTTP: 8450  Auth: hermes-ws-secret-2026
+CH1: VPS :8446 WS ↔ ws_client ↔ opencode :5001
+CH2: VPS :8450 → :9000(ssh) → alex_router :4000 → opencode :5001
 """
-ws_server.py v8 — HERMES WebSocket Bridge
-=========================================
-WS: 8446  HTTP API: 8450  Auth: hermes-ws-secret-2026
-"""
-
-import asyncio
-import json
-import uuid
-import threading
+import asyncio, json, uuid, threading, urllib.request, sqlite3
 from datetime import datetime
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse
@@ -26,22 +22,18 @@ connected_websockets = set()
 def ts():
     return datetime.now().isoformat()
 
-# ========== WS HANDLER ==========
-
 async def ws_handler(websocket):
     global alex_connected
     peer = websocket.remote_address
     client_id = id(websocket)
     auth_ok = False
     print(f"[{ts()}] WS connect: {peer}")
-
     try:
         async for message in websocket:
             try:
                 data = json.loads(message)
             except json.JSONDecodeError:
                 continue
-
             if not auth_ok:
                 token = data.get("token", "")
                 msg_type = data.get("type", "")
@@ -60,10 +52,24 @@ async def ws_handler(websocket):
                     print(f"[{ts()}] ALEX rejected: {peer[0]}")
                     await websocket.send(json.dumps({"error": "Unauthorized"}))
                 continue
-
             msg_type = data.get("type", "")
             if msg_type == "task_result":
                 print(f"[{ts()}] Task result: {data.get('task_id','')[:20]}")
+                try:
+                    res_data = data.get("result", {})
+                    res_output = res_data.get("output", "")[:5000]
+                    res_ok = res_data.get("ok", False)
+                    tid = data.get("task_id", "")
+                    kb = sqlite3.connect("/root/.hermes/kanban.db")
+                    kb.execute("UPDATE tasks SET status=?, result=?, completed_at=?, claim_lock=NULL, claim_expires=NULL WHERE id=?",
+                               ("done" if res_ok else "failed", json.dumps({"output": res_output, "ok": res_ok, "agent": "ALEX"}), int(__import__("time").time()), tid))
+                    kb.execute("INSERT INTO task_events (task_id, kind, payload, created_at) VALUES (?,?,?,?)",
+                               (tid, "result_received", json.dumps({"ok": res_ok, "output_len": len(res_output)}), int(__import__("time").time())))
+                    kb.commit()
+                    kb.close()
+                    print(f"[{ts()}] WRITTEN to kanban.db: {tid}")
+                except Exception as kbe:
+                    print(f"[{ts()}] kanban write error: {kbe}")
             elif msg_type == "pong":
                 pass
             elif msg_type == "ping":
@@ -75,7 +81,6 @@ async def ws_handler(websocket):
                     "type": "status", "alex_connected": alex_connected,
                     "client_count": count, "timestamp": ts()
                 }))
-
     except Exception as e:
         print(f"[{ts()}] WS error {client_id}: {e}")
     finally:
@@ -83,8 +88,6 @@ async def ws_handler(websocket):
             connected_websockets.discard(websocket)
             alex_connected = bool(connected_websockets)
         print(f"[{ts()}] Client gone: {client_id}")
-
-# ========== TASK BROADCAST ==========
 
 async def broadcast_task(task_data):
     with alex_lock:
@@ -94,8 +97,6 @@ async def broadcast_task(task_data):
             except Exception as e:
                 print(f"[{ts()}] Broadcast error: {e}")
                 connected_websockets.discard(ws)
-
-# ========== HTTP API ==========
 
 class HTTPHandler(BaseHTTPRequestHandler):
     def log_message(self, *a):
@@ -107,12 +108,25 @@ class HTTPHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(json.dumps(data).encode())
 
+    def check_fallback(self):
+        try:
+            fb = urllib.request.urlopen("http://127.0.0.1:9000/health", timeout=3)
+            d = json.loads(fb.read().decode())
+            return "ok" if d.get("status") == "ok" else "error"
+        except:
+            return "down"
+
     def do_GET(self):
         path = urlparse(self.path).path
         if path in ("/api/status", "/api/health", "/health"):
+            fb = self.check_fallback()
             self.send_json({
-                "status": "ok", "service": "hermes-ws",
+                "status": "ok", "service": "hermes-ws", "version": 9,
                 "alex_connected": alex_connected,
+                "channels": {
+                    "ws": {"port": 8446, "status": "ok" if alex_connected else "no_client", "alex_connected": alex_connected},
+                    "http_fallback": {"port": 9000, "target": "alex_router:4000 via ssh -R", "status": fb}
+                },
                 "timestamp": ts()
             })
         else:
@@ -134,19 +148,28 @@ class HTTPHandler(BaseHTTPRequestHandler):
         text = request.get("text", "")
         timeout = int(request.get("timeout", 300))
         task_id = f"api_{uuid.uuid4().hex}"
-
         if not command:
             self.send_json({"error": "No command"}, 400)
             return
 
         if not connected_websockets:
-            self.send_json({"error": "ALEX not connected"}, 503)
-            return
+            try:
+                fb = urllib.request.Request(
+                    "http://127.0.0.1:9000/task",
+                    data=json.dumps(request).encode(),
+                    headers={"Content-Type": "application/json"}
+                )
+                fb_resp = urllib.request.urlopen(fb, timeout=15)
+                fb_body = json.loads(fb_resp.read().decode())
+                self.send_json({"ok": fb_body.get("ok", False), "task_id": task_id, "fallback": "http"})
+                print(f"[{ts()}] HTTP fallback via tunnel: {task_id}")
+                return
+            except Exception as e:
+                self.send_json({"error": "ALEX not connected, fallback failed: " + str(e)}, 503)
+                return
 
-        ws_msg = {
-            "type": "task", "task_id": task_id,
-            "task": {"command": command, "text": text, "timeout": timeout}
-        }
+        ws_msg = {"type": "task", "task_id": task_id,
+                  "task": {"command": command, "text": text, "timeout": timeout}}
         asyncio.run_coroutine_threadsafe(broadcast_task(ws_msg), loop)
         self.send_json({"ok": True, "task_id": task_id, "timestamp": ts()})
 
@@ -155,23 +178,19 @@ def run_http():
     print(f"[{ts()}] HTTP API on :{HTTP_PORT}")
     server.serve_forever()
 
-# ========== MAIN ==========
-
 loop = None
 
 async def main():
     global loop
     loop = asyncio.get_running_loop()
-
     http_thread = Thread(target=run_http, daemon=True)
     http_thread.start()
-
-    print(f"[{ts()}] WS Server v8 on :{WS_PORT}")
+    print(f"[{ts()}] WS Server v9 on :{WS_PORT}")
     async with serve(ws_handler, "0.0.0.0", WS_PORT):
         print(f"[{ts()}] Auth: {AUTH_TOKEN}")
         await asyncio.Future()
 
 if __name__ == "__main__":
-    print(f"[{ts()}] Starting WS Server v8 on :{WS_PORT}")
+    print(f"[{ts()}] Starting WS Server v9 on :{WS_PORT}")
     print(f"[{ts()}] HTTP API on :{HTTP_PORT}")
     asyncio.run(main())
