@@ -3,7 +3,7 @@
 **Статус:** Активен
 **Тип:** Дирижёр — оркестратор всех агентов MATROSHKA DIGITAL
 **Платформа:** VPS Linux (85.137.166.209)
-**Управляет:** Алекс, Эклер, Алина
+**Управляет:** Алекс, АЛИНА, Алина
 
 ---
 
@@ -23,13 +23,17 @@ HERMES — центральный координатор MATROSHKA DIGITAL. Ед
 Олег (1951845052)
        ↓
 HERMES (VPS Linux)
-  ├─ ws_server (:8446/:8450) — принимает сообщения от Алекс
-  ├─ ws_client → ws_server Алекс (управление Алексом)
-  ├─ Алекс (@oleg_industry_bot) — Windows ПК
-  ├─ Эклер (@ZarnyAlexaBot) — VPS (для Натальи)
-  ├─ Алина (@NikolaAlinaBot) — VPS (для Nikolay)
-  └─ ALEX (@AlexBot) — НЕ БОТ, а Windows ПК Олега (ws_client)
+  ├─ Telegram gateway → @oleg_industry_bot (active)
+  ├─ ACP → ALEX Windows PC (10.8.1.4:4096) — ЕДИНСТВЕННЫЙ канал к ALEX
+  ├─ ALF (@IlonAnalyticBot) — VPS стратег/аналитик
+  ├─ ALINA (@NikolaAlinaBot) — VPS, клиент Николай (8 сервисов :8470-8476)
+  └─ ALISA (@AlisaMatBot) — маркетинг (отложена)
 ```
+
+**Устаревшие каналы (отключены 15.06.2026):**
+- ~~ws_server :8446/:8450~~ ❌ мёртв
+- ~~ws_client → ALEX через ws~~ ❌ мёртв
+- ~~Tailscale~~ ❌ не установлен
 
 ---
 
@@ -40,6 +44,8 @@ HERMES (VPS Linux)
 - **HERMES_HOME:** /root/.hermes
 - **PID ws_server:** 1605544
 - **Лог:** /var/log/hermes_ws.log
+- **Текущая модель по умолчанию:** `nex-agi/nex-n2-pro:free` через `openrouter`
+- **Модельная витрина:** OpenRouter, локально добавлен `nex-agi/nex-n2-pro:free` в `/usr/local/lib/hermes-agent/hermes_cli/models.py`
 
 ### ws_server
 - Port: 8446 (incoming от Алекс)
@@ -79,7 +85,7 @@ HERMES (VPS Linux)
 ## Задачи и функции
 
 ### Оркестрация
-- [x] Создать агентов: Алекс, Эклер, Алина
+- [x] Создать агентов: Алекс, АЛИНА, Алина
 - [x] Настроить ws_server на VPS
 - [x] Подключить Алекс (Windows ПК) через ws_client
 - [ ] Настроить мониторинг всех агентов
@@ -87,7 +93,7 @@ HERMES (VPS Linux)
 ### Документация (ВЕЧНАЯ ОБЯЗАННОСТЬ)
 - [x] Создать папку /root/matryoshka/agents/
 - [x] Досье Алекс
-- [x] Досье Эклер
+- [x] Досье АЛИНА
 - [x] Досье Алина
 - [x] Досье HERMES (этот файл)
 - [ ] Заполнять каждый файл при изменениях
@@ -105,7 +111,7 @@ HERMES (VPS Linux)
 /root/matryoshka/
 ├── agents/
 │   ├── alex/README.md        — досье Алекс
-│   ├── ekler/README.md       — досье Эклер
+│   ├── ekler/README.md       — досье АЛИНА
 │   ├── alina/README.md       — досье Алина
 │   └── hermes/README.md      — досье HERMES (этот)
 ├── cases/
@@ -114,7 +120,7 @@ HERMES (VPS Linux)
 │   │   ├── PASSPORT.md
 │   │   ├── pain-log.md
 │   │   └── metrics/
-│   └── ecler/               — кейс Эклер/Наталья
+│   └── alina/               — кейс АЛИНА/Наталья
 ├── bots/
 │   ├── alex/projects/       — проекты Алекс
 │   └── alex/configs/        — конфиги Алекс
@@ -148,7 +154,7 @@ HERMES (VPS Linux)
 |-------|----------|-----------|--------|
 | Олег | 1951845052 | Telegram | Хозяин |
 | Алекс | @oleg_industry_bot | Windows ПК | Активен (ws) |
-| Эклер | @ZarnyAlexaBot | VPS | Активен |
+| АЛИНА | @ZarnyAlexaBot | VPS | Активен |
 | Алина | @NikolaAlinaBot | VPS | Активен |
 | Сергей Бородин | 7453044462 | Telegram | ЗАБЛОКИРОВАН |
 
@@ -160,13 +166,18 @@ HERMES (VPS Linux)
 - [x] Настроить ws_server
 - [x] Подключить Алекс
 - [ ] Заполнить pain-log.md (Алина/Nikolay)
-- [ ] Аудит конфигов Эклер
+- [ ] Аудит конфигов АЛИНА
 - [ ] Починить Bookmate API (404)
 - [ ] Настроить ежедневный мониторинг
 
 ---
 
 ## Изменения (лог)
+
+### 14.06.2026
+- Подключена бесплатная OpenRouter модель `nex-agi/nex-n2-pro:free` как модель по умолчанию Hermes.
+- Локально добавлена в модельную витрину Hermes, потому что официальный curated catalog Hermes её не показывал.
+- Перезапущен gateway профиля `hermes-cli`, чтобы выбор моделей подхватил изменение.
 
 ### 25.05.2026
 - Создан этот файл

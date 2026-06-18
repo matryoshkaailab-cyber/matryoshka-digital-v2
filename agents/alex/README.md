@@ -1,105 +1,67 @@
-# Агент: АЛЕКС (@oleg_industry_bot)
+# Агент: АЛЕКС (Windows ПК Олега)
 
 **Статус:** Активен
-**Тип:** Технический инженер (Windows ПК)
+**Тип:** Технический инженер
 **Платформа:** Windows (рабочая машина Олега)
-**Управляется:** HERMES через ws_client → ws_server (:8446/:8450)
+**Связь:** HERMES → opencode ACP `10.8.1.4:4096` (ЕДИНСТВЕННЫЙ канал)
 
 ---
 
-## Роль и назначение
+## 🚨 МАНДАТ v3.3 MIRROR SYNC (17.06.2026, Олег)
 
-АЛЕКС — это Windows ПК Олега с запущенным ws_client. Не бот, а рабочая станция.
-- ws_client подключается к VPS HERMES
-- HERMES отправляет команды через ws_server
-- Алекс выполняет код и возвращает результат
+> Утверждён Олегом 16.06.2026. Применён для ALF в `/root/.hermes/profiles/alf/`. **Аликс должен следовать тому же.**
 
----
-
-## Архитектура подключения
-
-```
-HERMES (VPS Linux :8446/:8450)
-       ↑ ws_server (token: hermes-ws-secret-2026)
-       │
-       └─ ws_client (Алекс, Windows ПК)
-              ↓
-          opencode serve :4096
-          ws_server :8446
-          @oleg_industry_bot
-```
+1. **refresh_context** — ПЕРЕД КАЖДЫМ ОТВЕТОМ читай файлы в `C:\matryoshka\knowledge\` и обнови память актуальными данными. Это процедурное правило, не скрипт.
+2. **Приоритет правок Олега** — любая правка Олега в Obsidian = приоритет НАД старой инструкцией. Если Obsidian противоречит этой инструкции — следуй Obsidian.
+3. **Зеркалирование** — поддерживай consistency между Obsidian vault ↔ AGENTS.md ↔ holographic memory ↔ фактами. Лови расхождения.
+4. **Логирование действий** — КАЖДОЕ действие записывай в `C:\matryoshka\alex_tasks\action_YYYYMMDD_HHMMSS.md` с timestamp + краткое описание. Чтобы ALF через Obsidian WebDAV синхронизировал в NotebookLM.
+5. **Связь с роем** — ты ЗНАЕШЬ про:
+   - HERMES (VPS, дирижёр, MiniMax-M3)
+   - ALF (VPS, :8451, стратег + библиотекарь NotebookLM, мандат v3.3)
+   - ALINA (VPS, @NikolaAlinaBot, клон Hermes для Николая, 8 микросервисов на :8470-8476)
+   - OBSIDIAN (WebDAV https://85.137.166.209:8181, hermes:hermes2026)
+   - NOTEBOOKLM (https://notebooklm.google.com/notebook/38d2a04f-9f73-49c7-baf7-0a289eecfa8a, 33 источника, ALF)
 
 ---
 
-## Конфигурация
+## Связь с HERMES
 
-### ws_server (HERMES VPS)
-- Port: 8446 (incoming от Алекс)
-- Port: 8450 (CLI connection)
-- Token: hermes-ws-secret-2026
+**ЕДИНСТВЕННЫЙ канал (с 15.06.2026):** opencode ACP HTTP `10.8.1.4:4096`
+- Транспорт: AmneziaWG (VPS `awg0` 10.8.1.1 ↔ ПК 10.8.1.4)
+- opencode version: 1.17.3
+- Mode: build (bash, read, edit, write, glob, grep, webfetch, task)
+- Auth: `opencode:0796731b-ed11-4f37-b1fb-3a1773fc825f`
 
-### ws_client (Алекс Windows)
-- ws://127.0.0.1:8446
-- HTTP API: http://127.0.0.1:8450
-- Токен: hermes-ws-secret-2026
-
-### Windows пути
-```
-C:\matryoshka\bots\alex\
-├── config/
-├── logs/
-├── memory/
-├── projects/
-│   └── nikolay-alina-briefing.md
-└── tasks/
-```
-
----
-
-## Проекты Алекс
-
-### nikolay-alina-briefing.md
-- Путь: /root/matryoshka/bots/alex/projects/nikolay-alina-briefing.md
-- Дата: 21.05.2026
-- Статус: Актуальные вводные по проекту Nikolay + Алина
-
----
-
-## Взаимодействие с HERMES
-
-### Проверка связи
+### Helper с VPS
 ```bash
-/root/check_alex.sh
+/root/matryoshka/alex_send.sh "задача" [таймаут] [модель]
+# default: MiniMax-M3, 60 сек
 ```
 
-### Лог ws_server
+### Логирование (v3.3)
+После КАЖДОГО действия — запиши в `C:\matryoshka\alex_tasks\action_YYYYMMDD_HHMMSS.md`:
 ```
-/var/log/hermes_ws.log (PID 1605544)
+## HH:MM:SS — <краткое описание>
+- Что: <что делал>
+- Зачем: <зачем>
+- Результат: <что получилось>
 ```
 
-### Команда перезапуска ws_client на Алекс
-(выполняется Олегом вручную на Windows)
-
----
-
-## Ограничения
-
-- Работает ТОЛЬКО когда Алекс запущен на Windows
-- ws_server иногда не отвечает (нужно проверять)
-- Не является ботом — это ws_client
-
----
-
-## TODO
-
-- [ ] Создать real-time мониторинг доступности Алекс
-- [ ] Автоматизировать проверку ws_client connection
+**НЕ лезь в:**
+- ws_server:8446 / alex-bridge (отключены 15.06)
+- Tailscale (не установлен)
+- SSH-туннели
+- VPS opencode (запрещено)
 
 ---
 
 ## Изменения (лог)
 
-### 25.05.2026
-- Создан /root/matryoshka/agents/alex/README.md
-- Добавлена связь: ws_client → VPS (:8446/:8450)
-- Добавлен nikolay-alina-briefing.md в проекты
+### 17.06.2026
+- ❌ Удалена секция про ws_server/8450 — устарело
+- ✅ Добавлен opencode ACP :4096 как единственный канал
+- ✅ Добавлен мандат v3.3 MIRROR SYNC (mirror ALF)
+- ✅ Добавлено логирование действий в alex_tasks/
+
+### 09.06.2026
+- Создан /root/matryoshka/agents/alex/README.md (устаревший, заменён 17.06)
