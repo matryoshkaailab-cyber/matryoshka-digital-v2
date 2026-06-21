@@ -1,8 +1,7 @@
 {
-  "task_id": "api_0346bfd7ec1749948955fa5327a50a46",
-  "status": "done",
-  "result": {
-    "output": "[ERROR] No working API available",
-    "ok": false
-  }
+  "task_id": "P0_race_fix_test_20260621",
+  "ok": true,
+  "output": "P0 race fix test — atomic write",
+  "executed_by": "hermes",
+  "finished_at": "2026-06-21T03:35:54"
 }
