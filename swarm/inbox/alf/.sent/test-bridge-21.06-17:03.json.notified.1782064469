@@ -1,0 +1,10 @@
+{
+  "task_id": "test-bridge-21.06-17:03",
+  "kind": "alf-strategist",
+  "from": "hermes",
+  "to": "alf",
+  "timestamp": "2026-06-21T17:03:00Z",
+  "status": "pending",
+  "subject": "Тест bridge с реальным токеном v2",
+  "context": "Bridge должен успешно отправить уведомление Олегу в Telegram"
+}

@@ -1,0 +1,11 @@
+{
+  "task_id": "real_alf_procs_1781976679",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "Get-Process python -ErrorAction SilentlyContinue | Where-Object { .ProcessName -like '*python*' } | Select-Object Id, ProcessName, StartTime | Format-Table -AutoSize\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T20:31:21"
+}

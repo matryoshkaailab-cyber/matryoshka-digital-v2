@@ -1,0 +1,7 @@
+{
+  "task_id": "final-test-24.06",
+  "from": "hermes",
+  "to": "alf",
+  "status": "pending",
+  "question": "ping — какой у тебя стек? (модель, провайдер, context length)"
+}

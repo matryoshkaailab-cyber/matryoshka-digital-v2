@@ -1,0 +1,7 @@
+{
+  "agent": "ALEX",
+  "session": "ses_125182423ffeCEI0xXydgx9lOU",
+  "scope": "Краткий технический аудит MATRYOSHKA DIGITAL",
+  "model": "minimax/MiniMax-M3, opencode 1.17.3, agent=build",
+  "response": "**1. ACP bash зависает** — в 90% случаев это завис сам процесс ACP (opencode acp на :4096), а не bash-команда внутри. Решение: `npm run restart:acp` + `npm run status`; если не ожил за 30 сек — фолбэк на `bridge` (:8446) пока ACP не переподнят.\n\n**2. 3 backup канала** — первым восстанавливать `bridge` (`alex_bridge.py` :8446): готовый код, минимум зависимостей, проверенный HTTP-протокол. `acp-bridge` и `cloudflared` — вторичны, пока жив PRIMARY (ACP :4096).\n\n**3. Avito без Apify/VPS** — нужен **residential/mobile proxy** (не VPS IP) + Playwright или `undetected-chromedriver` с ротацией UA и задержками 3–7 сек, гнать с ПК Олега или VPS в РБ/PL. Бюджет: ~$30–50/мес мобильный прокси, либо $200–400 за готовый датасет у продавцов (parserapi, dataddict).\n\n**4. ALF ↔ HERMES gap** — расширить существующую файловую очередь (`.hermes_task_alf.json` / `.hermes_result_alf.json` в `C:\\matryoshka`), а не городить Redis/broker. Протокол уже работает для ALEX — handler на стороне ALF пишется за 1–2 часа.\n\n**5. Диск 78% + 9 alina-сервисов:**\n- **P0** — logrotate для alina-логов (скорее всего именно они раздувают диск бесконтрольно).\n- **P1** — аудит 9 alina-сервисов, оставить только прод-нужные, остальные `npm run stop:` и выключить из supervisor.\n- **P2** — перенос тяжёлых данных (knowledge base, dataset) на VPS storage или расширение диска."
+}

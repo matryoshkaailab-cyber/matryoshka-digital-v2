@@ -1,0 +1,7 @@
+{
+  "task_id": "hermes-fullcheck-5915b81f",
+  "from": "hermes",
+  "to": "alf",
+  "status": "pending",
+  "question": "ping — какой у тебя провайдер и модель? (одним предложением)"
+}

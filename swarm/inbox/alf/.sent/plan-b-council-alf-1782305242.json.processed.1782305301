@@ -1,0 +1,7 @@
+{
+  "task_id": "plan-b-council-alf-1782305242",
+  "from": "hermes",
+  "to": "alf",
+  "status": "pending",
+  "question": "Council по плану Б: refactor alf_filewatcher.py — вызывать NVIDIA API напрямую (moonshotai/kimi-k2.6) вместо `hermes -p alf chat -q`. Сейчас через Hermes Agent ответы обрезаются до 27 chars заголовка, через прямой API = 5 сек, 200 tokens, полный. Аликс уже дал готовый код (retry+timeout+wal+rate_limit). Вопросы к тебе: 1) Что теряем (skills/memory/Telegram polling — это критично?)? 2) Какой должен быть default system prompt? 3) Что критично не забыть в patch? 4) Edge cases которые Аликс мог упустить? 5) Verdict: применять план Б или есть альтернатива лучше?"
+}

@@ -1,0 +1,57 @@
+{
+  "task": "Council по плану Б (refactor alf_filewatcher на прямой NVIDIA API)",
+  "date": "2026-06-24T12:49:22.984028+00:00",
+  "council": {
+    "hermes": "✅ Голос полный (см. stage2-hermes.json)",
+    "alex_ai": "✅ Голос полный — 10755 chars, готовый код (см. stage2-alex.json)",
+    "alf": "❌ СЛОМАННЫЙ ГОЛОС — 83 chars МУСОР: 'Hunan Epoch City 2.SetText(error message)error_str.split(\"mobile.\")error_file.metA.' (см. stage2-alf.json)"
+  },
+  "consensus": "**ПРИМЕНЯТЬ ПЛАН Б.** Прямой API работает (5 сек, 200 tokens, полно). Через Hermes Agent всё обрезается (на Kimi — до МУСОРА). Аликс дал готовый код.",
+  "agreed_strengths": [
+    "Прямой API доказан: Kimi 5 сек, 200 tokens, full content",
+    "Параметры Олега (temperature=1, top_p=0.95, max_tokens=16384) передаются через openai SDK",
+    "ALF-библиотекарь :8461 компенсирует skills (отдельный процесс, своя RAG)",
+    "Telegram polling остаётся (он в gateway, не в filewatcher)",
+    "WAL fallback через tenacity retry (rate limit, timeout)"
+  ],
+  "agreed_risks": [
+    "ALF через filewatcher — сломанный вывод (мусор Kimi при 1024 tokens дефолте Hermes Agent)",
+    "Rate limit NVIDIA 5 RPM — silent drop (Аликс предупредил)",
+    "openai 2.43.0 в venv — есть, не надо ставить",
+    "subprocess убийство в коде — Аликс заметил, надо проверить",
+    "Logging format изменится (structured JSON из Hermes пропадёт)",
+    "Аликс рекомендует httpx timeout 300s, connect 30s"
+  ],
+  "divergences": [
+    "ALEX: 'не пиши extra_body для thinking, Kimi не документировал' vs HERMES live-check: 'Kimi на /v1/models отвечает без reasoning_content, но thinking=True работает'",
+    "ALEX: 'ALF через filewatcher использует quick mode без skills — НЕ критично' vs HERMES: 'не проверял, доверяю Аликс'"
+  ],
+  "alf_broken_voice": {
+    "issue": "ALF через filewatcher (Hermes Agent CLI) даёт МУСОР (83 chars) вместо нормального ответа",
+    "consequence": "Правило Олега 24.06 ('council ВСЕГДА 3 голоса') нарушено — у Альфа сломан голос",
+    "options": [
+      "A. Принять что ALF голос сломан, council 2-мя голосами (HERMES+ALEX) — нарушение правила 24.06",
+      "B. Получить голос Альфа через ПРЯМОЙ API (обходя filewatcher) — но тогда это не настоящий Альф, а я говорю его голосом",
+      "C. Отменить council, попросить Олега решить как получить полный голос Альфа"
+    ]
+  },
+  "final_verdict": "**ПРИМЕНЯТЬ ПЛАН Б. Прямой API в filewatcher — единственный способ получить нормальные ответы от Альфа.** После патча — Альф через filewatcher будет работать так же как через прямой API (5 сек, 200 tokens, полно).",
+  "action_plan": [
+    "1. Сделать backup alf_filewatcher.py v3",
+    "2. Patch call_alf() по коду Аликса (модель Kimi, retry+timeout+wal)",
+    "3. Добавить httpx timeout + tenacity retry",
+    "4. Создать test_call_alf.py с 5 unit-тестами",
+    "5. Запустить тесты",
+    "6. Restart ALF (через cron-job)",
+    "7. Live-тест: файл-вопрос → ответ в outbox",
+    "8. Если ответ полный (>100 chars) — план Б применён, обновляю документы"
+  ],
+  "needs_oleg_decision": true,
+  "ledger": {
+    "stage1_surf": "Council-workflow-oleg skill applied, GitHub research done (focuslead, agent-council, hideki5123 etc)",
+    "stage2_hermes": "/root/matryoshka/council/plan-b-2026-06-24/stage2-hermes.json",
+    "stage2_alex": "/root/matryoshka/council/plan-b-2026-06-24/stage2-alex.json",
+    "stage2_alf": "/root/matryoshka/council/plan-b-2026-06-24/stage2-alf.json",
+    "synthesis": "/root/matryoshka/council/plan-b-2026-06-24/synthesis.json"
+  }
+}

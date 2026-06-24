@@ -1,0 +1,14 @@
+{
+  "agent": "ALF",
+  "scope": "Стратегический анализ MATRYOSHKA DIGITAL",
+  "model": "minimax/MiniMax-M3 (общий с HERMES)",
+  "telegram_bot": "@IlonAnalyticBot (chat 1951845052)",
+  "state_db_size_mb": 1.0,
+  "vital_discovery": "ALF и HERMES = personas внутри ОДНОГО Hermes Agent, НЕ отдельные процессы. Нет канала ALF↔HERMES напрямую.",
+  "total_messages": 254,
+  "last_session": {
+    "id": "20260618_002649_5c1695",
+    "started_at": 1781735209.746996,
+    "messages": 1
+  }
+}

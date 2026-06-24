@@ -1,0 +1,11 @@
+{
+  "task_id": "probe_e2e_002",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": false,
+  "output": "",
+  "error": "At line:1 char:239\n+ ... e).TotalMinutes; Write-Output \\\"ALEX_PS_OK: $hostname | $date | uptim ...\n+                                                             ~~~~~\nExpressions are only allowed as the first element of a pipeline.\n    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException\n    + FullyQualifiedErrorId : ExpressionsMustBeFirstInPipeline\n \n",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-19T17:58:22"
+}

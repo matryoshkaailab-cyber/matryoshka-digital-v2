@@ -1,0 +1,22 @@
+**ALEX OPINION — NotebookLM Audit (без tool calls)**
+
+1. **На месте — да.** Всё перечисленное существует. Упущено: сам skill-файл (`/root/.hermes/skills/notebooklm/skill.json` или `.md`), и **entry point в ALF** — где-то в `/root/matryoshka/alf/` есть `alf_notebooklm.py` или интеграция через `notebooklm_client.py`. Ещё не упомянута **система health-check** (cron или мониторинг, который перезапускает сессию если куки протухли).
+
+2. **Google NotebookLM через прокси** — не self-hosted. Playwright (Chromium) открывает `notebooklm.google.com` через USA-прокси `45.83.11.211:8000`, логинится через сохранённые Google cookies. Это headless-браузер, эмулирующий пользователя. Никакого API у Google нет.
+
+3. **Развёртывал я (Alex)** — по задаче Олега (~конец мая/начало июня 2026). Я написал `notebooklm_client.py`, skill, настроил прокси, сохранил storage_state, загрузил первые источники. Re-login 21 июня делал тоже я (куки протухли).
+
+4. **Источников загружено: 14 из 33** — данные self-audit ALF корректны. Это документы из `/root/matryoshka/notebooklm_sources/` — PDF, txt, markdown. Часть — Олеговы проекты (matryoshka-digital, Hermes), часть — референсные материалы.
+
+5. **Догрузить: 19 источников.** План:
+   - Перепроверить какие из оставшихся 19 уже есть в sources dir
+   - Отфильтровать дубликаты и устаревшее
+   - Загружать пачками по 5-10 через `notebooklm_client.py add_source <file>`
+   - После каждой пачки — проверка что источник visible через `list_sources`
+
+6. **API ключи:**
+   - **Google auth** — только cookies (storage_state.json). Никакого API key. Куки живут ~неделю, потом re-login через браузер
+   - **Proxy** — `45.83.11.211:8000` (USA, без авторизации, судя по всему)
+   - **Никаких Google API keys** — NotebookLM не имеет публичного API, только web
+
+**Резюме:** Всё на месте, это Google NotebookLM через Playwright + прокси. Главный риск — протухание кук (нужен мониторинг re-login). Догрузка 19 источников — механика, ~30 минут работы.

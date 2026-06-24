@@ -1,0 +1,11 @@
+{
+  "task_id": "council-council-1782217777-7189",
+  "from": "alf",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "ПРОТИВ — недостаточно контекста о надёжности Router :8400 (uptime, ownership, текущая архитектура council), голосовать за единую точку отказа без аудита не могу.",
+  "error": "",
+  "executed_by": "ALF",
+  "finished_at": "2026-06-23T12:30:09Z"
+}

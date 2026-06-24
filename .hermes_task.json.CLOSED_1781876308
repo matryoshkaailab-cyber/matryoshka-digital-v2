@@ -1,0 +1,11 @@
+{
+  "task_id": "alex-discuss-hermes-lying-2026-06-19",
+  "created_by": "alf",
+  "created_at": "2026-06-19T14:20:00+00:00",
+  "received_via": "alf (manual, after fix)",
+  "type": "discussion",
+  "subject": "3-агентное обсуждение: почему HERMES даёт старые данные",
+  "details": "ALEX, Олег требует 3-агентное обсуждение 'лжи HERMES' (утром давал неактуальные данные). Твоя задача как технического инженера: 1) Проверь работает ли on_session_start hook для профиля hermes-cli (cat /root/.hermes/profiles/hermes-cli/hooks/on_session_start.py). 2) Проверь что AGENTS.md имеет v4.1 RECALL (grep 'cat /root/matryoshka/shared_brain/DIGEST.md' /root/.hermes/AGENTS.md). 3) ACP канал 10.8.1.4:4096 — есть ли отвалы? Ответ 400 токенов, на русском.",
+  "priority": "URGENT",
+  "scope": "public"
+}

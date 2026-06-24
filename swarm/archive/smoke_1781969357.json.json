@@ -1,0 +1,11 @@
+{
+  "task_id": "smoke_1781969357.json",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "SMOKE-OK\n\n20 Ёо­п 2026 Ј. 18:29:29\nwin-ohdom31gc8p\\user\n\n\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T18:29:29"
+}

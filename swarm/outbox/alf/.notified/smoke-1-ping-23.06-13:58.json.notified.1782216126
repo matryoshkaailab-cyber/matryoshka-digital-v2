@@ -1,0 +1,11 @@
+{
+  "task_id": "smoke-1-ping-23.06-13:58",
+  "from": "alf",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "pong",
+  "error": "",
+  "executed_by": "ALF",
+  "finished_at": "2026-06-23T12:02:02Z"
+}

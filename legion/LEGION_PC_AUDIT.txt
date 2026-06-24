@@ -1,0 +1,100 @@
+# ЛЕГИОН ПК — ДИАГНОСТИКА ЦИКЛИЧЕСКОЙ ПЕРЕЗАГРУЗКИ
+# Команды для PowerShell (запустить от Администратора)
+# Win + X → Терминал (Администратор) или Windows PowerShell (Администратор)
+# Вставить команду, нажать Enter
+# Скопировать ВЕСЬ вывод и отправить Гермесу
+
+# ============================================
+# КОМАНДА 1: КТО ВЫКЛЮЧАЛ ПК (самая важная)
+# ============================================
+Get-WinEvent -FilterHashtable @{LogName='System'; Id=1074,6008,6009,1001} -MaxEvents 30 | Format-List TimeCreated, Id, ProviderName, Message
+
+# Что покажет:
+# 1074 - кто/что инициировал выключение (имя процесса!)
+# 6008 - "предыдущее завершение неожиданное"
+# 1001 - синий экран (BSOD) с параметрами ошибки
+
+
+# ============================================
+# КОМАНДА 2: ВСЕ СИНИЕ ЭКРАНЫ (BSOD)
+# ============================================
+Get-WinEvent -FilterHashtable @{LogName='System'; Id=1001} -MaxEvents 20 | Format-List TimeCreated, Message
+
+# Если есть BSOD - покажет dump файл и параметры
+
+
+# ============================================
+# КОМАНДА 3: КРИТИЧЕСКИЕ ОШИБКИ за 24 часа
+# ============================================
+Get-WinEvent -FilterHashtable @{LogName='System'; Level=1,2} -MaxEvents 50 | Where-Object {$_.TimeCreated -gt (Get-Date).AddHours(-24)} | Format-List TimeCreated, Id, ProviderName, Message
+
+
+# ============================================
+# КОМАНДА 4: ПРИЛОЖЕНИЯ КОТОРЫЕ УПАЛИ за 6 часов
+# ============================================
+Get-WinEvent -FilterHashtable @{LogName='Application'; Level=2} -MaxEvents 30 | Where-Object {$_.TimeCreated -gt (Get-Date).AddHours(-6)} | Format-List TimeCreated, ProviderName, Id, Message
+
+
+# ============================================
+# КОМАНДА 5: АВТОЗАГРУЗКА (что запускается при старте)
+# ============================================
+Get-CimInstance Win32_StartupCommand | Format-Table Name, Command, Location -AutoSize
+
+# Покажет все программы из автозагрузки - там могут быть виновники
+
+
+# ============================================
+# КОМАНДА 6: ЗАПЛАНИРОВАННЫЕ ЗАДАЧИ (агенты/cron)
+# ============================================
+Get-ScheduledTask | Where-Object {$_.State -eq 'Ready'} | Format-Table TaskName, TaskPath -AutoSize
+
+
+# ============================================
+# КОМАНДА 7: СЛУЖБЫ (services) что работает
+# ============================================
+Get-Service | Where-Object {$_.Status -eq 'Running'} | Format-Table Name, DisplayName, StartType -AutoSize
+
+
+# ============================================
+# КОМАНДА 8: ТЕМПЕРАТУРЫ (если есть сенсоры)
+# ============================================
+Get-WmiObject MSAcpi_ThermalZoneTemperature -Namespace "root/wmi" | ForEach-Object { $_.CurrentTemperature }
+
+# Значение в десятых долях Кельвина, нужно делить на 10 и вычитать 273.15
+# Норма: 30-60°C
+
+
+# ============================================
+# КОМАНДА 9: ДИСК - SMART и здоровье
+# ============================================
+Get-PhysicalDisk | Format-Table FriendlyName, MediaType, HealthStatus, Size -AutoSize
+Get-Volume | Format-Table DriveLetter, FileSystemLabel, HealthStatus, SizeRemaining -AutoSize
+
+
+# ============================================
+# КОМАНДА 10: СВОДКА СИСТЕМЫ (конфигурация)
+# ============================================
+Get-ComputerInfo | Select-Object WindowsProductName, WindowsVersion, OsHardwareAbstractionLayer, OsArchitecture, CsModel, CsManufacturer, BiosVersion, BiosManufacturer, CsProcessors, CsTotalPhysicalMemory | Format-List
+
+
+# ============================================
+# БОНУС: последние 50 записей системного лога
+# ============================================
+Get-WinEvent -LogName System -MaxEvents 50 | Where-Object {$_.LevelDisplayName -eq 'Error' -or $_.LevelDisplayName -eq 'Critical'} | Format-List TimeCreated, Id, ProviderName, Message
+
+
+# ============================================
+# КАК ОТПРАВИТЬ РЕЗУЛЬТАТ
+# ============================================
+# 1. Запусти каждую команду по очереди
+# 2. Правый клик в окне PowerShell = "Выделить" - выдели весь вывод
+# 3. Enter - скопировать
+# 4. Вставить в Telegram (или в текстовый файл и прикрепить)
+# 5. Отправить Гермесу
+
+# ============================================
+# ВАЖНО
+# ============================================
+# Если комп перезагружается СРАЗУ - скидывай логи после КАЖДОЙ перезагрузки
+# Особенно важна КОМАНДА 1 - в ней видно КТО инициировал shutdown
+

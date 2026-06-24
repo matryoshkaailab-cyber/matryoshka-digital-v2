@@ -1,0 +1,11 @@
+{
+  "task_id": "task_nb_relogin_0621",
+  "from": "alex",
+  "to": "hermes",
+  "status": "timed_out",
+  "ok": false,
+  "output": "",
+  "error": "Task exceeded timeout (900s) and was aborted by watchdog",
+  "executed_by": "WATCHDOG",
+  "finished_at": "2026-06-21T16:35:01"
+}

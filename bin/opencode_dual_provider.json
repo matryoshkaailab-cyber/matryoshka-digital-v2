@@ -1,0 +1,40 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "_comment": "Dual provider config для MATRYOSHKA (ALF-M3 + ALF-MiMo). Готов к подключению MiMo на ПК Олега после получения API key.",
+  "_created": "2026-06-23 (Phase 0.5, по opinion-аудиту Аликса)",
+  "_location": "ПК Олега: ~/.opencode/config.json или %APPDATA%/opencode/config.json",
+  "providers": {
+    "_comment_providers": "MiMo добавляется как ещё один ACP-провайдер рядом с теми что уже есть (deepseek, qwen, claude и т.д.)",
+    "mimo": {
+      "_comment_mimo": "Xiaomi MiMo V2.5 — OpenCode-форк от Xiaomi. Подключается через ACP.",
+      "type": "acp",
+      "url": "http://127.0.0.1:4197/api",
+      "models": {
+        "_comment_models": "Доступные модели MiMo (когда будут реально работать через ACP)",
+        "mimo-v2.5": {
+          "context_length": 1000000,
+          "description": "MiMo V2.5 — 1M context, 3 time scales, persistent memory",
+          "_pricing": "free for limited time (Xiaomi cloud, API key required)"
+        }
+      },
+      "_acp_server_command": "opencode --acp --provider mimo:V2.5 --port 4197",
+      "_fallback_note": "Если Xiaomi не даёт работать через ACP, fallback на VPS mimo_query.py (subprocess) — НЕ основной путь, privacy цена"
+    }
+  },
+  "agents": {
+    "_comment_agents": "Конфигурация саб-агентов (по решению opencode desktop/server)",
+    "alf": {
+      "_comment_alf": "ALF стратег — dual-stack (M3 для быстрых, MiMo для длинных)",
+      "primary_provider": "deepseek-v4-flash-free",
+      "_note": "ALF сейчас на VPS через hermes-gateway-alf.service (MiniMax-M3 80K). На ПК через MiMo — для длинных задач."
+    }
+  },
+  "_matryoshka_integration": {
+    "_comment": "Связь с VPS Router (:8400) и mimo-agent.service на ПК",
+    "vps_router_url": "http://10.8.1.1:8400",
+    "vpn_subnet": "10.8.1.0/24",
+    "mimo_acp_port_pc": 4197,
+    "opencode_default_port_pc": 4096,
+    "rollback_command": "systemctl stop mimo-acp (на ПК) — 0 сек, Council возвращается к 2-voter"
+  }
+}

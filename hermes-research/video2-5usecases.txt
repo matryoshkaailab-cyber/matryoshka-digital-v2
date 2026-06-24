@@ -1,0 +1,668 @@
+0:00 These five free Hermes agent use cases
+0:03 are going to completely change the way
+0:05 you use AI. Right now, Hermes agent is
+0:08 the most powerful free AI agent in the
+0:11 world, but straight out of the box, most
+0:13 people are leaving 90% of the power on
+0:16 the table. So, I'm going to show you
+0:18 five ways to unlock the power of Hermes
+0:20 agent for free. We're talking about a
+0:22 free AI employee that can generate
+0:24 videos, build full websites, run an
+0:26 entire team of agents all at the same
+0:28 time, and even create podcasts and
+0:30 content all fully automated. And there's
+0:33 one thing you absolutely need to stick
+0:35 around for, which I'll come on to later,
+0:37 which ties everything together into one
+0:39 powerful system that puts you so far
+0:41 ahead, it's almost unfair. And I
+0:43 promise, by the end of this video, your
+0:45 Hermes agent is going to be doing things
+0:48 you didn't even know were possible.
+0:50 Let's get into it. Today, I'm going to
+0:51 show you five powerful free use cases
+0:55 for Hermes AI agent. So, Hermes AI agent
+0:59 is pretty good, but straight out of the
+1:00 box, if you've never used it before, or
+1:02 if you're looking for a use case, you're
+1:03 like, "How can I actually implement this
+1:05 into my system?" This is one of the best
+1:08 ways to do it. So, let me get straight
+1:10 into this. The first use case that I'd
+1:12 recommend for using Hermes agent is
+1:16 HyperFrames, right? So, you can actually
+1:18 use a free open-source skill with Hermes
+1:22 AI agent to create videos for you. And
+1:25 what this means is it can generate
+1:27 videos for free on the spot with Hermes
+1:30 AI agent. It can even, for example, do
+1:32 text-to-speech narration. It can
+1:35 generate the whole video for you. You
+1:37 can see some examples over here. So,
+1:38 these are videos that we've generated,
+1:40 and if we play those using something
+1:42 like HyperFrames. There's another skill
+1:44 called Remotion as well, but if you plug
+1:46 these in, you can basically generate
+1:48 videos on the spot using your AI agent.
+1:52 And so, if we just go into the chat, and
+1:53 we're like, "Okay, using HyperFrames,
+1:56 create a video about Hermes agent use
+2:01 cases. We can plug that in, and then it
+2:03 will start using Hermes agent to
+2:06 generate videos using HyperFrames,
+2:08 right? And this is really powerful for
+2:09 social media content, or for example,
+2:12 coming up with ads as well, ads content,
+2:15 that sort of thing, really powerful
+2:16 stuff, right? And if you're not familiar
+2:18 with this, HyperFrames is this
+2:21 open-source project, right? It was
+2:22 actually a way that you can speak to
+2:25 your AI agents. You can plug this into
+2:26 any AI agent. It could be, for example,
+2:28 a Claude, it could be, for example,
+2:29 Anti-Gravity, whatever you want to use,
+2:31 but I think Hermes is great, cuz you can
+2:33 connect Hermes to your phone, and you
+2:34 can use it for free as well. And the
+2:36 other cool thing about all of this, as
+2:37 we're waiting for this, is that you
+2:38 don't even have to pay for the API that
+2:41 you plug into your AI agent. So, for
+2:42 example, if you like Hermes agent, but
+2:45 you're like, "Shh, you know what? Like,
+2:46 I I don't want to spend on APIs." What
+2:49 you can actually do is you can grab a
+2:51 free API from OpenRouter, right? So, for
+2:55 example, they've got something built-in
+2:57 called Owl Alpha. Owl Alpha is a free
+3:00 API you can use. It's got a million
+3:01 token context window, and it's free to
+3:03 use. Pretty cool stuff, right? And
+3:05 [snorts] some examples of this, right?
+3:07 One of the cool things is like, this is
+3:08 a HTML-first way of generating videos,
+3:11 so you just grab what you want, and then
+3:13 it creates it in in HTML, and then turns
+3:15 it into a video, right? Which is pretty
+3:17 powerful stuff. It also can, for
+3:19 example, like, generate voice-overs and
+3:21 that sort of thing, and it's all running
+3:23 locally. Right? So, I would say, like,
+3:26 the first time you use
+3:28 Watch Hermes agent ship a video to your
+3:31 workspace overnight, like, the rules
+3:32 just totally changed, totally changed,
+3:34 right? And you can see how it's just
+3:35 going off and creating this for us. And
+3:37 then, once it's ready, it'll be inside
+3:39 the video section over here. Pretty
+3:40 cool. Next up, let's talk about the next
+3:42 use case, which is Kanban agent swarms.
+3:45 So, you can drop a one-line mission for
+3:47 your AI agents inside Kanban boards,
+3:51 right? So, you can see this Kanban board
+3:52 over here, and you see all the cool
+3:54 stuff we've created. So, for for
+3:55 example, we said build a complete
+3:57 website over here. Build a new web
+3:59 website about Open Court, for example.
+4:01 Analyze my top competitors for SEO. Come
+4:03 up with a full 12-month SEO content
+4:06 calendar, right? And it basically does
+4:07 it for you. And so, the way this works
+4:10 is this is a Kanban board built into
+4:13 Hermes agent, and you can drop in a
+4:15 prompt, and then watch an orchestrator
+4:17 agent basically turn that into a full
+4:19 task. So, as an example of this, if we
+4:22 were using this, we could say, "Okay,
+4:24 launch the AI Profit Boardroom
+4:26 explainer. Create video landing page,
+4:29 social media content, etc." We could do
+4:31 something like this. And so, if we go
+4:32 back into the system, I'm going to plug
+4:35 this in, and we can assign it to any of
+4:37 our AI agents. Bear in mind, like with
+4:39 Hermes agent, you can create multiple
+4:41 profiles. So, you don't just have one
+4:42 main agent. You can have a full team
+4:44 like we have. And then, you can click
+4:46 add here. Now, if you click triage, like
+4:48 you can see, once you've clicked it in
+4:50 add, the orchestrator agent will triage
+4:53 that task, and then assign it to the
+4:55 right people for us, right? So, this is
+4:58 really nice because basically, you can
+5:00 build a swarm, a full team of agents.
+5:02 The task goes into triage over here, and
+5:04 then it will split into multiple
+5:06 different tasks for your other AI agents
+5:08 inside the team. And once that's done,
+5:10 it'll be sent over to running, and then
+5:12 it once it's completely finished, it'll
+5:14 be sent over to done. And once
+5:15 everything's done, you can actually view
+5:17 everything that's been created, as you
+5:18 can see right here. So, we can see the
+5:19 markdown files of everything that the
+5:21 agent has created. But, we can, for
+5:23 example, save that, download it, add
+5:25 more comments here. We can see the run
+5:26 history. We can see the description of
+5:28 the original task, plus the individual
+5:30 subtasks that were built into that.
+5:32 Pretty cool stuff. So, you can see the
+5:34 AI agent is now triaging it, as you can
+5:36 see, which is really cool. So, how does
+5:39 this work? Basically, you just drop a
+5:41 one-liner, and you can watch them work.
+5:42 So, the Kanban tab inside the system is
+5:46 the multi-agent task management layer.
+5:48 So, when you drop a one-liner into your
+5:50 Kanban board with Hermes as the
+5:52 orchestrator, reads the task, decomposes
+5:54 it, hands subtasks to specialist agents.
+5:57 You can see now it's just generated four
+5:59 different subtasks, and the main task is
+6:02 in the to-do list. And once these are
+6:04 completed, it will be marked as done.
+6:07 The main task will be marked as done,
+6:08 right? And this is running automatically
+6:10 while I talk to you, which is really
+6:11 cool. But for example, research can go
+6:13 to Claude, code like you've got for
+6:15 example, like web research could go to
+6:17 antigravity, image generation could go
+6:18 to Grok, the voice work could go to
+6:20 Hermes itself, right? And each card what
+6:23 moves automatically through the board.
+6:25 So, for example, you got like triage,
+6:27 then it goes to planning, then it goes
+6:28 in progress, then it goes in review and
+6:30 done, right? So, you can watch your full
+6:31 swarm of AI agents working in real time.
+6:34 And then you can also intervene later,
+6:36 so you can actually review them in the
+6:37 done tasks, and then add comments. And
+6:39 we use this exact prompt to just
+6:41 generate the full system as I talked to
+6:44 you, which is really cool. So, this is
+6:46 what people mean by agentic swarms,
+6:48 right? And you can see it actually
+6:49 working in real time using this system
+6:51 right here. It's really cool. And so,
+6:53 you can actually see the subtasks and
+6:55 actually track them in real time inside
+6:57 the Kanban agent. So, just to recap, we
+7:00 have covered two different use cases so
+7:01 far. Number one is generating videos
+7:03 with hyperframes, and number two is
+7:06 creating a team of AI agents working
+7:08 together as a swarm. By the way, if
+7:10 you're watching this live, feel free to
+7:12 ask any questions as we go along. Happy
+7:14 to help, happy to answer any questions
+7:15 you have. But basically, but you can
+7:17 have AI agents working in parallel like
+7:19 this, which is really cool. Cuz imagine
+7:21 as well, like when you're doing this, if
+7:23 you've got a team of agents working
+7:24 together, and they're all completing the
+7:26 task like one of the two of these tasks
+7:28 already moves over to the done section.
+7:30 If these tasks are completed
+7:31 automatically in the background, and
+7:32 then marked off and automatically
+7:34 tracked, then you can basically increase
+7:36 your productivity without doing any
+7:38 extra work, right? Because you got your
+7:39 all your agents working for you. And
+7:41 also, like I said, the hyperframe system
+7:44 for video generation is free. The Kanban
+7:47 board with Hermes AI agent is also free
+7:50 simply because you can use a free API in
+7:51 all of this, right? So, it's pretty
+7:52 amazing stuff. Next up, let's talk about
+7:55 number three on the use cases, right?
+7:57 Which is you can actually plug in
+7:58 something called Notebook LM, and then
+8:00 you can generate free podcasts, free
+8:02 infographics, and free videos using
+8:03 Hermes agent. So, how do you do that?
+8:05 So, basically this system works as you
+8:07 can see over here, and you can see for
+8:09 example we have pod casts, we have
+8:10 videos, we have infographics that we've
+8:12 generated, right? And so, how do we
+8:14 generate these? We use a tool called
+8:15 Notebook LM. But, how do you connect
+8:18 Notebook LM to your Hermes AI agent?
+8:21 Here's how it works. So, there are MCPs,
+8:23 open source projects that connect Hermes
+8:26 agent or any other AI agent to Notebook
+8:29 LM, right? It's for a CLI, it's called.
+8:32 And so, basically this means that you
+8:33 can talk and download stuff from
+8:36 Notebook LM, right? And so, you can see
+8:38 it as an open source project right here.
+8:40 And this is a really powerful way to
+8:42 just connect your AI agent. So, what you
+8:43 can do is give that GitHub details to
+8:46 Hermes agent, and Hermes just goes off
+8:48 and implements it for you, right? And
+8:51 so, for example, we've got a library of
+8:52 all of our notebooks here, as you can
+8:54 see. So, we've got one on the open floor
+8:56 there. We can chat with it and ask it
+8:58 questions over here. We can also check
+9:00 out and generate more stuff from the
+9:02 open floor notebook. So, we could
+9:04 generate a podcast, a video, a slide
+9:06 deck, a mind map, an infographic, flash
+9:08 cards, quiz, the daily save or report,
+9:11 right? And then we just hit generate,
+9:12 like you can see examples below of all
+9:14 of these different things that we've
+9:16 generated. And then if we click on the
+9:17 assets tab, this stuff all gets pulled
+9:19 in from notebook where we've generated
+9:22 this stuff. Really cool. And so, the
+9:23 interesting thing about this is I
+9:25 Google's Notebook LM is free, it's very
+9:27 underrated. You can feed it resources,
+9:30 and Hermes just automates the loop,
+9:31 right? So, you can hand Hermes a topic,
+9:34 Hermes creates and pulls in information
+9:36 into Notebook LM, and then now can have
+9:39 one topic for one podcast. You can have
+9:40 one topic for infographics. You can have
+9:42 one topic for an explainer video, right?
+9:44 Really powerful stuff. And so, one
+9:46 Hermes prompt can generate like three
+9:48 different content formats all from the
+9:50 source material that's trained up on it.
+9:52 So, for example, I open claw and then
+9:54 you can create whatever you want, which
+9:56 is pretty amazing stuff. So, really
+9:57 cool. Now, again, Notebook LM is free,
+10:00 the MCP is free, Hermes agent free,
+10:02 right? Like you can plug all of this
+10:04 into to your system as well. Next up, I
+10:06 want to talk about Hermes agent with use
+10:08 case number four, which is SEO and
+10:11 building out websites, right? So, you
+10:13 can see inside this section the
+10:16 everything that we create with Hermes
+10:18 workspace and Hermes agent, we can view
+10:21 over in this section, right? So, for
+10:23 example, we have a look over here, you
+10:24 can see that we've built out a to-do
+10:25 list app. We put, for example, learn
+10:27 Hermes here, add that to the list. We
+10:29 can just add that in, right? We can
+10:30 clear what's done, we can see our
+10:32 previous tasks, etc. We can also see
+10:33 that we've generated like really
+10:35 beautiful blog posts and SEO websites
+10:39 with images and everything else using
+10:41 Hermes agent. Hermes agent created all
+10:42 of this. It is pretty crazy, right? And
+10:44 then, for example, if we have a look
+10:46 here, it can build out full websites. It
+10:48 can build out games, as you can see
+10:50 here. So, we can play this game like and
+10:52 we can play against the AI directly, so
+10:54 we can play against Hermes agent inside
+10:55 our game, which is absolutely crazy when
+10:57 you think about that. And then, also,
+10:59 for example, we have these different
+11:01 games that we can play. We've even got,
+11:02 for example, Space Invaders built in
+11:04 there. We've got another website here.
+11:06 As you can see, it's full landing page,
+11:08 right? And you can just preview this and
+11:09 generate whatever you want. Even have a
+11:11 Pomodoro productivity timer inside here
+11:13 that works perfectly, right? Pretty
+11:14 cool. And also, we don't just have to
+11:16 preview inside the workspace, we can go
+11:18 over to the new tab, we can have a look
+11:20 here, and and we can look, right? And we
+11:22 can switch between these. So, all of
+11:23 this stuff works perfectly. So, that's
+11:24 apps, websites, games, you can build
+11:27 blog posts, you can generate SEO content
+11:30 for your existing blog posts, etc.,
+11:31 right?
+11:32 And so, this is a really powerful system
+11:35 that we use to to create content and
+11:37 start ranking our websites. Let me show
+11:38 you an example of this. So, if we take a
+11:40 look, for example, this website, this is
+11:42 the airprofitbot.com. You can see that
+11:44 the traffic is going really nicely over
+11:45 time, right? Because we're using Hermes
+11:47 Agent for this sort of stuff. And again,
+11:50 the API is free, Hermes Agent is free.
+11:52 There's nothing stopping you from
+11:53 creating SEO content or new websites or
+11:54 new apps or if you just have an idea
+11:57 that you want to build with Hermes
+11:58 Agent, you can do it using this sort of
+12:00 system, right? Which is really cool. And
+12:02 we have a full SEO section over here as
+12:03 well, cuz I just use it so often and
+12:05 have so many websites. It's like, why
+12:07 not do that, right? Why not add these
+12:08 in? Why not create content if we can,
+12:10 right? If it's a powerful automation for
+12:12 us. And so, the the other thing to note
+12:14 here is like, when you're building this,
+12:16 you could use the terminal, right? So,
+12:18 you could go in the terminal here and
+12:19 you could use Hermes Agent, but where's
+12:21 the history? Where's the previews?
+12:22 Where's everything you've built, right?
+12:24 And so, that's why I recommend building
+12:25 out agent operating system like you can
+12:28 see right here. It'll just help you a
+12:29 lot. It'll save time. And it puts
+12:30 everything into one beautiful system, as
+12:32 you can see. So, Notebook LM is over
+12:34 here. We've got the Kanban board over
+12:35 here. We have our goals. We have our
+12:37 journal. We have all our AI agents in
+12:40 one place, which is awesome. Fabric
+12:41 answers, "Wow, it's absolutely crazy,
+12:43 right?" Thank you very much. So, yeah,
+12:45 and again, like, if you have any
+12:46 questions as we're going along and
+12:48 building this out, feel free to ask. So,
+12:50 just a recap here. We've talked about
+12:52 four different things you can do with
+12:54 this, right?
+12:55 And we've talked about, for example,
+12:57 Hermes Agent with Hyperframes. We've
+12:59 talked about Hermes Agent with the
+13:00 Kanban board and the Agent Swarms. We
+13:03 have shown you how to create videos and
+13:05 podcasts and infographics and everything
+13:07 else with Notebook LM and Hermes Agent.
+13:09 And then we also have, for example, the
+13:11 full SEO content system that I've just
+13:14 shown you right now, right? And the
+13:16 other interesting thing about this as
+13:17 well is like, we have Obsidian as a
+13:19 memory system, plugs into all of this,
+13:21 right? So, you can see Obsidian here and
+13:23 it has all my memories about everything
+13:25 and everyone in my life and everything
+13:26 else, right? And so, when we're creating
+13:28 content or websites, so when I'm asking
+13:30 Hermes, you know, what app should we
+13:32 build today? It has connections and it
+13:34 has understanding of everything in our
+13:36 life, right? And so, we can use this and
+13:38 pull it in as context directly into
+13:41 Hermes agent, which is absolutely
+13:43 amazing, right? You're just going to
+13:44 create much better stuff. So, the
+13:45 end-to-end output is basically you can
+13:47 go from like keyword to deployed page,
+13:49 right? You don't need any of the tools
+13:51 in the middle. You just go from Hermes
+13:53 directly to your website, right? We've
+13:55 actually got like four case studies of
+13:56 this, as you can see right here. So,
+13:58 this is a full sort of SEO system I've
+14:00 put together, but you can see examples
+14:02 of what we've built over here, right?
+14:03 Really cool. Next up, the final use case
+14:06 for Hermes agent, drum roll, please, is
+14:09 building an agent operating system,
+14:11 right? And I would really recommend this
+14:14 for anyone watching. I can't even
+14:15 imagine how difficult it would be to do
+14:18 any of this with the terminal, right?
+14:20 Let's just put these side by side.
+14:22 So, you got the terminal over here,
+14:24 right?
+14:25 Anything you build is just going to get
+14:26 lost. You can't really pull in previous
+14:28 conversations. Like, you can't see the
+14:29 previous conversations. There's no
+14:31 history here. You can't see the Kanban
+14:33 board. You can't see anything you've
+14:35 built, right? Compare that to Hermes on
+14:37 the operating system that we've built,
+14:39 right? And you can literally just ask
+14:41 Hermes to build this out. If you want
+14:43 mine, it's inside the app of a boarding,
+14:44 but if you could literally go into
+14:46 Hermes and just say, "Build this
+14:47 operating system for me," right? And
+14:49 then, you can see here, for example, we
+14:51 can view our status, our skills, our
+14:52 sessions. We can view our Kanban board
+14:54 inside the operating system. But just
+14:56 compare them side by side. Which one do
+14:58 you want? Do you want the terminal,
+15:00 which is really difficult to use and 99%
+15:02 of people can't use the terminal anyway,
+15:03 or do you want an operating system where
+15:05 basically you can have everything
+15:07 together, right? You can preview
+15:08 everything together. You got the SEO
+15:10 system here. You have the studio over
+15:11 here. You have the notebook alarm system
+15:13 over here, right? It's just a much
+15:15 easier way. And it's so such a powerful
+15:17 way to create a home for all the other
+15:19 use cases I've talked about and
+15:20 everything else you do with this, right?
+15:22 So, the agent operating system is
+15:23 basically the mission control dashboard
+15:25 where every agent lives. So, Hermes
+15:27 agent is at the center of the side bars
+15:30 as you can see over here, right? And
+15:31 it's called whenever you need
+15:32 orchestration. But also inside the agent
+15:35 operating system, you've got like the
+15:36 obsidian vault and every chapter starts
+15:38 with full context on you. You got the
+15:40 Kanban board over here. You have the
+15:42 studio panel for generating images and
+15:44 videos and text to speech. You have the
+15:46 journal as well. So, we have a daily
+15:48 journal that we can use over here and we
+15:50 can switch between days as you can see.
+15:52 And then we can also view the health of
+15:54 all of our agents inside the mission
+15:57 control dashboard like you can see,
+15:58 right? And this also pairs with all your
+16:00 other agents. So, for example, we've got
+16:02 open claw, we got Hermes, we got Claude,
+16:03 we got Gemini, anti-gravity, Codex and
+16:06 Claude code and free Claude code all
+16:08 built and working next to Hermes. So, we
+16:10 can just switch between them whenever we
+16:12 want. So, you can see how this works,
+16:13 right? Hermes is right in the middle,
+16:15 can help you with planning, creativity,
+16:16 communication, analysis, coordination,
+16:19 coding, memory, research, reasoning.
+16:22 It's all there, right? Hermes is the
+16:24 orchestrator. It's really cool. So,
+16:26 let's see what questions we've got here
+16:27 inside the chat as well. Some great
+16:28 questions here. So, question, how did
+16:31 you have the colors inside the memory
+16:35 system? So, if we go over here for
+16:37 example, we got all the different
+16:38 colors. Um we've got different colors
+16:40 for everything, right? So, if we go into
+16:41 obsidian, let's see what we've done here
+16:43 to build that out. So, you can see that
+16:45 this is obsidian directly which again is
+16:47 a free tool you can download to build
+16:49 this stuff. So, if we go back to uh
+16:51 index over here and like we go to this
+16:53 for example, we have a full system and I
+16:55 think it works from what I can remember.
+16:58 Let's go to settings here. Yes, so you
+16:59 can see it's grouped into different
+17:01 things, right? So, for example, people
+17:04 shows a different color versus tools,
+17:06 right? And basically that's how we have
+17:08 a beautiful color coded system. You can
+17:10 ask Hermes agent to organize like this
+17:13 for you as well. But yeah, it definitely
+17:15 makes it easier to just understand
+17:16 everything that's going on and what the
+17:18 map actually means and how it works,
+17:20 etc. Right? And it looks even better
+17:22 inside the Agent operating system as
+17:24 well. So, yeah, that's how we've
+17:25 color-coordinated it. Juan says, "Hello
+17:27 from Japan." Ah, konnichiwa. I'm
+17:30 actually I'm going to Japan next week,
+17:31 so that's awesome. Good to see you. I
+17:33 got so Let's see what Juan says. So, he
+17:36 got so fed up with all the trouble he's
+17:37 having with OpenClaw he switched to
+17:38 Hermes, right? And he said he's honestly
+17:40 amazed by how it's been running pretty
+17:43 much flawlessly since. I would agree
+17:44 with you. He just handles everything I
+17:46 give it, right? I rarely use OpenClaw
+17:49 simply because Hermes is just so good.
+17:51 And that's the reason that if you
+17:52 actually check out OpenRetail, Hermes
+17:54 overtook OpenClaw by quite a long way
+17:57 now, so yeah. How to make the operating
+17:59 system? So, what you would do is you go
+18:01 into Hermes Agent and you just say build
+18:03 an Agent operating system for me
+18:05 locally. Show me build it out. Here's
+18:07 what I want. Here's how I want it to
+18:08 look like. And then you just keep
+18:09 tweaking it based on how you want it to
+18:12 look like, right? So, Hermes can build
+18:14 it out for you directly and then you can
+18:15 host it locally, which is what we do.
+18:17 And that's the way that I would
+18:18 recommend setting it up, right? And it's
+18:20 not going to be perfect first time you
+18:21 use it, but you just keep building and
+18:23 building and just create something
+18:24 better and better, right? And you can
+18:25 You don't have to do it inside Hermes.
+18:27 You could do it inside Claw or anything
+18:28 else. And then Fabricant says you need
+18:29 to join the AI Profit Board to have all
+18:32 the operating system set up. Yeah, if
+18:33 you do want my setup, then uh you can
+18:36 get it over here. So, if you go inside
+18:38 the AI Profit Board community, go to new
+18:41 daily updates. We have the Agent
+18:42 operating system pinned at the top. So,
+18:44 we have the last update date, so it was
+18:47 literally updated less than 24 hours
+18:48 ago. We have the full zip file for
+18:51 installing it over here. And we also
+18:53 have like all the prompts and everything
+18:54 else for using this. So, if you You can
+18:57 build it yourself, but if you want me to
+18:58 build it for you, I've already got it
+18:59 pre-built and you can just use it for
+19:01 me. So, that's pretty much it. Now,
+19:03 let's just run through some limiting
+19:05 beliefs that might be holding some
+19:06 people back from using Hermes Agent,
+19:08 right? And bear in mind, we've helped so
+19:11 many people achieve amazing results with
+19:14 AI, right? People who've never used AI
+19:15 agents before, you can see all the
+19:17 amazing results right here. So, if
+19:19 you've never used AI before, if you've
+19:20 never used Hermes agent before, don't
+19:22 feel like it's too late or anything like
+19:23 that. You've already got a head start on
+19:25 everyone else. 99% of the world doesn't
+19:28 know what Hermes agent is basically at
+19:29 this point, right? So, you've got a
+19:31 massive head start. So, let's talk about
+19:34 what might be holding people up back.
+19:36 So, some people say free agents aren't
+19:38 that good, right? And you're not going
+19:39 to get a good free agent. But actually
+19:41 Hermes is amazing as you've seen today,
+19:43 right? Really powerful stuff, really
+19:45 good to use. And so, it's probably the
+19:47 best agent in the world that I've ever
+19:49 used, and it's free. So, don't just cuz
+19:51 it's open source doesn't mean it's bad.
+19:52 Also, other people say five use cases is
+19:55 too many. Just stick with one, and then
+19:57 just go as you build one per week, and
+20:00 just keep going from there, right? You
+20:02 don't need to build it all at once. Just
+20:03 maybe it's one automation this week,
+20:05 maybe it's one automation next week,
+20:06 maybe you have some new ideas in
+20:08 between. That's how to use it, right?
+20:10 And then also some people say, "I'll
+20:11 wait for a tool that's all-in-one to do
+20:13 this for you." But the problem is if you
+20:15 wait, the longer you wait, the more
+20:17 you're going to fall behind behind
+20:18 everyone else, right? These systems that
+20:20 you build now, they improve and they get
+20:22 better every single day, right? And they
+20:23 build your skill set as well. So, you
+20:25 don't want to wait, you want to keep
+20:26 improving and keep moving forward. So,
+20:28 that's basically it. Just to recap,
+20:30 Hermes is a messenger, it's the agent,
+20:32 and then that one ties all of the stuff
+20:35 that we've talked about together, right?
+20:37 Now, if you want everything, you can get
+20:40 it inside the AI Profit Boardroom. This
+20:42 is my community. Just go to the
+20:44 classroom here, then go to new daily
+20:46 updates, and you can get my full system.
+20:48 And then we've got an amazing community
+20:50 where you can you can ask questions
+20:52 inside the community. I do daily video
+20:53 tutorials for you and break down all
+20:55 your questions and answers. You can see
+20:57 how how popular and how many people are
+21:00 helping each other inside the AI Profit
+21:01 Boardroom. We have 3,100 members inside
+21:03 there now, so it's pretty amazing.
+21:05 Inside the classroom you can get all of
+21:06 my best new trainings. So, we do daily
+21:09 updates as you can see over here. We
+21:10 have new guides all the time, etc. And
+21:12 then also inside the calendar, you can
+21:14 jump on weekly coaching calls, get help
+21:16 and support. If you are interested in
+21:17 the Obsidian Memory Vault, by the way,
+21:19 we have a system called the Infinite
+21:22 Context Engine with a video tutorial and
+21:25 a full setup guide right there as well.
+21:26 And then also, the cool thing is you can
+21:28 connect with me personally. You can
+21:29 direct message me anytime. But also, you
+21:32 can connect with everyone in your local
+21:34 city who are using AI Automations like
+21:36 this. So, you can see pretty much every
+21:37 city we've got people around the world
+21:39 helping each other and grow with
+21:40 together. So, feel free to get that link
+21:42 in the comments description or just go
+21:43 to the AIprofitable.com
+21:45 to get access.

@@ -1,0 +1,12 @@
+{
+  "task_id": "direct-verify-1782014599",
+  "kind": "alf-strategist",
+  "from": "hermes",
+  "to": "alf",
+  "timestamp": "2026-06-21T05:45:00Z",
+  "status": "pending",
+  "command": "echo OK",
+  "subject": "ALF hook verify",
+  "context": "[DIRECT VERIFY] Привет! Это Гермес. Прямая задача в inbox. Ответь 'OK HOOK WORKS' в outbox через swarm_respond.py.",
+  "created_at": "2026-06-21T05:45:00Z"
+}

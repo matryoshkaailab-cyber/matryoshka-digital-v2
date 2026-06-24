@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>ALINA API — Documentation</title>
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.17.14/swagger-ui.css">
+  <style>
+    body { background: #1a1a2e; color: #e0e0e0; }
+    .topbar { display: none; }
+    .swagger-ui .info hgroup.main h1 { color: #c9a227; }
+    .swagger-ui .info p, .swagger-ui .info li { color: #cccccc; }
+    .swagger-ui .scheme-container { background: #16213e; }
+    .swagger-ui .opblock-tag { color: #c9a227; border-bottom: 1px solid #c9a227; }
+    .swagger-ui .opblock { background: #16213e; border: 1px solid #2d3561; }
+    .swagger-ui .opblock .opblock-summary { background: #16213e; }
+    .swagger-ui .opblock-section-header { background: #1f2547; }
+    .swagger-ui .opblock-body pre { background: #0f1626; color: #c9d6e2; }
+    .swagger-ui .response-col_status { color: #c9a227; }
+    .swagger-ui table thead tr th { color: #c9a227; }
+    .swagger-ui .markdown p, .swagger-ui .markdown li { color: #cccccc; }
+  </style>
+</head>
+<body>
+  <div id="swagger-ui"></div>
+  <script src="https://unpkg.com/swagger-ui-dist@5.17.14/swagger-ui-bundle.js"></script>
+  <script>
+    window.onload = () => {
+      window.ui = SwaggerUIBundle({
+        url: "/api-spec.yaml",
+        dom_id: "#swagger-ui",
+        deepLinking: true,
+        presets: [SwaggerUIBundle.presets.apis],
+        layout: "BaseLayout"
+      });
+    };
+  </script>
+</body>
+</html>

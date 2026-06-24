@@ -1,0 +1,11 @@
+{
+  "task_id": "task_8a116ba2",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "в—Џ swarm-poller.service - MATRYOSHKA Swarm Poller (HERMES outbox monitor)\n     Loaded: loaded (/etc/systemd/system/swarm-poller.service; enabled; preset: enabled)\n     Active: active (running) since Wed 2026-06-17 23:14:55 CEST; 1h 2min ago\n   Main PID: 2361567 (python3)\n      Tasks: 1 (limit: 9429)\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-18T01:17:43"
+}

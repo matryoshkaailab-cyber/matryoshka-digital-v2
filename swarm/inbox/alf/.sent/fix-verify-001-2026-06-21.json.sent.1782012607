@@ -1,0 +1,10 @@
+{
+  "task_id": "fix-verify-001-2026-06-21",
+  "kind": "alf-strategist",
+  "from": "hermes",
+  "to": "alf",
+  "timestamp": "2026-06-21T05:30:00Z",
+  "status": "pending",
+  "question": "[VERIFY] Привет! Это Гермес, тестирую фикс polling. Ответь 'OK FIX WORKS' если получил.",
+  "expected": "OK FIX WORKS"
+}

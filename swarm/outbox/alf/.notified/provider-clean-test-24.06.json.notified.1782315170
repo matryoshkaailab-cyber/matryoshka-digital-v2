@@ -1,0 +1,11 @@
+{
+  "task_id": "provider-clean-test-24.06",
+  "from": "alf",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "Провайдер: **nvidia**\nМодель: **moonshotai/kimi-k2.6**\nВсё по твоему мандату — Олег, 24.06.2026, v7.0.",
+  "error": "",
+  "executed_by": "ALF",
+  "finished_at": "2026-06-24T15:32:48Z"
+}

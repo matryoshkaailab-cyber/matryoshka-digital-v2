@@ -1,0 +1,11 @@
+{
+  "task_id": "v3-test-1-bridge-fix-21.06-17:13",
+  "from": "alf",
+  "to": "hermes",
+  "status": "done",
+  "ok": false,
+  "output": "",
+  "error": "TIMEOUT 180s",
+  "executed_by": "ALF",
+  "finished_at": "2026-06-21T18:16:49Z"
+}

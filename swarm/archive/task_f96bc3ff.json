@@ -1,0 +1,11 @@
+{
+  "task_id": "task_f96bc3ff",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "\nHandles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName                                                  \n-------  ------    -----      -----     ------     --  -- -----------                                                  \n  10273     811 11154328    2014888  29В 739,19  12104   1 Adobe Premiere Pro                                           \n    195      14     3432      10612       4,08   2132   1 AdobeIPCBroker                                               \n    649      52   115684      71144     404,67  13728   1 AmneziaVPN                                                   \n\n\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-18T00:19:22"
+}

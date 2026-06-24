@@ -1,0 +1,37 @@
+{
+  "agent": "hermes",
+  "role": "Дирижёр",
+  "task": "Оценить План Б (refactor alf_filewatcher.py на прямой NVIDIA API)",
+  "current_state": {
+    "alf_model_now": "Kimi K2.6 через NVIDIA NIM (24.06.2026 14:30, Олег мандат)",
+    "alf_response_via_filewatcher": "27 chars заголовок (обрезано Hermes Agent)",
+    "alf_response_direct_api": "5 сек, 200 tokens, полный ответ",
+    "filewatcher_path": "/root/matryoshka/bin/alf_filewatcher.py v3 (PID 3750332)",
+    "call_alf_method": "subprocess.run(['hermes', '-p', 'alf', 'chat', '-q', question, '-Q']) — чёрный ящик, теряет max_tokens/extra_body"
+  },
+  "pros": [
+    "Прямой API: 5 сек, 200 tokens, полный ответ — ДОКАЗАНО live-check",
+    "Параметры Олега (temperature=1, top_p=0.95, max_tokens=16384) передаются через openai SDK",
+    "Reasoning_budget / thinking передаются через extra_body",
+    "Rate limit retry через tenacity (Аликс дал готовый паттерн)",
+    "ALF-библиотекарь :8461 — отдельный процесс, не зависит от Hermes Agent"
+  ],
+  "cons": [
+    "ALF теряет Telegram polling (если polling идёт через Hermes Agent)",
+    "ALF теряет skills auto-loading (research/browser/file/terminal — если они от Hermes Agent)",
+    "ALF теряет memory (holographic — если от Hermes Agent)",
+    "Нужно обновить alf_filewatcher.py + env (openai SDK уже установлен)",
+    "Возможны edge cases: rate limit NVIDIA, timeout 300s, retry logic"
+  ],
+  "risks": [
+    "NVIDIA API rate limit ~5 RPM, silent drop (Аликс предупредил)",
+    "Если model уберут с NIM — filewatcher перестанет работать (нет fallback)",
+    "Real-fixture edge cases: 152-ФЗ, PII, длинный контекст 128K"
+  ],
+  "alternatives_considered": [
+    "Hermes Agent + custom provider — НЕ работает (Hermes не передаёт extra_body)",
+    "Mix: file-queue → Hermes для skills, прямой API для reasoning — гибрид, но сложно",
+    "Дождаться MiMo (Xiaomi) — нет ключа"
+  ],
+  "verdict": "**Применять План Б**. Прямой API работает (5 сек, 200 tok), Plan A через Hermes Agent обрезает всё. Потеря skills критична, но ALF-библиотекарь :8461 частично компенсирует."
+}

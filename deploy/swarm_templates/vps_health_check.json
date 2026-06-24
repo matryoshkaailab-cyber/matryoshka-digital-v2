@@ -1,0 +1,37 @@
+{
+  "template": "vps_health_check",
+  "parent_title": "VPS Health Check @ {TIMESTAMP}",
+  "description": "5 параллельных health-проверок VPS 85.137.166.209",
+  "children": [
+    {
+      "title": "Docker: все контейнеры Up",
+      "assignee": "swarm_executor",
+      "priority": 1,
+      "cmd": "docker ps --format '{{.Names}} {{.Status}}' | grep -v 'Up' || echo 'ALL UP'"
+    },
+    {
+      "title": "Disk: usage < 85%",
+      "assignee": "swarm_executor",
+      "priority": 1,
+      "cmd": "df / | tail -1 | awk '{p=$5; gsub(\"%\",\"\",p); if(p>85) print \"WARN \"p\"%\"; else print \"OK \"p\"%\"}'"
+    },
+    {
+      "title": "Memory: usage < 90%",
+      "assignee": "swarm_executor",
+      "priority": 1,
+      "cmd": "free | awk '/Mem:/ {p=($3/$2)*100; if(p>90) print \"WARN \"p\"%\"; else print \"OK \"p\"%\"}'"
+    },
+    {
+      "title": "API endpoints: 200/401",
+      "assignee": "swarm_executor",
+      "priority": 1,
+      "cmd": "for url in 'http://127.0.0.1:8181/' 'http://127.0.0.1:5678/' 'http://127.0.0.1:9000/health'; do code=$(curl -s -o /dev/null -w '%{http_code}' --connect-timeout 3 \"$url\" 2>/dev/null || echo 'FAIL'); echo \"$code $url\"; done"
+    },
+    {
+      "title": "Backup: last run < 25h ago",
+      "assignee": "swarm_executor",
+      "priority": 1,
+      "cmd": "ls -t /root/matryoshka/backup/matryoshka_*.tar.gz 2>/dev/null | head -1 | xargs -I{} stat -c '%Y' {} | awk -v now=$(date +%s) '{age=int((now-$1)/3600); if(age>25) print \"WARN age=\"age\"h\"; else print \"OK age=\"age\"h\"}'"
+    }
+  ]
+}

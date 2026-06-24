@@ -1,0 +1,11 @@
+{
+  "task_id": "real_alf_files_1781976679",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "Get-ChildItem C:\\matryoshka -Directory -Depth 2 -ErrorAction SilentlyContinue | Where-Object { .Name -like '*alf*' -or .Name -like '*alan*' } | Select-Object FullName | Format-Table -AutoSize\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T20:31:23"
+}

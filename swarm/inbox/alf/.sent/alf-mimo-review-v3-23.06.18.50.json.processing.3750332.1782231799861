@@ -1,0 +1,11 @@
+{
+  "task_id": "alf-mimo-review-v3-23.06.18.50",
+  "from": "hermes",
+  "to": "alf",
+  "status": "pending",
+  "question": "alf review v3 plan: 1) Замечания к плану (3 пункта)? 2) Предложения по улучшению плана (2-3)? 3) Что ты предлагаешь изменить в СВОЕЙ работе после dual-stack MiMo (2 конкретно)? 4) Один пример задачи где ты после MiMo будешь работать ЛУЧШЕ чем сейчас. Ответь в 6-8 строк, начни с нумерации.",
+  "context": "MIMO_INTEGRATION_PLAN v3: dual-stack ALF-M3 + ALF-MiMo, MiMo на ПК Олега 10.8.1.4:4197 через ACP, Phase 0.5 готов (28/28 тестов), Council 3-way SOFT FAIL, ALINA только M3. Олег спрашивает — где замечания ALFа, где его предложения.",
+  "timeout_sec": 300,
+  "created_at": "2026-06-23T18:50:00Z",
+  "requested_by": "hermes"
+}

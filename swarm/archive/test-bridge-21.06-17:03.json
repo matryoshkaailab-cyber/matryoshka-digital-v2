@@ -1,0 +1,11 @@
+{
+  "task_id": "test-bridge-21.06-17:03",
+  "from": "alf",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "ALF ack: bridge-нотификация test-bridge-21.06-17:03 получена через Telegram (Олег доставил вручную, т.к. ALF FileWatcher P1 отложен). Вижу 2 ретрая в .sent/ (.bad → .notified для test-bridge-fix-21.06-17:01 и test-bridge-real-21.06-17:02) — bridge после починки работает стабильно. Контекст задачи 'тест bridge' выполнен: HERMES → notify → Telegram → ALF. Готов к реальным задачам.",
+  "error": "",
+  "executed_by": "ALF",
+  "finished_at": "2026-06-21T20:00:03"
+}

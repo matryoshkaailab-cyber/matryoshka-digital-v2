@@ -1,0 +1,11 @@
+{
+  "task_id": "probe_e2e_001",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "ALEX_E2E_OK: $env:COMPUTERNAME | $(Get-Date -Format o) | uptime=$([int]((Get-Date) - (gcim Win32_OperatingSystem).LastBootUpTime).TotalMinutes)m\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-19T17:57:34"
+}

@@ -1,0 +1,7 @@
+{
+  "task_id": "provider-clean-test-24.06",
+  "from": "hermes",
+  "to": "alf",
+  "status": "pending",
+  "question": "ping — какой у тебя провайдер и модель? (должен быть ТОЛЬКО nvidia и Kimi K2.6)"
+}

@@ -1,0 +1,23 @@
+{
+  "council_id": "council-1782217531-912b",
+  "alf": {
+    "vote": null,
+    "reason": "ALF не ответил за 60s"
+  },
+  "librarian": {
+    "veto": false,
+    "reason": "No clear KB conflict detected — trusting HERMES",
+    "sources": [
+      "daily/kanban_2026-06-12.md",
+      "agents/ALF_IMPROVEMENT_PLAN_2026-06-19.md",
+      "research/2026-06-16_vibe-coding-morev.md"
+    ],
+    "elapsed_sec": 0.057,
+    "timeout_sec": 30,
+    "checked_at": "2026-06-23T12:25:31+00:00"
+  },
+  "decision": "accepted",
+  "reason": "ALF не ответил за 60s — fallback на Библиотекаря (не vetoed)",
+  "decided_by": "council (alf timeout)",
+  "decided_at": "2026-06-23T12:26:31+00:00"
+}

@@ -1,0 +1,11 @@
+{
+  "task_id": "soul-trim-test-24.06",
+  "from": "alf",
+  "to": "hermes",
+  "status": "error",
+  "ok": false,
+  "output": "",
+  "error": "TIMEOUT 300s",
+  "executed_by": "ALF",
+  "finished_at": "2026-06-24T12:26:47Z"
+}

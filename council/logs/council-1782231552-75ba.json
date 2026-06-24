@@ -1,0 +1,24 @@
+{
+  "council_id": "council-1782231552-75ba",
+  "alf": {
+    "vote": "for",
+    "reason": "ЗА — dual-stack через ACP на ПК Олега (10.8.1.4:4197) консистентен с архитектурой v4.0 (ALEX там же через :4096), не раздувает VPS-поверхность и Phase 0.5 с 22/22 зелёными тестами даёт реальную базу для Phase 1."
+  },
+  "librarian": {
+    "veto": false,
+    "reason": "Decision is positive and KB supports",
+    "sources": [
+      "daily/kanban_2026-06-12.md",
+      "research/2026-06-16_vibe-coding-morev.md",
+      "agents/ALF_IMPROVEMENT_PLAN_2026-06-19.md"
+    ],
+    "elapsed_sec": 0.118,
+    "timeout_sec": 30,
+    "checked_at": "2026-06-23T16:19:12+00:00",
+    "wal_recorded": true
+  },
+  "decision": "accepted",
+  "reason": "ALF за + Библиотекарь не vetoed",
+  "decided_by": "council",
+  "decided_at": "2026-06-23T16:19:40+00:00"
+}

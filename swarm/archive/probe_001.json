@@ -1,0 +1,11 @@
+{
+  "task_id": "probe_001",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "ALEX_E2E_OK\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-19T17:50:39"
+}

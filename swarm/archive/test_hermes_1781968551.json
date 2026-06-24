@@ -1,0 +1,11 @@
+{
+  "task_id": "test_hermes_1781968551",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "PONG\nWIN-OHDOM31GC8P\nwin-ohdom31gc8p\\user\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T18:15:49"
+}

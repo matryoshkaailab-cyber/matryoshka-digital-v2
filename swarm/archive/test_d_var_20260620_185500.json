@@ -1,0 +1,11 @@
+{
+  "task_id": "test_d_var_20260620_185500",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": false,
+  "output": "",
+  "error": "бва®Є :1 §­ Є:94\n+ ...  -Directory -Depth 2 -ErrorAction SilentlyContinue; foreach ( in ) {  ...\n+                                                                  ~\nЋвбгвбвўгҐв Ё¬п ЇҐаҐ¬Ґ­­®© Ї®б«Ґ foreach.\nбва®Є :1 §­ Є:98\n+ ... ectory -Depth 2 -ErrorAction SilentlyContinue; foreach ( in ) { if (. ...\n+                                                                 ~\nЌҐЇаҐ¤ўЁ¤Ґ­­ п «ҐЄбҐ¬  \")\" ў ўла ¦Ґ­ЁЁ Ё«Ё ®ЇҐа в®аҐ.\n    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException\n    + FullyQualifiedErrorId : MissingVariableNameAfterForeach\n \n",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T19:54:53"
+}

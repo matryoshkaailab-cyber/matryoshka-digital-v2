@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>XKIN — аксессуары</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Montserrat', sans-serif; }
+
+  .banner {
+    width: 1200px;
+    height: 630px;
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .wave { position: absolute; border-radius: 50%; border: 1px solid rgba(255, 107, 0, 0.15); }
+  .wave1 { width: 400px; height: 400px; top: -100px; left: -100px; }
+  .wave2 { width: 600px; height: 600px; top: -200px; left: -150px; border-color: rgba(255, 107, 0, 0.08); }
+  .wave3 { width: 400px; height: 400px; bottom: -100px; right: -100px; border-color: rgba(255, 69, 0, 0.15); }
+
+  .glow-bg {
+    position: absolute; top: 50%; right: 18%;
+    transform: translate(50%, -50%);
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(255, 107, 0, 0.15) 0%, transparent 60%);
+    border-radius: 50%; filter: blur(30px);
+  }
+
+  .content {
+    position: relative; z-index: 10; height: 100%;
+    display: grid; grid-template-columns: 1.0fr 1.3fr;
+    padding: 36px 50px 30px 50px; gap: 25px;
+  }
+  .left { display: flex; flex-direction: column; justify-content: space-between; }
+  .right { display: flex; align-items: center; justify-content: center; position: relative; }
+
+  .logo {
+    font-size: 26px; font-weight: 900; letter-spacing: 4px;
+    background: linear-gradient(90deg, #FF6B00, #FF4500);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .logo span { color: #fff; -webkit-text-fill-color: #fff; font-weight: 400; opacity: 0.7; font-size: 14px; letter-spacing: 2px; margin-left: 6px;}
+
+  .headline { margin-top: 14px; }
+  .headline .top { font-size: 16px; font-weight: 700; color: #FF6B00; letter-spacing: 2px; margin-bottom: 4px; text-transform: uppercase; }
+  .headline h1 { font-size: 48px; font-weight: 900; line-height: 1.0; letter-spacing: -1px; margin-bottom: 8px; }
+  .headline h1 .accent { background: linear-gradient(90deg, #FF6B00, #FFB300); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .headline .sub { font-size: 16px; font-weight: 500; color: rgba(255,255,255,0.85); line-height: 1.3; max-width: 420px; }
+
+  .cats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 14px; }
+  .cat { background: rgba(255,255,255,0.06); border: 1px solid rgba(255, 107, 0, 0.3); border-radius: 10px; padding: 8px 6px; backdrop-filter: blur(10px); text-align: center; }
+  .cat .ico { font-size: 20px; }
+  .cat .txt { font-size: 11px; font-weight: 700; color: #fff; margin-top: 2px; line-height: 1.1; }
+
+  .price-tag {
+    margin-top: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(90deg, rgba(255, 107, 0, 0.18), rgba(255, 69, 0, 0.18));
+    border: 1.5px solid rgba(255, 107, 0, 0.55);
+    border-radius: 12px;
+    padding: 10px 16px;
+    backdrop-filter: blur(8px);
+  }
+  .price-tag .ico { font-size: 22px; }
+  .price-tag .txt { font-size: 15px; font-weight: 800; color: #fff; letter-spacing: 0.3px; line-height: 1.1; }
+  .price-tag .accent { color: #FFB300; }
+
+  .contact { margin-top: 10px; display: flex; gap: 10px; align-items: stretch; }
+  .phone-card { background: linear-gradient(135deg, #FF6B00, #FF4500); border-radius: 14px; padding: 12px 20px; box-shadow: 0 10px 40px rgba(255, 107, 0, 0.4); flex: 1; }
+  .phone-card .lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.95; }
+  .phone-card .num { font-size: 28px; font-weight: 900; letter-spacing: -0.5px; line-height: 1.1; margin-top: 2px; }
+  .messengers { display: flex; gap: 8px; align-items: center; }
+  .msgr { width: 52px; height: 52px; border-radius: 14px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 26px; }
+
+  /* Правая часть — реальные фото */
+  .showcase { position: relative; width: 100%; height: 100%; }
+
+  .photo {
+    position: absolute;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.5);
+    overflow: hidden;
+  }
+  .photo img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* 5 фото в сетке 2-3 */
+  .p1 { top: 3%; left: 0%; width: 200px; height: 200px; transform: rotate(-6deg); z-index: 3; }   /* наушники bronze */
+  .p2 { top: 0%; left: 30%; width: 180px; height: 200px; z-index: 4; }                          /* powerbank */
+  .p3 { top: 0%; right: 0%; width: 175px; height: 175px; transform: rotate(5deg); z-index: 3; } /* TWS black */
+  .p4 { bottom: 8%; left: 4%; width: 220px; height: 170px; z-index: 3; }                        /* cables */
+  .p5 { bottom: 0%; right: 8%; width: 180px; height: 220px; transform: rotate(-3deg); z-index: 4; } /* TWS white */
+
+  .label {
+    position: absolute; z-index: 6;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    color: #fff; padding: 4px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 700;
+  }
+  .l1 { top: 36%; left: 2%; }
+  .l2 { top: 32%; left: 32%; }
+  .l3 { top: 30%; right: 2%; }
+  .l4 { bottom: 32%; left: 6%; }
+  .l5 { bottom: 30%; right: 8%; }
+
+  .badge {
+    position: absolute; z-index: 10;
+    background: linear-gradient(135deg, #FF6B00, #FF4500);
+    color: #fff; padding: 7px 14px; border-radius: 30px;
+    font-size: 12px; font-weight: 800;
+    box-shadow: 0 6px 20px rgba(255, 107, 0, 0.5);
+  }
+  .b1 { top: 38%; left: 38%; }
+</style>
+</head>
+<body>
+<div class="banner">
+  <div class="wave wave1"></div>
+  <div class="wave wave2"></div>
+  <div class="wave wave3"></div>
+  <div class="glow-bg"></div>
+
+  <div class="content">
+    <div class="left">
+      <div>
+        <div class="logo">XKIN<span>АКСЕССУАРЫ</span></div>
+
+        <div class="headline">
+          <div class="top">🎧 АКСЕССУАРЫ XKIN</div>
+          <h1>Всё для <span class="accent">твоего</span><br>телефона</h1>
+          <div class="sub">Наушники, повербанк, зарядки, кабели. Бренд XKIN.</div>
+        </div>
+
+        <div class="cats">
+          <div class="cat"><div class="ico">🎧</div><div class="txt">НАУШНИКИ</div></div>
+          <div class="cat"><div class="ico">🔋</div><div class="txt">ПОВЕРБАНК</div></div>
+          <div class="cat"><div class="ico">🔌</div><div class="txt">ЗАРЯДКА + КАБЕЛИ</div></div>
+        </div>
+
+        <div class="price-tag">
+          <div class="ico">💰</div>
+          <div class="txt"><span class="accent">Выгодные цены</span> · Опт и розница</div>
+        </div>
+      </div>
+
+      <div class="contact">
+        <div class="phone-card">
+          <div class="lbl">📞 Звони / пиши</div>
+          <div class="num">+7 928 035-50-00</div>
+        </div>
+        <div class="messengers">
+          <div class="msgr" title="Telegram">✈️</div>
+          <div class="msgr" title="WhatsApp">💬</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="showcase">
+        <!-- Наушники полноразмерные бронзовые -->
+        <div class="photo p1">
+          <img src="products/headphones_bronze.jpg" alt="Наушники XKIN">
+        </div>
+        <div class="label l1">Наушники XKIN</div>
+
+        <!-- Повербанк -->
+        <div class="photo p2">
+          <img src="products/powerbank.jpg" alt="Повербанк XKIN">
+        </div>
+        <div class="label l2">Повербанк 35W</div>
+
+        <!-- TWS чёрные -->
+        <div class="photo p3">
+          <img src="products/tws_black.jpg" alt="TWS чёрные XKIN73">
+        </div>
+        <div class="label l3">TWS XKIN73</div>
+
+        <!-- Кабели -->
+        <div class="photo p4">
+          <img src="products/cables.jpg" alt="Кабели XKIN">
+        </div>
+        <div class="label l4">Кабели XKIN</div>
+
+        <!-- TWS белые XKIN74 (коробка) -->
+        <div class="photo p5">
+          <img src="products/tws_white_box.jpg" alt="TWS белые XKIN74">
+        </div>
+        <div class="label l5">TWS XKIN74</div>
+
+        <div class="badge b1">⚡ В наличии</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

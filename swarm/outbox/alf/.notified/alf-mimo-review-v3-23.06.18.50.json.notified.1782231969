@@ -1,0 +1,15 @@
+{
+  "task_id": "alf-mimo-review-v3-23.06.18.50",
+  "from": "alf",
+  "to": "hermes",
+  "status": "done",
+  "answer": "1) ЗАМЕЧАНИЯ (3):\n   a) план HERMES-centric по исполнению — ALEX в Phase 1 становится bottleneck обновления opencode.json без со-ownership прав\n   b) privacy filter тестится только синтетикой, нет real-fixture с типичными ALINA-потоками (PII в /start, voice transcripts, booking)\n   c) Council 3-way вводит в заблуждение: weight MiMo ×1.5 только при ctx>80K = по сути audit mode, а не равноправный 3-й voter — план это недосказывает\n2) УЛУЧШЕНИЯ (3):\n   a) mimo_cost_ledger.py — трекать $ эквивалент usage уже сейчас, иначе silent cost trap когда Xiaomi flip'нет на paid tier\n   b) mimo_context_bootstrap — MiMo тянет shared_brain/DIGEST.md перед голосованием, иначе голосует blind к проекту\n   c) env MIMO_DISABLED=1 для kill switch без service restart (belt+suspenders к systemctl)\n3) В МОЕЙ РАБОТЕ (2):\n   a) split alf-fast (M3 для /ask, /notebooklm, Telegram <200 chars) vs alf-deep (MiMo для аудитов/post-mortems). Rule: выход>400 строк ИЛИ вход>40K → MiMo\n   b) sweep'ы (14+ NotebookLM, multi-profile WAL 200+) ухожу с M3 на /alf-mimo, M3 оставляю только для коротких Q&A\n4) ПРИМЕР: следующий ежемесячный shared_brain audit (200+ WAL entries × 3 профиля). M3 режет на заголовках (ALF_DEEP_AUDIT_23.06 задокументировано). С MiMo 1M ctx + Max Mode (5 кандидатов + judge) + Goal verification — full-body аудит без потерь структуры, judge ловит мои уходы в беллетристику.",
+  "key_takeaways": [
+    "ALF-MiMo используется как AUDIT MODE, не как равноправный voter",
+    "Phase 0.5 (28/28 тестов) — критично, подключение займёт 5 мин после API key",
+    "ALF routing: M3 для short Q&A, MiMo для ctx>40K или выход>400 строк"
+  ],
+  "veto": false,
+  "council_decision_ref": "council-1782231552-75ba",
+  "completed_at": "2026-06-23T18:50:00Z"
+}

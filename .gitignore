@@ -1,43 +1,29 @@
-# Secrets
+# SHARED BRAIN — чувствительные данные
+matryoshka-data/.sessions/
+matryoshka-data/.sessions/**
+!matryoshka-data/.sessions/.gitkeep
+
+# Lock-файлы (временные)
+*.lock
+*.tmp
+
+# SHARED_BRAIN полный файл (digest — ок)
+SHARED_BRAIN.md
+
+# .env секреты
 .env
 .env.*
-.git-credentials
-.gitauth
-*.key
-*.token
-credentials.json
-.netrc
-backup*.json
-id_rsa*
-id_ed25519*
-
-# Temporary
-*.tmp
-*.log
-*.swp
-*~
-
-# Docker
-docker-compose.override.yml
-
-# DB
-*.db
-*.sqlite
-
-# OS
-.DS_Store
-Thumbs.db
+SECRETS/
 
 # Python
 __pycache__/
 *.pyc
 .venv/
+venv/
 
-# Node
-node_modules/
+# OS
+.DS_Store
+Thumbs.db
 
-# Sync scripts (run locally only)
-*sync*.sh
-*sync*.py
-do_push.sh
-do_sync.py
+# Logs (кроме digest)
+*.log

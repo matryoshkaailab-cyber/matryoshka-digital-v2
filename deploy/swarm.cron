@@ -1,0 +1,9 @@
+#!/bin/bash
+# MATRYOSHKA Swarm cron jobs
+# Executor: каждые 1 мин — забирает pending задачи swarm_executor
+# Monitor: каждые 1 мин — закрывает parent когда все children done
+# Auto vps_health: каждые 5 мин — создаёт fresh health-check swarm
+
+* * * * * /usr/bin/python3 /root/matryoshka/deploy/swarm_executor.py >> /var/log/swarm_executor.log 2>&1
+* * * * * /usr/bin/python3 /root/matryoshka/deploy/swarm_monitor.py >> /var/log/swarm_monitor.log 2>&1
+*/5 * * * * /root/matryoshka/deploy/swarm_create_vps_health.sh >> /var/log/swarm_cron.log 2>&1

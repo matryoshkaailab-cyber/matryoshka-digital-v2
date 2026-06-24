@@ -1,0 +1,746 @@
+0:00 Hermes Agent is the best AI personal
+0:02 assistant on the planet, but most people
+0:05 use it just like a chatbot, meaning they
+0:07 don't unlock its full capabilities. And
+0:10 in this video, I'm going to show you
+0:11 everything that I've learned from
+0:13 spending hundreds of hours in Hermes, so
+0:15 you don't waste weeks of time, build
+0:18 things superior to your competitors, and
+0:20 do so way more profitably. And if you're
+0:22 new, I'm Jack. I built some last tech
+0:24 startup with the gazillion customers.
+0:25 Now I'm building my own AI startups and
+0:27 I just shared the stuff that actually
+0:29 works. So if you haven't already, grab
+0:31 that coffee and let's dive straight in.
+0:33 So this is going to give you everything
+0:34 you need to know about Hermes. And at
+0:36 the end of this video, you're going to
+0:37 have a Hermes agent so powerful, you're
+0:40 not going to actually believe it. Now,
+0:41 first thing to understand is that
+0:42 downloading Hermes and not using these
+0:44 great insights is essentially buying a
+0:46 Lambo and only keeping it in 10 mph.
+0:48 We're just not unlocking the capability.
+0:50 Now, the first thing we talk about is
+0:52 Hermes memory. It is what sets it apart
+0:55 from all of the other AI assistants. And
+0:58 it's so unbelievably easy to use. I'll
+1:00 show you how it works and little hacks
+1:02 that I'm using to make its memory like
+1:04 some kind of big brainiac and it just
+1:06 never forgets anything. So, you've got
+1:07 this memory engine that explains what's
+1:09 going on behind the hood. But there was
+1:11 an update recently inside Hermes that
+1:14 makes this memory super powerful. So,
+1:15 the first thing you want to make sure
+1:16 you're doing is make sure Hermes update.
+1:19 So, just make sure you're dealing with
+1:20 the very latest version of Hermes, so
+1:22 you have access to all of the latest
+1:24 features. And in this video, by the way,
+1:25 guys, I'm going to cover some of the
+1:26 biggest questions I've seen on Hermes. I
+1:28 haven't seen anybody answer. It is going
+1:29 to help you get way further ahead. So,
+1:31 one of the things that we can do is
+1:32 actually ask Hermes what it was doing on
+1:34 specific days. Hey there, man. Tell me
+1:36 what was one of the things that we were
+1:37 talking about on Sunday. And as you can
+1:39 see, Hermes can now come back and
+1:41 specifically mention what you were
+1:43 talking about on that exact day. Now,
+1:45 the actual memory system itself has a
+1:46 memory. MD, which is just a plain
+1:48 markdown file that has everything you're
+1:50 talking about. You have these peer
+1:51 cards, which is one card per person. It
+1:53 covers tone and preferences. We have
+1:55 this fuzzy index and also a 1h hour
+1:57 prompt cache, which keeps your token
+2:00 limit lower and will just remember some
+2:01 of the conversations that you've had.
+2:03 But one thing that you need to add to
+2:04 Hermes agent is a soul.md. I can show
+2:07 you what that looks like on this
+2:09 beautiful system right here. So, for
+2:11 example, on Hermes, you'll see you can
+2:13 effectively have a chat with it and it
+2:14 will record everything that it needs to
+2:16 know about your soul.md. For example,
+2:19 I'll put this link down below for you so
+2:20 you can grab it. You need to, if you
+2:22 haven't already, give it a soul.md.
+2:24 Explain who you are, where you live.
+2:26 It's basically the context manual for
+2:28 your life. So, it understands everything
+2:30 that you're talking about and also how
+2:32 you want it to behave and chat to you.
+2:35 Do you want it to look around corners?
+2:37 Do you want it to challenge your
+2:38 thinking? You need to make sure that you
+2:40 actually fill out the information on
+2:41 your soul. The other thing that you're
+2:42 going to want to do is connect your
+2:44 Hermes agent to your Obsidian memory
+2:47 system that lives on your computer. If
+2:49 you don't have Obsidian, you can also
+2:50 connect it to Pine Cone if you want to.
+2:52 This is an example. This is just all the
+2:53 different files I have in my Obsidian.
+2:55 You can do this pretty easily by just
+2:57 like linking it up or sharing that
+2:59 pathway. This is like a one-click paste
+3:00 and go, but that will really elevate the
+3:02 level of your memory system inside
+3:04 Hermes, meaning you can ask it
+3:06 questions. For example, if I bring up
+3:07 Hemy's agent right now, I can say
+3:09 something like, "Hey, the dude. In my
+3:10 Obsidian memory system, I talk a lot
+3:12 about YouTube strategy. Go ahead and
+3:13 pull me one great insight for intros
+3:16 that will be valuable for me." And this
+3:18 can action I go ahead and dynamically
+3:20 search my Obsidian memory system on my
+3:22 own computer. Then it's also really
+3:24 handy to give it access to your AI
+3:25 meeting notetaker. Again, that could be
+3:27 Granola, that could be Fireflies, it
+3:29 could be Fathom, but being able to ask
+3:31 questions about your meetings
+3:32 dynamically is unbelievably helpful. For
+3:35 example, if I get a fresh chat, I can
+3:37 say something like, "Hey there. Um, just
+3:39 tell me the title of the last meeting I
+3:41 was in and just one point that I made in
+3:44 it that would be interesting or
+3:45 valuable." And we can send that one off
+3:47 and just chat to our meetings on the go,
+3:49 which is unbelievably helpful when you
+3:51 connect it to one of these services. And
+3:53 as you can see, it's connected to my
+3:55 Granola. It knows that I'm using
+3:56 Granola. I find Granola at best because
+3:58 I can just chat to it. I did move from
+3:59 one of the other services. This video is
+4:01 not sponsored or anything, but I just
+4:02 find that one really helpful. and it'll
+4:04 just give me that information whenever I
+4:06 physically need it. And you'd be
+4:08 surprised how often you want to recall
+4:09 on your own emails. It is crazy. And
+4:11 they go, for example, from the coffee
+4:13 call that I do in my community every
+4:14 week where I answer people's questions.
+4:16 This was from a YouTuber who had a
+4:18 question and we helped them out with
+4:19 that. Very cool. Then once we've crushed
+4:20 meetings, the next one you want to do is
+4:22 connect your emails. You can connect to
+4:23 Google directly, but the easiest way to
+4:25 do it I found and the one that I
+4:27 personally use is Zapium. You can
+4:28 collect a new MCP down here by clicking
+4:30 on other. And the reason I like this is
+4:32 because it's very easy to actually
+4:35 select all the bits and pieces that you
+4:36 want to. It shows you all the things you
+4:38 need to do to connect and you can
+4:39 effectively just pick all the tools that
+4:41 you want to go ahead and use. So for
+4:42 example, all you do down here, if I
+4:44 click on Gmail, for instance, I can
+4:45 select what am I happy with? I'm happy
+4:47 with adding labels, archiving, deleting,
+4:50 creating drafts, but I I may not want it
+4:51 to be able to send. So you can
+4:53 dynamically configure all the stuff that
+4:55 you want to come down, connect your
+4:56 tools, connect your world, and then
+4:58 connect that to basically Hermes agent.
+5:01 So you can do anything you want to and
+5:02 actually ask questions about your
+5:04 emails. Now by using these systems you
+5:05 will 10x your memory beyond what most
+5:07 people are even doing. And I'll leave
+5:08 this on screen for a second so you can
+5:10 learn about how the Hermes inbuilt
+5:11 memory actually works. Well, this leads
+5:13 us on to one of the coolest features
+5:14 inside Hermes agent which is the ability
+5:16 to run things in the background. You'll
+5:18 notice when I say questions like hey and
+5:20 then you send another one like why or
+5:21 you ask it any questions, it basically
+5:24 interrupts it. So we can get around this
+5:26 by using a new slashman called
+5:27 background. So I can say hey there dude
+5:29 do me a favor go do some research on the
+5:31 most untapped industry for AI
+5:33 automations. Okay beautiful that's the
+5:36 thing that I wanted to go ahead and do.
+5:37 Now this is going to basically if I want
+5:39 to ask another question I can do for
+5:40 slash I can do background. Okay and what
+5:43 I can do with the background prompt is I
+5:44 can be like hey actually dude tell me
+5:46 also what is going to be the best place
+5:47 to live on the planet. What has the best
+5:50 work life balance? Whatever the thing is
+5:52 which just basically means you can have
+5:53 many different thoughts running at the
+5:55 same time and they will never collide
+5:56 into one another. And this very nicely
+5:58 takes us on to another powerful feature.
+6:00 And by the way, if you're wanting to
+6:01 learn about Claude code and the Hermes
+6:02 agent system in detail, I've got the
+6:04 world's most comprehensive course that
+6:06 I've ever pulled together on Claude
+6:07 Code, taking you from zero to pro. We
+6:09 cover memory systems, the Hermes agent,
+6:12 stuff that I've never covered on
+6:13 YouTube, apps, build anything. I get so
+6:15 many messages on this every day. I want
+6:17 to just make sure that you're aware of
+6:18 it because it is crazy. I'll put a link
+6:20 down below if you want to go and grab
+6:21 that and level up. It is pretty nuts.
+6:23 Now, one of the things I really wanted
+6:24 to double click on here with the Hermes
+6:26 agent is the fact that we can actually
+6:28 schedule tasks. And this is something
+6:29 that I recommend you do by way of what
+6:31 we call a crown job. For example, I can
+6:34 say, "Hey there, dude. Every morning, I
+6:36 would like to set up a morning brief to
+6:38 fire off at 8:00 a.m. And on that brief,
+6:40 I would like the following. What is the
+6:42 weather for today? What is a
+6:44 motivational quote from one of the top
+6:45 three entrepreneurs on the planet? What
+6:47 meetings do I have coming up that day?"
+6:50 And crucially, one key thing, I would
+6:52 like you to begin a dreaming sequence. I
+6:55 would like you at 6:00 a.m. every
+6:57 morning before you send this morning
+6:59 brief to go ahead and actually consider
+7:01 based on all of our conversation
+7:02 history, everything that you know that
+7:04 I'm doing, all my meetings, everything
+7:05 we've spoken about, what would be three
+7:08 core recommendations that you would have
+7:10 for that specific day and one
+7:12 nonnegotiable thing that I need to be
+7:15 doing that day based on all the data
+7:17 you've got both long-term, short-term,
+7:19 and access to all the files and systems
+7:21 that you have for me. Now, this is a
+7:23 really important prompt. And the cool
+7:24 thing about this prompt is I'm now
+7:26 getting Hermes to dream. Now, Hermes is
+7:29 the agent that grows with you. The more
+7:32 it knows about you, the better it gets.
+7:34 That's one of the most fantastical
+7:36 things about this system. So, I'm going
+7:38 to wake up now with the morning brief.
+7:40 It also, by the way, has access to my
+7:42 entire Claude code system. This here is
+7:45 the Claude Code operating system. It's
+7:47 got the Hermes Agentic operating system.
+7:49 I'll explain about this in a second. But
+7:50 the core thing that we can actually do
+7:52 here is connect Hermes to Claude code.
+7:55 So effectively anything that I'm doing,
+7:57 I see even cloud code's got this
+7:58 dreaming feature here. But anything that
+8:00 I'm doing inside Hermes or Claude Code
+8:03 can be connected. So my claude code
+8:05 knows exactly what's happening in with
+8:07 my Hermes and my Hermes agent knows
+8:09 everything that I'm doing on my
+8:11 computer, right? It's fully fully
+8:13 connected to it. You see this Claude OS
+8:14 bridge right here? What this basically
+8:16 means any messages I'm sending to claude
+8:18 code anti-gravity codeex you name it I
+8:22 now have access to in Hermes agent why
+8:24 is that important because we have this
+8:25 split world sometimes I'm coding
+8:27 sometimes I'm just talking to Hemy's
+8:28 agent this bridges the gap meaning I can
+8:31 actually have full context and how can
+8:33 you possibly give the best advice if you
+8:36 don't have the full context of the thing
+8:38 you're talking about now as you can see
+8:39 it's come down and it's basically
+8:41 explained that entire brief for me so
+8:42 now I'm going to have that what we call
+8:44 a cron job happening whenever. You can
+8:46 also say, "Hey, remind me in 30 minutes
+8:48 that I need to go take my dog out." And
+8:50 it will message you. So, it is literally
+8:52 treat it like your personal assistant.
+8:53 We like it. We're for birthday parties.
+8:55 We're a big fan of Hermes, but treat it
+8:57 like your personal assistant. And then
+8:58 this brings us nicely onto OpenClaw
+9:00 versus Hermes versus Gravity Claw versus
+9:03 your own personal assistant. The thing
+9:05 is this, the best personal assistant is
+9:07 the one that you're going to use. Of all
+9:09 the ones I've tested, Hermes Agent is
+9:11 the best at getting you from zero to
+9:14 one. I've listed some of the issues that
+9:16 I've found with Open Core, I found that
+9:18 it folds itself into a pretzel when I
+9:20 use it, and I tried to push too much,
+9:22 but you can see some of the key
+9:23 differences in terms of its memory cross
+9:25 sessions, background tasks, mission
+9:27 control, loads of interesting things
+9:28 that I think you'll find valuable. But
+9:30 the core thing is I wouldn't run six or
+9:32 seven different assistants. I find it
+9:34 best to have one and doubleclick into
+9:36 that and give it all the strength and
+9:37 connections that it needs. Now this
+9:39 takes us onto another really cool
+9:40 feature in Hermes which is the goal
+9:42 feature. The idea being that you
+9:43 basically come down you can type in
+9:45 for/goal and you can give it a task. So
+9:48 for example I can say great what do you
+9:50 want to talk about and essentially the
+9:51 idea here is it lasts it persists for 20
+9:54 messages and Hermes will basically go
+9:56 will just keep on working until it
+9:58 solves the problem that you've got it.
+10:00 So goals is a great one. It's like a
+10:02 northstar. Like homies, for this
+10:03 session, for our conversation, I want
+10:05 you to focus on this thing. And you can
+10:07 actually 10x the forward/ goals by using
+10:10 something called a super goal. Now, a
+10:12 super goal is something that I built out
+10:13 because I basically spent days looking
+10:15 at this and I realized like goals are
+10:17 great, but they have one limitation,
+10:19 mainly that there's no human AI
+10:22 handshake, which means that if you say
+10:23 to Hermes, hey, I want to go and build a
+10:25 YouTube thumbnail for a video that I'm
+10:26 doing. it will keep going and it will
+10:28 give you an output or like if you you
+10:30 may give it a goal that requires you for
+10:32 example in this super goal system and by
+10:34 the way I'll put the full resources for
+10:36 you down below so you can literally grab
+10:38 the uh basically short goal skill which
+10:40 helps you write good short goal prompts
+10:41 and I'm also going to put down below for
+10:43 you the long goal skill so if you
+10:44 haven't got the dashboard basically what
+10:45 you can do is just use this system is
+10:48 basically a mega prompt that you put
+10:49 into Hermes and it it will basically
+10:51 break down any goal you've got into
+10:53 multiple bite-sized chunks and
+10:55 effectively what it does is assign
+10:57 transactions to either you or Hermes.
+11:00 For example, shape the course promise.
+11:01 Look, I can click into this and this has
+11:03 got one big task. And the goal here is
+11:06 launch Homies course to 500 signups.
+11:08 Cool. Say you want to launch course on
+11:09 Heromies. You love it. You want to show
+11:10 the people. Great. Well, to do that,
+11:12 there's actually six things that we need
+11:14 to do. And Heromy's agent will break
+11:15 those down. If you use that long prompt,
+11:17 if you're in my dashboard, you'll see
+11:18 you'll see something looks like this.
+11:20 And effectively, what it does is simple.
+11:21 I need to shape the course promise. I
+11:24 need to build the opt-in engine. I need
+11:25 to write the call sequence. Once that's
+11:28 happened, Jack, you actually need to go
+11:29 ahead and record the promo videos for
+11:30 it, bro. Interesting. So, you see how if
+11:33 we just used the standard goal feature,
+11:35 this never would have happened. So, by
+11:37 having this human AI handshake, we can
+11:39 connect together. This is really good
+11:40 for slightly longerterm goals. You see
+11:43 push final signups, 500 options
+11:44 verified, and when it's all done, it's
+11:46 all basically complete and you can check
+11:48 everything and it makes perfect sense.
+11:49 And remember, the goal feature is like a
+11:51 Ralph loop. it basically will just keep
+11:54 working and working and working until
+11:55 you define the output. So you need to
+11:57 make sure but it's specific. So for
+11:58 example, don't say I want to grow my
+12:00 business. I want to get a thumbnail that
+12:02 looks like this or I want a document
+12:04 that hits these criteria needs to be
+12:06 specific. And I'll put a link on screen
+12:08 for my full video breaking down if you
+12:09 want to check that out and learn a
+12:10 little bit more about it. And then this
+12:11 brings us really importantly onto the
+12:12 idea of models. So one of the cool
+12:14 things we can do in the Hermes is use
+12:16 our chat GPT subscription. But there's a
+12:18 brand new update which is very cool
+12:20 which is basically the ability to use
+12:22 our grom model again completely on the
+12:25 subscription. For example, if I come
+12:26 down here I have a do for/model I can
+12:29 actually see which model I'm talking to.
+12:31 And as you can see I'm now talking to X
+12:33 AI. So I can say something like hey
+12:35 there dude do me a favor just check and
+12:36 tell me what are the most viral tweets
+12:38 going live for Hermes in the last 48
+12:40 hours. This is by far one of the coolest
+12:43 biggest things you can do with X AI
+12:45 specifically in Grock because
+12:47 effectively it has access the entire X
+12:50 database which would need to basically
+12:52 grab from ampify or some of the means if
+12:54 we didn't have that. Now how you
+12:56 actually physically do that which I'll
+12:57 show you while it's working in the
+12:58 background. If you open up the terminal
+13:00 which you can do by command spacebar and
+13:03 then type in terminal and it will appear
+13:05 like a magic is what we can do is you
+13:07 can do Hermes space model like so. And
+13:10 this will show you all of the different
+13:12 models. Now the ones that you're going
+13:13 to want to have xi grock important
+13:16 literally you just hit enter and it will
+13:17 go through the oorthth experience opens
+13:19 a browser. You sign in then you're fully
+13:21 connected. It's awesome. The one that
+13:22 you're going to use most of the time
+13:23 though is going to be um you need open
+13:25 router. This will give you access to
+13:27 every model. Very freaking cool. We like
+13:29 that a lot. But of course for your
+13:30 day-to-day stuff, I recommend open AI
+13:32 codecs. I like to chat basically with
+13:35 called Opus 4.7. It's expensive and you
+13:38 do have to pay on API credits. But it
+13:40 just in terms of how it presents in the
+13:42 chat, there's nothing really better. You
+13:44 can just use OpenAI codeex, but I don't
+13:46 ever use Opus 4.7. You can use the
+13:49 Sonnet by the way. Sonic is just as like
+13:50 good in many respects to be fair. But
+13:52 basically, you never want to be doing
+13:53 any deep research with those powerful
+13:55 models cuz one of the cool things that
+13:57 you can do with Hermes is delegate,
+14:00 especially if you have something like I
+14:02 built called the Pantheon. Pantheon
+14:04 basically being the ability to create
+14:06 different tools for different missions.
+14:08 You can do this just by it's basically
+14:09 creating skills. I personally really
+14:11 like the ability to look at things
+14:12 visually. For example, if I've got
+14:14 Orpheus here who deeply reasons, I might
+14:16 use a more powerful model. If I'm doing
+14:18 like autopilot stuff and crown stuff, I
+14:20 can specify here basically what is the
+14:22 description of the job, what is the
+14:23 system prompt. It can go ahead and do
+14:25 this and you can leverage it. But even
+14:26 if you're just talking to um Hermes, you
+14:29 can be very specific about what models
+14:31 you want to do what, which is massively
+14:32 helpful. And I can come down here and
+14:34 look, it's coming down. It's even
+14:35 pushing about the integration. And with
+14:38 Hermes, you can say, "Hey dude, I want
+14:40 you to use Open Router and delegate to
+14:41 DeepSeek V4, okay? and just get it to go
+14:44 and do some deep research on what is the
+14:46 best place in the world to live. Cool.
+14:48 So, just as an a silly example,
+14:49 basically you can delegate these
+14:51 research tasks to any model you want to
+14:54 and that's how you really achieve this
+14:56 like insane level of performance without
+14:58 necessarily burning through your tokens.
+15:00 We specifically tag in the best model
+15:02 for the best job which leads on to
+15:05 another great update and this idea that
+15:06 we no longer have the Gemini CLI. Oh my
+15:09 gosh, Jack, what's going on with it?
+15:11 Well, they're deprecating it now. It
+15:13 exists as anti-gravity. So what does
+15:15 that mean? Well, I'll show you what it
+15:16 means. Okay, if I come down and let's
+15:18 create a brand new terminal and shut
+15:19 this one down. Effectively, anti-gravity
+15:22 is the new Gemini terminal. So, if I
+15:25 open up terminal, what this basically
+15:27 means is that we can access all of the
+15:29 Gemini models or basically the best
+15:30 Gemini model through this. If you come
+15:32 down and do a once you've installed it,
+15:34 you'll see it appears if you haven't
+15:37 installed this. And so, you can download
+15:38 the anti-gravity. I did a full video on
+15:40 this like literally a day ago. But if
+15:42 you come down and grab this link, I'll
+15:43 put it down below for you as well.
+15:45 Effectively, what you're going to do is
+15:46 come down and grab the anti-gravity CLI.
+15:49 Just copy that. Literally come over to
+15:51 your terminal, enter it in, and you'll
+15:52 be able to use it. And effectively, you
+15:54 do Google or AOTH, which is awesome.
+15:56 Opens up a new browser. You just go
+15:57 ahead and sign in. And then basically,
+15:58 you're fully connected to the
+15:59 anti-gravity CLI, and you can now use
+16:01 that within Hermes. So, say, for
+16:02 example, this is doing some work in the
+16:04 background, and it's going on too long.
+16:05 What I can actually do is for slashs
+16:07 stop and it kills everything. Cool. Then
+16:09 I can say, "Hey, I want to use the
+16:11 anti-gravity CLI to go ahead and quote
+16:15 for me a onepage website on selling
+16:18 websites. It looks gorgeous and
+16:19 beautiful." Something crazy like that.
+16:21 And I might just say use ag if it isn't
+16:24 aware. Now, this can use that CLI. Um
+16:27 the best use for the anti-gravity CLI
+16:31 remember Gemini multimodality reading
+16:34 looking at videos it can analyze videos
+16:37 long stuff like that very very cool but
+16:39 again like use Gemini for multimodality
+16:41 use chat GVT to review code and for
+16:44 design Opus 4.7 is still the king but we
+16:47 can tag in different models whenever we
+16:49 need to and so now we have this approach
+16:50 tagging in the best models one quick
+16:52 thing to call out on X is a million
+16:54 context window we like that a It's very
+16:56 very cool. But I think the coolest thing
+16:58 honestly is probably the fact it can
+17:00 just search X and if making any kind of
+17:02 content your ability to have your finger
+17:04 on the pulse of what's working, what
+17:05 isn't is really really valuable. So
+17:07 that's kind of the shining grace of
+17:09 Grock. Now this brings on to another
+17:11 really key thing that I found invaluable
+17:14 using Hermes and even code and that is
+17:16 the idea of having a mission control and
+17:19 operating system. I built this one. I
+17:22 actually spend over 7 hours specifically
+17:25 just on this onboarding that takes you
+17:27 through your operating system. It
+17:28 basically gets your photo and it
+17:30 actually identifies all the apps that
+17:32 sit on your computer. Now, you can build
+17:34 this one yourself, too. Obviously, if
+17:35 you want, you can grab this one from
+17:36 link below in the community. I spent a
+17:38 lot of time building it because I knew
+17:40 how valuable this thing actually is. But
+17:42 one of the cool things that I think is
+17:43 really important is tracking your usage
+17:45 on things, even if it didn't worth, and
+17:47 understanding the value of that. Now,
+17:48 one of the things that you want in any
+17:49 operating system is just to understand
+17:51 what your usage is. You want it to go
+17:53 ahead and dream and find things for you
+17:54 proactively. On the Hermy side
+17:56 specifically, one of the key things is
+17:58 this. Obviously, chatting is great. I
+18:00 want to know my memory. I want to know
+18:01 my average usage. I want to know what
+18:03 models. And look at this. It's now
+18:05 telling me I'm using Gro 4.3. And I can
+18:07 see which models I'm connected to.
+18:10 That's how cool this thing is. And it
+18:11 tells me all my open connections here at
+18:13 the top. And literally, when you connect
+18:14 here, guys, it will appear for you
+18:16 automatically. I can see my global
+18:18 connections here. That's how freaking
+18:19 cool this thing is. You can come down.
+18:21 This is where I talk to you about your
+18:23 goals, your long-term goals. I called
+18:24 this the Chief Wigum. Ralph Wigum was
+18:26 the kind of guy eating crayons in the
+18:28 corner. Mission control here. This idea
+18:30 of long-term goal planning is, I think,
+18:33 fantastic to have a visual interface.
+18:34 What that looks like. Obviously,
+18:36 building out your own systems, your own
+18:37 characters is really cool. And then the
+18:38 ability, which is really important,
+18:39 which I don't see enough people
+18:40 mentioning, is this idea of actually
+18:42 connecting your Hermes agent to GitHub.
+18:45 The reason we do this, and this is a
+18:46 task I have running every single day in
+18:48 Hermes, is it takes a complete snapshot
+18:50 every single day. People may not even
+18:52 know what this is anymore, right? Maybe
+18:53 they're like 16 or something, but taking
+18:54 a snapshot every single day of your
+18:56 Hermes and backing it up in a private
+19:00 GitHub. We do this because if we change
+19:02 our computers or something like that, we
+19:04 can always take our Hermes agent with us
+19:06 because it's stored privately in GitHub.
+19:09 GitHub is just a fancy word for place we
+19:11 store things. You know, this is an
+19:12 example of a power design skill that I
+19:14 made for beautiful designs. You know,
+19:16 this is an example of the GitHub repo.
+19:17 It's basically private and it stores
+19:19 everything there and you can just give a
+19:20 prompt to Hermes and it will store it
+19:23 and back it up so you've got it whenever
+19:24 you need it. And then with Hermes agent
+19:26 as well, there is also the ability to
+19:29 control your computer. In honesty, when
+19:31 I've played around with this, I've not
+19:33 really found myself using it too much.
+19:35 There aren't that many use cases, but it
+19:37 is really cool that you can ask it to do
+19:39 things by just saying, "Hey, use my
+19:40 computer and do various different things
+19:42 on your actual laptop." But I've not
+19:44 found myself going and using that a lot.
+19:46 So, I don't think it's like going to
+19:48 change your world, but it's cool that
+19:49 it's there and it's able to physically
+19:50 go ahead and do that. Now, the other
+19:52 thing that I just want to double click
+19:53 on here are probably 10 commands that
+19:55 you can use most frequently within
+19:56 Hemy's agent. Obviously, goal is key
+19:59 for/andoff to switch the model, persona,
+20:02 or platform. cron is if you want to do
+20:04 that. But obviously with a lot of these
+20:05 commands, if you're just using natural
+20:08 language, if Hermes is doing its job
+20:10 properly, properly, oh my gosh, how many
+20:11 coffees have I had today, guys? If it's
+20:13 doing it jobs properly, it should know
+20:14 what to do automatically, but you can
+20:16 spin it up clear. You know, steer is a
+20:18 really good one. So, for example, you
+20:19 can steer it in a direction without
+20:21 actually interrupting its task. That's
+20:23 really cool. Resumed to pick up a
+20:25 different session background. So, again,
+20:26 you could actually have a various
+20:28 different things and stack them up
+20:29 without interrupting it. canban for
+20:32 different multi- aent swarm boards um
+20:33 curator stop is really key and model
+20:36 just to switch those models manually if
+20:38 you want to then that brings us down to
+20:40 where should Hermes agent physically
+20:42 live I don't have a VPS to show you on
+20:45 this it doesn't make a big difference to
+20:47 me I honestly think running it on your
+20:50 computer is the best thing to do because
+20:52 I just found that it's easier honestly
+20:55 in a lot of respects I think it's also
+20:57 safer because if you're in the cl if
+20:59 you're in a VPS unless you tunnel it
+21:01 properly, you do all the correct
+21:02 security provisions, you know, there are
+21:04 people that can run like attacks on it.
+21:06 So, you can do it and be 100% safe. Of
+21:08 course, you can. I've shown you videos
+21:10 on exactly how to do that. But when it's
+21:12 on your own computer, when it's on your
+21:13 MacBook running over there on a laptop,
+21:15 if I was advising my brother or a paid
+21:17 consulting call, which I don't really do
+21:18 many of right now, but if someone asked
+21:20 me what would I do on my honest answer
+21:22 would be I think it's best to have your
+21:25 own Mac system or your own laptop and
+21:28 run it and have it running 24/7. It's
+21:30 insecured on your computer in your room.
+21:33 And if you're thinking, "That's cool,
+21:34 Jack, but I just don't want to expose it
+21:37 to loads of different files." Cool. You
+21:39 can use something called Docker. I
+21:41 covered it in my cloud masterass. And
+21:42 effectively, it creates, and this is the
+21:44 app that you want, is Docker.
+21:46 Effectively, what it let you do is
+21:47 create self-contained containers. As you
+21:50 might have guessed, they're like
+21:51 containers on your computer that run on
+21:52 your laptop, but are completely isolate.
+21:55 It's like having your house as your
+21:56 laptop or your MacBook. And effectively
+21:58 what what Docker is, it has a sealed off
+22:00 room that it lives in this kind of box
+22:02 and it cannot access anything else on
+22:04 your computer apart from what you have.
+22:06 So you can use something like Docker and
+22:08 just run Hermes in Docker if you want
+22:10 to, but honestly I run mine on my
+22:11 desktop personally. You can run in VPS
+22:13 if that's what you want to, but just be
+22:15 aware of your options. You don't have to
+22:16 run this in the cloud. And in fact,
+22:19 there's some things that just adds more
+22:20 complications. Like if all of your
+22:22 memory systems and Obsidian are on your
+22:24 computer, you can do that. If not, you
+22:26 have to connect it in different ways.
+22:27 Again, completely possible. I just think
+22:29 it's more straightforward to run it on
+22:30 your computer. And then with Hermes,
+22:32 just bear in mind, you've also got
+22:33 access to different messaging platforms,
+22:34 model providers, web search, loads of
+22:36 different terminal backends, so many
+22:37 different tools. And the other one I
+22:39 would just call it actually is when it's
+22:40 accessing the internet. The tool that I
+22:42 always use to integrate with this is
+22:43 something called firecrol. Web pages are
+22:45 basically HTML. Firecrawl can cut our
+22:47 costs down by 80%. And it's basically
+22:50 like a gentic web search. It's super
+22:52 powerful. It just always seems to get me
+22:54 the best information I need. So, this is
+22:55 what I tend to use for internet search
+22:56 when I'm going ahead and doing any kind
+22:58 of scraping online. But then this takes
+23:00 us on to probably the most powerful
+23:03 underrated connection that you could
+23:05 possibly make within Hermes Agent. And
+23:08 that's connecting it to the world's most
+23:09 powerful intelligence and research
+23:11 platform that unlocks new capabilities
+23:13 that most people don't even know exist.
+23:15 And we're going to learn that and do
+23:17 that by watching this video right

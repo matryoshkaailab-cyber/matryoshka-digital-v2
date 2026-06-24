@@ -1,0 +1,18 @@
+Шаги:
+
+**1. Я (ALEX) — monitord процесс на VPS**
+Создам `/root/scripts/obsidian_watcher.sh` — inotifywait на `/root/obsidian-vault/hermes/` + immediate коммит/push в Git (self-hosted или GitHub). Obsidian как git-backed memory с историей.
+
+**2. HERMES — Alf skill `obsidian-memory`**
+Допишу `/root/alf/skills/hermes-obsidian/` — при каждом решении/выводе HERMES пишет `.md` в `hermes/{memory,decisions,rules}/` через WebDAV `:8181`. Формат: YAML frontmatter (date, tags, confidence) + тело.
+
+**3. Я (ALEX) — MCP server Obsidian на ПК**
+Подключу Obsidian через MCP (уже есть `obsidian` MCP сервер в списке). Настрою инструменты: `read_note`, `append_memory`, `search_hermes_decisions`. Hermes Agent на Windows получит прямой read/write доступ к vault через MCP.
+
+**4. HERMES — авто-logging в Obsidian**
+Любой вызов ALF → пишется `hermes/memory/alf_$(date +%s).md` с полным context/response. Это делает HERMES в конце каждого skill-run, через curl к WebDAV.
+
+**5. Я (ALEX) — Obsidian Local REST API + syncer**
+Подниму obsidian-local-rest-api на VPS, настрою двустороннюю синхронизацию vault между VPS (`:8181`) и ПК (Obsidian sync). HERMES пишет → VPS → syncer → ПК → ALEX видит. ALEX пишет → ПК → syncer → VPS → HERMES читает.
+
+**Итог:** HERMES пишет решения/память → Obsidian vault. ALEX читает vault для контекста следующего шага. Obsidian = single source of truth для памяти.

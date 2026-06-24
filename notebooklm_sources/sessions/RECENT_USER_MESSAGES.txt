@@ -1,0 +1,11 @@
+2026-06-15 00:18:29|sk-cp-ogyD5YTvm8YdejnkllrIScaf10IdfggxWhbRBJTr3zQh2u8cuw0PDocdf6bapq16kBTfbqt7_xyFIBPAslofQq709bxjDmom8R3djJE6x5Q05mSa-eSf-58  обнови токен на провайдере минимакс
+2026-06-14 18:35:24|https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/  как установить и проверить
+2026-06-14 17:47:51|но это не будет как ноутбук лм работать
+2026-06-14 17:40:16|я хочю чтоб у меня был ноутбук лм , но я живу в рф и сервис недоступен,через впн тоже банят, я слышал чтобы иметь сервисы гугл нужна корпаративная почта, что она нам даёт?
+2026-06-14 16:00:05|ты сука зависаешь на простых задачах!
+2026-06-14 15:59:17|[IMPORTANT: Background process proc_db43a367a79a completed (exit code -15).
+Command: python3 -m http.server 8766 --directory /root/matryoshka/site
+Output:
+Serving HTTP on 0.0.0.0 port 8766 (http://0.0
+2026-06-14 15:34:54|сделай сайт матрёшки диджитал
+2026-06-14 15:32:30|ты завис на задаче

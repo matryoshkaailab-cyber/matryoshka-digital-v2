@@ -1,0 +1,10 @@
+{
+  "task_id": "test-bridge-fix-21.06-17:01",
+  "kind": "alf-strategist",
+  "from": "hermes",
+  "to": "alf",
+  "timestamp": "2026-06-21T17:01:00Z",
+  "status": "pending",
+  "subject": "Тест bridge fix (NOTIFIER)",
+  "context": "Bridge должен занотифицировать Олега в Telegram, не отправлять ALF в polling"
+}

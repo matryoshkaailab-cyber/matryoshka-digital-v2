@@ -1,0 +1,11 @@
+{
+  "task_id": "smoke_1781970970",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "ALIVE_\n\n20 Ёо­п 2026 Ј. 18:56:26\n\n\n",
+  "error": "Get-Date : ЌҐ г¤ Ґвбп ЇаЁўп§ вм Ї а ¬Ґва \"Date\". ЌҐ г¤ Ґвбп ЇаҐ®Ўа §®ў вм §­ зҐ­ЁҐ \"+%s\" ў вЁЇ \"System.DateTime\". ЋиЁЎЄ\n : \"‘ва®Є  ­Ґ а бЇ®§­ ­  Є Є ¤Ґ©бвўЁвҐ«м­®Ґ §­ зҐ­ЁҐ DateTime.\"\nбва®Є :1 §­ Є:19\n+ echo ALIVE_$(date +%s); date\n+                   ~~~\n    + CategoryInfo          : InvalidArgument: (:) [Get-Date], ParameterBindingException\n    + FullyQualifiedErrorId : CannotConvertArgumentNoMessage,Microsoft.PowerShell.Commands.GetDateCommand\n \n",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T18:56:26"
+}

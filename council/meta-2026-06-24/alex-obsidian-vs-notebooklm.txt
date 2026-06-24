@@ -1,0 +1,20 @@
+**ALEX OPINION — аудит NotebookLM → Obsidian**
+
+---
+
+**1. Стоит ли заменить?** — Да, но НЕ как NotebookLM killer, а как primary knowledge store. NotebookLM — Google-зависим, закрытый, без API для автоматизации. Obsidian — локальный, WebDAV (:8181 жив), ALF уже умеет с ним работать (скилл `note-taking/obsidian`). Минус: в Obsidian нет встроенного RAG (поиска по смыслу). ALF librarian P2 висел как отложенный — это и есть недостающий кусок. **Вывод: замена оправдана, только если доделать поиск.**
+
+**2. Что в ваулте сейчас:** 3.2 MB, 20+ папок — это **операционка** HERMES/ALF: daily notes, changelog, alerts, tasks, leads, clients, avito_parser, alex_tasks. Это логи работы, не техническая документация. Для RAG Альфа — слабо, для контекста HERMES — самое то.
+
+**3. Пересечение с NotebookLM (33 источника):** Минимальное. В NotebookLM были: архитектура matryoshka, server configs, stack decisions, coding conventions, промпты, workflow схемы, скрипты развертывания. В Obsidian — AGENTS.md (v4.0), changelog, daily. Технические документы в Obsidian **отсутствуют**.
+
+**4. Сложность миграции:** **Низкая** (файлы) + **Высокая** (функционал). Экспорт 14 NotebookLM источников в MD → копия в vault — 30 минут. Но RAG-фича NotebookLM (AI search across documents) теряется. Её нужно восполнять — ALF librarian endpoint :7461. Это писалось как P2 и откладывалось.
+
+**5. В Альфа или в HERMES:** **В HERMES** — потому что Obsidian уже там (v4.0, "Контекст: Obsidian + session_search"). Альфа использует другой контекст (скорее system prompt + сессионная память). Obsidian для Альфа — не та структура (операционка, не FAQ/документация). А вот для HERMES как memory layer — идеально.
+
+**6. План:**
+1. **Доделать ALF librarian** (endpoint :7461, vector search по Obsidian WebDAV) — это закрывает RAG-дыру
+2. **Перенести 14 NotebookLM файлов** в Obsidian vault, структурировать папками `/docs/architecture/`, `/docs/guides/`, `/docs/server/`
+3. **HERMES v4.0 уже использует** Obsidian — просто убедиться, что `session_search` ходит в librarian
+4. **Альфа RAG делать отдельно** — не на Obsidian, а на чистом векторном индексе (Chroma/Qdrant) по его специфическим документам
+5. **NotebookLM выключить** после п.2-3

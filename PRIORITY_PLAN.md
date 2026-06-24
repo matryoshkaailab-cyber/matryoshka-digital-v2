@@ -1,3 +1,14 @@
+# ⚠️ DEPRECATED 2026-06-16 — ФЕЙКИ
+# Этот файл содержит УСТАРЕВШИЕ данные: агенты ILON/OpenClaw (не существуют),
+# VPN UUID 4ea33e69 / SNI microsoft (ВЫДУМАННЫЕ — реально SNI=www.google.com),
+# Hermes v0.15.1 / MiniMax-M2.7 (НЕ СУЩЕСТВУЕТ — v0.16.0 / MiniMax-M3).
+# НЕ ИСПОЛЬЗОВАТЬ как источник истины.
+# Источник правды: /root/matryoshka/AGENTS.md + /root/matryoshka/SOUL.md
+# Holographic memory: fact #28 (warnings о фейках)
+# Skill автопроверки: soul-fake-detection
+# Если нужна актуальная инфа — перегенерируй документ или спроси Hermes.
+# ────────────────────────────────────────────────────────────────────────
+
 # PRIORITY PLAN — MATRYOSHKA DIGITAL
 # P0 — КРИТИЧЕСКИЙ | Создан: 2026-05-20
 
@@ -35,7 +46,6 @@
 ## ЭТАП 3: СТАБИЛИЗАЦИЯ VPS — ✅ ЗАВЕРШЁН
 - [x] Swap увеличен с 512MB до 2GB ✅
 - [x] Диск очищен: /tmp мусор, journal logs, старые sqlite, логи ✅
-- [x] ЭКЛЕР: RestartSec=30 добавлен, polling conflict исправлен, стабильно ✅
 
 ## ЭТАП 4: БЕЗОПАСНОСТЬ — ✅ ЗАВЕРШЁН
 - [x] .env удалён из git истории (filter-branch, 3 коммита очищены) ✅
@@ -46,7 +56,7 @@
 - [x] ALF запущен — systemd service hermes-alf, порт 8451 ✅
 - [x] Все 4 TG токена обновлены, боты работают ✅
   - HERMES: @oleg_industry_bot (8534368502) — active ✅
-  - ECLER: @ZarnyAlexaBot (8742110462) — active ✅
+  - ALINA: @NikolaAlinaBot (8742110462) — active ✅
   - ALF: @IlonAnalyticBot (8941776316) — active ✅
   - ALISA: @AlisaMatryBot (8960236150) — active ✅
 
@@ -66,18 +76,18 @@
 ### Команда — 3 РОЯ
 
 **⚪ Белый Рой (Мозг):**
-- HERMES — Дирижёр Оркестра (VPS, MiniMax-M2.7, оплачен)
+- HERMES — Дирижёр Оркестра (VPS, MiniMax-M3, оплачен)
 - ALF (бывш. АЛАН) — Стратег (VPS, порт 8451, MVP)
 
 **🔵 Синий Рой (Система):**
 - ALEX — Технический инженер (Windows ПК, opencode, OpenCode Zen)
 
 **🔴 Красный Рой (Витрина):**
-- ECLER — Разведчик / Ассистент Натальи (VPS, @ZarnyAlexaBot, MiniMax-M2.7)
+- ALINA — Разведчик / Ассистент Натальи (VPS, @NikolaAlinaBot, MiniMax-M3)
 - ALISA — Маркетинг / Контент (@AlisaMatryBot, DeepSeek V4 Flash, отложена)
 
 ### Цепочка управления
-ОЛЕГ (Директор) → HERMES (Дирижёр) → ALEX / ECLER / ALF / ALISA
+ОЛЕГ (Директор) → HERMES (Дирижёр) → ALEX / ALINA / ALF / ALISA
 
 ### Провайдеры на ПК (5 шт, 330+ моделей)
 - opencode (Zen) — ОСНОВНОЙ — qwen3.6-plus-free, claude-*, gemini-*, kimi-*, nemotron-*
@@ -101,7 +111,7 @@
 - [ ] Чистка токенов в git history — нужен git filter-repo
 - [ ] 8448/8449/8451 — диагностика «service running, port not listening»
 - [ ] SSH-ключи вместо пароля root + rotation токенов
-- [ ] ECLER state.db миграция на РФ VPS — ❌ ОТЛОЖЕНО (риск принят)
+- [ ] ALINA state.db миграция на РФ VPS — ❌ ОТЛОЖЕНО (риск принят)
 
 ### РЕШЕНИЯ ОЛЕГА (23.05.2026)
 - **DATALINK PRO** → сначала бесплатно, потом платный SaaS

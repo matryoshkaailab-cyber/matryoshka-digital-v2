@@ -1,0 +1,15 @@
+{
+  "schema_version": "v4.0",
+  "owner": "alf",
+  "status": "pending",
+  "created_at": "2026-06-21T02:37:20",
+  "timeout": 60,
+  "task_id": "bridge-test-2026-06-21-001",
+  "from": "hermes-test",
+  "task": {
+    "type": "ping",
+    "priority": "high",
+    "subject": "PONG test from bridge",
+    "details": "ALF, simple ping test. Reply with 'PONG via bridge' if you receive this."
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "task_id": "def_test_1781986495",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "WRITE_OK\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T23:15:09"
+}

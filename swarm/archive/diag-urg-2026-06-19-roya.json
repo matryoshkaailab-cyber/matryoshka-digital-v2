@@ -1,0 +1,159 @@
+﻿{
+  "task_id": "diag-urg-2026-06-19-roya",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-19T19:25:00",
+  "diagnosis_summary": "Worker v2 SCP upload РАБОТАЕТ. Ответы e2e-roya ДОШЛИ до VPS. Проблема не в transport — а в (a) формате payload + (b) legacy-ожидании .hermes_result.json + (c) 3 параллельных worker'ах race condition.",
+
+  "log_tail_20": [
+    "[2026-06-19T17:59:26] done probe_e2e_004 ok=False out_len=0",
+    "[2026-06-19T17:59:27] response pushed: probe_e2e_004 ok=False",
+    "[2026-06-19T17:59:27] ssh_rm FAIL /root/matryoshka/swarm/inbox/alex/probe_e2e_004.json: [Errno 2] No such file",
+    "[2026-06-19T18:30:42] executing proof_live_001: Write-Output 'PROOF_OK: ...'",
+    "[2026-06-19T18:30:42] done proof_live_001 ok=True out_len=87",
+    "[2026-06-19T18:30:43] response pushed: proof_live_001 ok=True",
+    "[2026-06-19T18:40:16] === ONE-SHOT DIAGNOSTIC RUN (--once) ===",
+    "[2026-06-19T18:40:18] inbox list (0): []",
+    "[2026-06-19T18:40:18] inbox empty — nothing to process",
+    "[2026-06-19T18:40:18] === DIAG DONE in 2.1s ===",
+    "[2026-06-19T18:43:17] response pushed: e2e-ping-2026-06-19 ok=False",
+    "[2026-06-19T18:43:18] response pushed: e2e-ping-2026-06-19 ok=False",
+    "[2026-06-19T18:43:18] ssh_rm FAIL .../e2e-ping-2026-06-19.json: [Errno 2] No such file",
+    "[2026-06-19T18:46:06] ALEX HERMES Worker v2 (swarm mode) started",
+    "[2026-06-19T18:46:06] polling VPS:/root/matryoshka/swarm/inbox/alex every 15s",
+    "[2026-06-19T18:58:56] response pushed: e2e-roya-2026-06-19 ok=False",
+    "[2026-06-19T18:58:56] scp_get FAIL .../e2e-roya-2026-06-19.json: [Errno 2] No such file",
+    "[2026-06-19T19:01:46] response pushed: e2e-roya-2-2026-06-19 ok=False",
+    "[2026-06-19T19:01:46] main loop error: [WinError 32] ... 'C:\\Users\\User\\AppData\\Local\\Temp\\opencode\\swarm_cache\\out_e2e-roya-2-2026-06-19.json'",
+    "[2026-06-19T19:01:46] response pushed: e2e-roya-2-2026-06-19 ok=False"
+  ],
+
+  "outbox_files": {
+    "expected_local_path": "C:\\matryoshka\\swarm\\outbox\\alex\\",
+    "actual_local_path": "DIR_NOT_FOUND",
+    "explanation": "Worker v2 использует НЕ C:\\matryoshka\\swarm\\, а C:\\Users\\User\\AppData\\Local\\Temp\\opencode\\swarm_cache\\ (см. строку 39 worker.py: LOCAL_CACHE). Outbox-файлы создаются как out_<task_id>.json, SCP-заливаются на VPS, затем удаляются локально. Сейчас в cache остались только входы (e2e-roya=0B, e2e-roya-2=71B).",
+    "cache_contents_relevant": [
+      {"file": "e2e-roya-2026-06-19.json", "size": 0, "mtime": "2026-06-19T18:58:56", "note": "ZERO BYTES — задача получена пустой из-за race (параллельный worker уже сделал ssh_rm в момент scp_get); parse fail → task=None"},
+      {"file": "e2e-roya-2-2026-06-19.json", "size": 71, "mtime": "2026-06-19T19:01:46", "note": "Содержит {task_id, cmd: 'echo ROYA_BASH_OK'} — НЕТ поля 'command'! Worker ищет task.get('command'), находит ''"}
+    ],
+    "vps_outbox_alex": "EMPTY — нормальное поведение. HERMES забирает ответы из outbox и перемещает в archive/.",
+    "vps_archive": [
+      "e2e-ping-2026-06-19.json (17:58) — task_id:e2e-ping, ok:false, error:'no command in task'",
+      "e2e-roya-2026-06-19.json (17:58) — task_id:e2e-roya, ok:false, error:'no command in task'  ← ОТВЕТ ДОШЁЛ",
+      "e2e-roya-2-2026-06-19.json (18:01) — task_id:e2e-roya-2, ok:false, error:'no command in task'  ← ОТВЕТ ДОШЁЛ"
+    ],
+    "vps_inbox_alex": "EMPTY — worker всё зачистил через ssh_rm после process_task"
+  },
+
+  "scp_upload_ok": true,
+  "scp_evidence": "Все три ответа (e2e-ping, e2e-roya, e2e-roya-2) лежат в /root/matryoshka/swarm/archive/ с finished_at от worker'а, from:'alex', executed_by:'ALEX'. То есть push через sftp.put на VPS /root/matryoshka/swarm/outbox/alex/<task_id>.json ОТРАБОТАЛ, после чего HERMES скопировал их в archive/.",
+
+  "archive_timed_out_explanation": "timed_out/ — отдельная подпапка archive/ для задач, помеченных HERMES как TIMEOUT (worker не ответил в течение N секунд). e2e-ping попала туда, потому что worker первый раз ответил с задержкой/неудачей, и HERMES пометил её как timeout ДО того, как реальный push долетел. Потом push всё-таки дошёл, и файл лег ДУБЛИКАТОМ в основной archive/. e2e-roya НЕ попала в timed_out, потому что push прошёл в первый раз быстро (18:58:56 — единственная попытка, без timeout).",
+
+  "diagnosis": {
+    "root_cause_1_WORKER_BUG": {
+      "severity": "HIGH",
+      "description": "Worker v2 (C:\\Scripts\\alex_hermes_worker.py:210) ищет поле 'command' в задаче: command = task.get('command', ''). Но HERMES шлёт задачи в формате {task_id, cmd: '...'} (поле называется 'cmd', не 'command'). Worker всегда возвращает error='no command in task' с ok=False — даже когда задача валидна.",
+      "evidence": "Локальный cache e2e-roya-2-2026-06-19.json: {task_id:'e2e-roya-2-2026-06-19', cmd:'echo ROYA_BASH_OK'} — нет поля 'command'. Worker ответил 'no command in task'."
+    },
+    "root_cause_2_LEGACY_PATH_EXPECTATION": {
+      "severity": "MEDIUM",
+      "description": "Олег/HERMES ожидают ответ в локальном .hermes_result.json. Но worker в swarm mode НИКОГДА туда не пишет — это LEGACY путь. Актуальный канал ответа — VPS /root/matryoshka/swarm/outbox/alex/<task_id>.json. После прочтения HERMES перемещает в archive/. Локальный .hermes_result.json обновляется только если используется legacy-режим (читается .hermes_task.json и пишется .hermes_result.json) — в текущем swarm-worker этого нет.",
+      "evidence": "Все swarm-задачи в VPS archive/ имеют from:'alex', to:'hermes', status:'done' — это и есть 'ответ', просто не в legacy-формате."
+    },
+    "root_cause_3_RACE_CONDITION": {
+      "severity": "HIGH",
+      "description": "Запущены 3 параллельных worker-процесса (PID 9684, 18360, 19180), все поллят один и тот же VPS inbox. При появлении задачи все 3 скачивают её почти одновременно. Два проблемных эффекта: (a) WinError 32 — file lock на C:\\Users\\User\\AppData\\Local\\Temp\\opencode\\swarm_cache\\out_<task_id>.json (видно в логе для e2e-roya-2), (b) файл в cache получается 0 байт (e2e-roya-2026-06-19.json — 0B), потому что один worker уже сделал ssh_rm пока другой scp_get'ил.",
+      "evidence": "[2026-06-19T19:01:46] main loop error: [WinError 32] ... 'C:\\Users\\User\\AppData\\Local\\Temp\\opencode\\swarm_cache\\out_e2e-roya-2-2026-06-19.json'"
+    },
+    "root_cause_4_STALE_SFTP": {
+      "severity": "LOW",
+      "description": "Worker держит один _SSH_CLIENT/_SFTP_CLIENT в глобале без периодического реконнекта между push-операциями. При длительном polling (POLL_INTERVAL=15s) SFTP-сессия может быть killed by NAT/firewall/idle-timeout. scp_put может вернуть True при обрыве (paramiko кэширует) или проглотить ошибку.",
+      "evidence": "Косвенно — нет явных scp_put FAIL в логе, но archive содержит только ответы с момента последнего рестарта worker'а (18:46)."
+    }
+  },
+
+  "fix": {
+    "immediate_patches": [
+      {
+        "name": "FIX-1: worker должен принимать оба поля (command ИЛИ cmd)",
+        "file": "C:\\Scripts\\alex_hermes_worker.py",
+        "line": 210,
+        "old": "command = task.get(\"command\", \"\")",
+        "new": "command = task.get(\"command\") or task.get(\"cmd\") or \"\""
+      },
+      {
+        "name": "FIX-2: уникальные tmp-файлы + verify after push",
+        "file": "C:\\Scripts\\alex_hermes_worker.py",
+        "lines": "198-203",
+        "new_logic": [
+          "import os",
+          "local_out = LOCAL_CACHE / f\"out_{task_id}_{os.getpid()}.json\"",
+          "remote_tmp = f\"{VPS_SWARM_OUTBOX}/.{task_id}.{os.getpid()}.json.tmp\"",
+          "remote_out = f\"{VPS_SWARM_OUTBOX}/{task_id}.json\"",
+          "if scp_put(local_out, remote_tmp):",
+          "    # verify upload",
+          "    sftp = _get_sftp()",
+          "    try:",
+          "        sftp.stat(remote_tmp)",
+          "        sftp.rename(remote_tmp, remote_out)",
+          "        log(f\"response pushed: {task_id} ok={ok}\")",
+          "        local_out.unlink(missing_ok=True)",
+          "    except Exception as ve:",
+          "        log(f\"VERIFY FAIL {task_id}: {ve}\")",
+          "else:",
+          "    log(f\"FAILED to push response: {task_id}\")"
+        ]
+      },
+      {
+        "name": "FIX-3: SFTP reconnect before push",
+        "file": "C:\\Scripts\\alex_hermes_worker.py",
+        "lines": "124-131",
+        "new_logic": "def scp_put(...):\n    global _SFTP_CLIENT\n    try: _SFTP_CLIENT.close()\n    except: pass\n    _SFTP_CLIENT = None\n    return _orig_scp_put(local_path, remote_path)"
+      },
+      {
+        "name": "FIX-4: убить лишние worker'ы",
+        "commands": [
+          "Stop-Process -Id 9684 -Force   # Python314 worker #1",
+          "Stop-Process -Id 19180 -Force  # Python312 worker #3",
+          "Оставить только PID 18360 (Python312, started 18:46:06)"
+        ],
+        "note": "Перед kill убедиться что PIDs не перезапустятся автоматически через supervisor. Если supervisor поднимает worker — настроить только 1 инстанс."
+      }
+    ],
+    "long_term": [
+      "HERMES должен подтверждать приём ответа (ack из outbox → archive) и слать ALEX'у .hermes_result.json-update через тот же swarm, если нужен legacy-формат.",
+      "Worker должен иметь supervisor с лимитом = 1 instance и auto-restart.",
+      "Добавить file-locking (fcntl/msvcrt) на critical section для совместимости, если когда-либо понадобится >1 worker."
+    ]
+  },
+
+  "vps_state_snapshot": {
+    "checked_at": "2026-06-19T19:25",
+    "swarm_inbox_alex": "EMPTY",
+    "swarm_outbox_alex": "EMPTY (нормально — HERMES забрал ответы)",
+    "swarm_archive": [
+      "e2e-ping-2026-06-19.json", "e2e-roya-2026-06-19.json", "e2e-roya-2-2026-06-19.json",
+      "probe_001.json ... probe_e2e_004.json", "proof_live_001.json",
+      "task_*.json (15+ файлов)", "EMERGENCY-fix-worker-amneziawg.json",
+      "fix-acp-runtime-config-2026-06-19.json", "test-legacy-2-swarm-001.json"
+    ],
+    "swarm_archive_timed_out": [
+      "e2e-real-1781871941.json", "e2e-test-1781871889.json",
+      "EMERGENCY-fix-worker-amneziawg.json", "fix-acp-runtime-config-2026-06-19.json",
+      "hermes-lying-3agent-1781871696.json", "legacy.json",
+      "task_openrouter_research.json", "test-legacy-2-swarm-001.json"
+    ]
+  },
+
+  "running_workers": [
+    {"pid": 9684, "python": "C:\\Python314\\python.exe", "started": "2026-06-19T17:50:37", "note": "ДУБЛЬ — убить"},
+    {"pid": 18360, "python": "Python312", "started": "2026-06-19T18:46:06", "note": "ОСНОВНОЙ (worker v2 swarm mode) — оставить"},
+    {"pid": 19180, "python": "Python312", "started": "2026-06-19T17:52:55", "note": "ДУБЛЬ — убить"}
+  ],
+
+  "answer_to_q5": "Worker v2 ЖИВ и ОБРАБАТЫВАЕТ, ответ ДОХОДИТ до VPS (доказательство: файлы в /root/matryoshka/swarm/archive/e2e-roya*.json с finished_at от worker'а, from:'alex'). HERMES забирает ответы из outbox/alex/ и перемещает в archive/. Сейчас outbox/alex/ пуст — это НОРМАЛЬНО. .hermes_result.json локально НЕ обновляется потому что worker в swarm mode НЕ пишет в этот legacy-путь. Настоящие причины не-исполнения: (1) bug: task.get('command') ищет 'command', а HERMES шлёт 'cmd' → worker возвращает ok=False, error='no command in task'; (2) race: 3 параллельных worker'а → WinError 32 на локальном out_ файле; (3) zero-byte race: один worker делает ssh_rm пока другой scp_get'ит → файл в cache 0 байт → parse fail."
+}

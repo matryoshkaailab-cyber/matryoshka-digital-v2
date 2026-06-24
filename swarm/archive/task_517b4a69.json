@@ -1,0 +1,11 @@
+{
+  "task_id": "task_517b4a69",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "Gateways:\n  вњ— default (current)        вЂ” not running\n  вњ— alex                     вЂ” not running\n  вњ“ alf                      вЂ” PID 2372137\n  вњ“ alina                    вЂ” PID 2334357\n  вњ— alisa                    вЂ” not running\n  вњ“ hermes-cli               вЂ” PID 2128970\n  вњ— hermes-orchestrator      вЂ” not running\n  вњ— nikolay                  вЂ” not running\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-18T01:17:32"
+}

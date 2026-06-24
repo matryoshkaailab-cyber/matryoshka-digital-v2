@@ -1,0 +1,72 @@
+{
+  "task": "Оценить алгоритм Олега (10 шагов: SURF на GitHub+docs → 3 независимых анализа → 3 плана → выбор лучшего → утверждение → подпись)",
+  "sources": [
+    {
+      "url": "https://github.com/DIVYANSH-675/LLM-Council",
+      "type": "github",
+      "note": "Multi-Agent AI Decision System, специализированные агенты + независимые судьи"
+    },
+    {
+      "url": "https://github.com/hideki5123/multi-agent-council",
+      "type": "github",
+      "note": "Round 1: Independent Opinions → Round 2: Cross Review (ровно паттерн Олега!)"
+    },
+    {
+      "url": "https://github.com/focuslead/ai-council-framework",
+      "type": "github",
+      "note": "Research-backed, 'near-zero identity hallucination across 7 AI models'"
+    },
+    {
+      "url": "https://github.com/andrewvaughan/agent-council",
+      "type": "github",
+      "note": "13 personas, 6 councils (security, arch, quality, ops, UX)"
+    },
+    {
+      "url": "https://github.com/nityatimalsina/council-consensus-based-agent-framework",
+      "type": "github",
+      "note": "Consensus mechanism, quality > speed"
+    },
+    {
+      "url": "https://arxiv.org/abs/2504.02128",
+      "type": "arxiv",
+      "note": "Multi-Agent Deliberation = unanimous consensus"
+    },
+    {
+      "url": "https://research.google/pubs/multi-agent-system-for-cognitive-work-automation-using-an-adversarial-review-panel",
+      "type": "google",
+      "note": "Google Research: adversarial review panel для quality control"
+    },
+    {
+      "url": "https://www.nature.com/articles/s41598-026-42705-7",
+      "type": "nature",
+      "note": "WARNING: persuasion-induced adversarial influence снижает accuracy 10-40%"
+    },
+    {
+      "url": "https://www.digitalapplied.com/blog/multi-agent-orchestration-5-patterns-that-work",
+      "type": "article",
+      "note": "5 production patterns 2026: fan-out, pipeline, debate, supervisor, swarm"
+    },
+    {
+      "url": "https://openreview.net/forum?id=i95lcR2GN5",
+      "type": "openreview",
+      "note": "CRITICAL: single-agent can match homogeneous multi-agent (KV cache)"
+    }
+  ],
+  "key_findings": [
+    "Hideki multi-agent-council = independent → cross review = ровно паттерн Олега",
+    "Focuslead: 'structured disagreement consistently producing better analysis than any single AI'",
+    "3-round pattern: independent analysis → cross-examination → final (SkillsLLM)",
+    "Google ARP: adversarial review panel (ровно 'адвокат дьявола')",
+    "Microsoft Copilot Council = ~2.5x cost (цена multi-agent)",
+    "Nature WARNING: 'persuasion-induced adversarial influence' = 10-40% accuracy drop",
+    "Single-agent vs multi-agent: homogeneous multi = single + KV cache (т.е. не улучшает)",
+    "Anthropic Claude Managed Agents (8 April 2026) = production state-of-the-art"
+  ],
+  "questions": [
+    "1) Насколько алгоритм Олега актуален vs industry state-of-the-art?",
+    "2) Что совпадает с patterns 2026? Что уникально?",
+    "3) Главные риски (persuasion attacks, cost, overhead)?",
+    "4) Как улучшить, что добавить/убрать?",
+    "5) Где это уже используется в production (примеры)?"
+  ]
+}

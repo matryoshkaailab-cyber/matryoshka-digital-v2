@@ -1,0 +1,17 @@
+{
+  "task_id": "alf-fix-20260620-030921",
+  "from": "hermes",
+  "to": "alex",
+  "subject": "ALF gateway циклически падает — починить",
+  "command": "см. context + details_file",
+  "context": "ALF (systemd unit `hermes-gateway-alf.service`, профиль `alf`) циклически падает каждые 9-35 мин. Порт :8451 не слушает. @IlonAnalyticBot молчит. Олег ждёт.\n\nГЛАВНАЯ ПРИЧИНА exit 1: HTTP 429 Token Plan usage limit на MiniMax-M3 (контекст ~103K токенов на сессию). То же что у HERMES вчера.\nВТОРАЯ: /opt/hermes-bin/final_flush.sh не существует → 203/EXEC на каждом stop.\nТакже: opencode на твоём ПК по config использует minimax/MiniMax-M3 — может упираться в ту же 429.\n\nСвязь VPS↔PC проверена: AmneziaWG жив, ACP :4096 отвечает, opencode/deepseek-v4-flash-free работает за 3 сек.\nВАЖНО: alex_send.sh helper содержит баг — providerID='deepseek' вместо 'opencode'. Ad-hoc вызовы через helper молча возвращают exit 1.\nСейчас swarm_poller тоже был сломан (UTF-8 BOM в outbox файле с ПК), починил → utf-8-sig.\n\nПолный live-check от HERMES в /tmp/alf_task_for_alex.md (4.4 KB).\nНе общайся с Олегом — результат пиши в /root/matryoshka/swarm/outbox/alex/<task_id>.json.",
+  "details_file": "/tmp/alf_task_for_alex.md",
+  "timeout": 900,
+  "priority": "P1",
+  "created_at": "2026-06-20T03:09:21",
+  "expected_response": {
+    "what_found": "что ещё нашёл помимо HTTP 429 и missing final_flush.sh",
+    "what_fixed": "что конкретно починил + команды",
+    "what_remains": "что осталось / требует одобрения Олега"
+  }
+}

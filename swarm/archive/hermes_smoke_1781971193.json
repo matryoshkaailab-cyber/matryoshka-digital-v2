@@ -1,0 +1,11 @@
+{
+  "task_id": "hermes_smoke_1781971193",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "PONG\n\n20 Ёо­п 2026 Ј. 19:00:03\nwin-ohdom31gc8p\\user\nWIN-OHDOM31GC8P\n\n\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T19:00:03"
+}

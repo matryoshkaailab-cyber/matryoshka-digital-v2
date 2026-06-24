@@ -1,0 +1,337 @@
+0:00 Hermes' Agents new goals update just
+0:02 dropped and it turns Hermes into a true
+0:04 24/7 AI employee for free. Imagine
+0:07 telling your AI agent exactly what you
+0:10 want done, walking away, and coming back
+0:12 to find it completely finished. That's
+0:13 exactly what Hermes' Agents new goals
+0:15 update just made possible and it's free,
+0:18 which means that you don't need to
+0:19 manage it. You don't need to type keep
+0:21 going over and over. There's no being
+0:23 stuck as the bottleneck itself. Just
+0:25 give Hermes a goal and it runs on its
+0:27 own until the work is done. This is one
+0:30 of the biggest free upgrades Hermes has
+0:31 ever shipped and in this video I'm going
+0:33 to show you how to use it to get more
+0:35 done in a day than most people get done
+0:37 in a week. Plus, there's one thing I
+0:38 want to show you later that makes this
+0:40 whole system even more powerful. Stay
+0:42 with me for that one. Let's go. Today,
+0:44 I'm going to be walking you through the
+0:46 new system inside Hermes for goals,
+0:49 right? Basically, what this means is you
+0:51 can set a goal for Hermes AI agent. So,
+0:54 for example, we can go inside here and
+0:56 we can say, "Okay, go off, create a blog
+0:59 about OpenClaw and make sure it's hosted
+1:03 so I can preview it, add a few blog
+1:04 posts, plus make it look beautiful." So,
+1:07 we can plug that into our system, then
+1:09 we can hit launch goal, like and you can
+1:11 see that's now running, right? And so,
+1:13 what this is going to do is move into
+1:17 goals mode. And basically, what happens
+1:19 with Hermes Agent Goals Mode is you set
+1:21 the target and then you can just walk
+1:23 away, right? So, Hermes {slash} goal
+1:25 gives the agent a standard objective
+1:29 that survives every turn, right? So,
+1:30 judge model actually decides if it's
+1:32 done or continue after each response.
+1:34 And if the goal isn't met, Hermes feeds
+1:37 itself the next prompt and keeps working
+1:39 until the target is hit or the turn
+1:41 budget actually runs out. So, you can
+1:43 close your laptop and then you just come
+1:44 back to finish work, right? So, this is
+1:46 Hermes Agent and that's the goal over
+1:48 here. Pretty amazing stuff. Um the
+1:50 default for this is 20 turns, which
+1:52 means that it will just keep going off
+1:54 and making sure it's done 20 times
+1:56 before it's finally completed. This is
+1:58 the power of this stuff, right? So, you
+2:00 can set the target, walk away, hand
+2:03 Hermes a long horizon goal, then it will
+2:05 run that. You can close your laptop, go
+2:08 to sleep, come back to finish work,
+2:09 right? That's how powerful this stuff
+2:10 is. And so, you might be wondering,
+2:12 "Okay, what is Hermes goal mode?" For
+2:14 example, if we look at this system, you
+2:16 see how it's running this autonomous
+2:18 loop right here to get the goal done.
+2:21 That's exactly what this is about,
+2:22 right? So, {forward slash} goal gives
+2:25 Hermes a standing objective that doesn't
+2:28 stop after one turn. After every turn, a
+2:30 lightweight judge model reads the
+2:32 agent's last response and decides, "Is
+2:35 it done or should we keep continuing?"
+2:37 If continue, Hermes actually auto
+2:40 creates a continuation prompt back into
+2:42 the same session and keeps working
+2:44 without you typing, "Keep going three
+2:46 more times," right? So, for example, if
+2:48 you go into ChatGPT, you say, "Go off
+2:51 and do this," it will just stop on one
+2:52 turn. If you go into Hermes agent using
+2:56 the goals feature, you can see how it's
+2:58 still running autonomously until
+2:59 eventually gets done. That's the
+3:01 difference, right? And it's NewS
+3:03 Researcher's take on Ralph Loop. Now, if
+3:06 you're not familiar with NewS
+3:08 Researcher, basically the creator of
+3:09 Hermes agent, one of the most respected
+3:12 AI labs in the world, and this is their
+3:14 take on something called the Ralph Loop,
+3:16 right? So, you keep a goal live and it
+3:17 doesn't stop until it's achieved. This
+3:20 is something similar to what Codex just
+3:22 released, which is {forward slash}
+3:23 goals, well, but adapted to Hermes
+3:25 architecture, right? And so, it works
+3:27 identically on the CLI and every gateway
+3:29 as well. So, you can do this inside
+3:30 Telegram or Discord or inside your agent
+3:32 operating system like I am, and Hermes
+3:34 will basically go off and do this,
+3:36 right? So, the old way and the new way,
+3:38 let's talk about this. So, let's say,
+3:41 for example, you had the same long
+3:42 horizon task, right? Same agent. So,
+3:45 you're using, for example, Hermes, but
+3:47 two completely different workflows,
+3:49 right? So, you've got the goals
+3:50 workflow, and then you have the old way,
+3:52 which is like after 30 minutes of keep
+3:55 going. Get it done, right? With the old
+3:57 way, you'd have to re-prompt it every
+3:59 single turn, right? And it'd be like 30
+4:01 minutes of just keep going. So, you type
+4:02 the goal, the agent does one turn, and
+4:04 it stops, right? Then you type keep
+4:06 going. The agent does one more turn, it
+4:07 stops. You type again, right? And you
+4:09 repeat that 10 or 20 different times.
+4:11 And each prompt loses more context
+4:13 because the agent forgets the original
+4:15 goal halfway through. And if you walk
+4:17 away for an hour, the agent is sitting
+4:19 idle waiting for your next keep going.
+4:22 So, you have these long refactors that
+4:24 take hours of human-in-the-loop
+4:25 attention. And the goals get abandoned
+4:27 eventually cuz nobody wants to sit and
+4:29 just babysit a Hermes agent, right? They
+4:31 just want to let it go off and do
+4:32 things. And so, agents with the old way
+4:35 basically do small tasks. And you're
+4:37 basically the bottleneck, right? On
+4:39 anything larger because you have to sit
+4:40 there and click continue keep going. The
+4:42 new way is Hermes {slash} goal, which
+4:44 means zero minutes of just attending and
+4:47 making sure it gets stuff done, right?
+4:49 So, one {slash} goal with the goal
+4:51 inserted, and the agent starts
+4:53 immediately. Then the judge model
+4:55 decides if it's done or continues after
+4:57 every turn, so there's no human needed.
+4:59 This is 20-turn budget by default, which
+5:02 is configurable, so you can actually
+5:03 change it anytime you want. And it can
+5:05 auto-pause at the limit, so you can
+5:07 resume in chunks. The original goal text
+5:10 stays in context every turn so that the
+5:12 agent never forgets what your original
+5:14 goal was. And it persists across {slash}
+5:17 resume. So, if you close the laptop,
+5:19 come back tomorrow, the goals is still
+5:21 standing, right? And you can also set up
+5:23 a sub-goal with the text as well. And
+5:25 this actually tightens the success
+5:27 criteria mid-loop without breaking
+5:29 everything. So, you set the target, you
+5:31 walk away, you come back to finish work,
+5:33 right? And so, with the old way, the
+5:35 result is like the agents do small tasks
+5:37 for you. You don't create anything
+5:38 bigger. With the new way, you can have
+5:40 long-horizon work that finishes on its
+5:42 own, and you stop being the bottleneck.
+5:43 You don't manage the agent turn by turn.
+5:45 You actually just hand it the target.
+5:46 That's the difference here. And you can
+5:48 see it's still running right here,
+5:49 right? It's very autonomous. Let's see
+5:51 what questions we got here. A supporter
+5:52 says, "Side question, do you think the
+5:54 new Google updates are impressive? Which
+5:56 LLM do you prefer?" So, one of the
+5:58 coolest ones I've discovered recently
+6:00 for LLMs is Grok 4.3, particularly if
+6:03 you're using Hermes agent, very powerful
+6:05 stuff. With the new Google updates, I
+6:07 really the one that I love, and I think
+6:10 people are missing out on this, is
+6:12 anti-gravity, right? Because you can use
+6:14 anti-gravity CLI inside the system like
+6:16 this, and then you can have it working
+6:18 across all of your AI agents in a
+6:19 beautiful dashboard. That's what you
+6:21 want, right? You can see anti-gravity
+6:23 over here. That's what I like. And I
+6:24 think you got upgrades and stuff. So,
+6:26 for example, you got like Omi, you got
+6:28 the video generation, stuff like that.
+6:30 That's really cool as well. And also,
+6:31 just in general, if you're using Google,
+6:33 it's way faster now on the AI side, so I
+6:35 like that, too. So, let's talk about the
+6:37 three moving parts here as well. And so,
+6:40 some people say, "What is the judge
+6:41 about?" Is it After every turn, Hermes
+6:43 basically calls the judge with standing
+6:45 or text, the most recent response, and
+6:48 it's deliberately conservative, right?
+6:50 So, it only marks a goal done when the
+6:52 response explicitly confirms completion,
+6:55 when the deliverable is clearly
+6:56 produced, or when the goal is genuinely
+6:58 blocked, right? And so, it helps you
+7:00 achieve progress. Then you got the turn
+7:02 budget. So, you can say the default is
+7:05 20 turns, 20 chances to hit this, right?
+7:08 But it will auto-pause, and you can
+7:10 always extend the number of turns that
+7:12 actually gets to keep going at the goal.
+7:14 And then you have the loop, right? The
+7:16 continuation prompt, which is a plain
+7:18 user role message appended to history,
+7:21 right? So, basically, what this means is
+7:23 like, every time it keeps running the
+7:24 loop, it's still got the context. That's
+7:27 what we want. You got all these
+7:28 different commands that you can use with
+7:30 it. So, you got like goal, you got
+7:31 {forward slash} goal status, goal pause,
+7:34 goal resume, goal clear. These are all
+7:35 different ways that you can command the
+7:37 agent to, for example, see the status of
+7:39 what you're doing, or see how many turns
+7:42 it's using, and that sort of thing, or
+7:43 what agents and what sub goals it has as
+7:45 well, right? So, you have one goal in,
+7:48 many turns out. That's the play right
+7:49 here, right? So, if we go back, you can
+7:52 see it's still running, right? It's
+7:53 still building out this system right
+7:56 here for us. And then we can see what
+7:58 it's created and everything else. Pretty
+8:00 nice. And then if you want to see like a
+8:01 previous example, you can see that it
+8:03 created out this whole website like you
+8:05 can see right here. We've actually
+8:06 completed like different goals. This was
+8:08 just a very simple one. I actually did
+8:10 like a nice little haiku about a
+8:11 lobster. But yeah, you can see how it
+8:13 works. So, it's really cool. And then
+8:15 you could use this for creating new
+8:17 websites, for example, automating big
+8:19 goals that you have and everything else.
+8:21 And also something to note here is
+8:22 persistence, right? So, the goal state
+8:25 leaves locally. If you come back
+8:27 tomorrow, if you close your laptop and
+8:28 want to come back tomorrow, then you can
+8:30 run {forward slash} resume and the goal
+8:32 stands where you left it, which is
+8:33 pretty cool as well. So, really cool
+8:35 system. Some people are not going to use
+8:38 it, but the setup is free, right? Cuz
+8:40 Hermes agent is free, it's open source.
+8:43 The API that you can use with it, for
+8:44 example, like our alpha, which is free
+8:46 on open router is free, and the goal
+8:48 skill as well is free, right? It is
+8:50 created by Hermes and baked into Hermes
+8:52 directly as well. And I've seen so many
+8:54 people get great results with stuff like
+8:55 this, like Hermes agent particularly.
+8:57 There's nothing stopping you from doing
+8:59 it as well. Now, let's talk about some
+9:00 limiting beliefs that might be holding
+9:02 you back here. So, some people want to
+9:03 say I need to watch every single step,
+9:05 but every goal runs in its own
+9:07 directory, so nothing actually collides
+9:09 with your work. So, it's all siloed off,
+9:11 which is awesome. Other people say
+9:13 always the judge isn't good enough and
+9:15 that sort of thing. It might get it
+9:16 wrong sometimes, but 90% of the time
+9:18 you're good. You're not going to have a
+9:19 problem. And then other people say I'll
+9:20 just keep typing, keep going to get the
+9:22 same result, right? But if you do that,
+9:26 if you just use AI agents normally, then
+9:28 you are the bottleneck because as soon
+9:30 as you walk away, the agent stops
+9:32 working. Whereas if you use {forward
+9:33 slash} go, you set the target, you walk
+9:35 away, and you come back to finish work.
+9:37 We're actually got a 30-day roadmap
+9:38 inside the AI Profit Boardroom in there.
+9:40 So, Hermes goal map mode just to recap,
+9:43 there's three moving parts, the judge
+9:44 model, the term budget, and the
+9:47 continuation loop. And the result is
+9:49 long horizon work that finishes on its
+9:50 own. So, you stop being the bottleneck
+9:52 on tasks bigger than one turn. You set
+9:54 the target, you walk away, you come back
+9:55 to finish work. Okay? Now, inside the AI
+9:57 Profit Boardroom, if you want to get my
+9:58 agent operating system, the goal mode
+10:01 configured inside there. If you want
+10:02 weekly coaching calls in the rest of the
+10:04 agent operating system plus a 30-day
+10:06 roadmap for implementing this alongside
+10:08 Claude OpenClaude Codex Anti-Gravity
+10:10 Gemini free code, all wired together
+10:13 inside this beautiful system, as you can
+10:15 see. Then, you can get that inside the
+10:18 AI Profit Boardroom. Link in the
+10:20 comments description or go to the
+10:21 aiprofitboardroom.com. You get all of my
+10:23 best trainings inside here. We have a
+10:25 zip file for installing this agent
+10:27 operating system. We have all the
+10:28 prompts and also show you when I've last
+10:29 updated it as well, so you know you're
+10:31 getting the current version. And then
+10:32 also inside here, it's just an awesome
+10:34 community of good vibes, people helping
+10:36 each other, people asking questions,
+10:37 people sharing cool stuff, which is
+10:39 great. Lots of people getting awesome
+10:41 wins with AI. You can connect with me
+10:42 personally inside there. You get all of
+10:44 my new trainings. You can jump on weekly
+10:46 coaching calls. We have four weekly
+10:47 coaching calls. And then also, you can
+10:49 connect with people in your local city
+10:51 who are using AI agents just like you.
+10:53 Right? So, it's a great way to connect
+10:55 with people and connect with me
+10:56 personally as well inside there. So,
+10:57 feel free to get that. Link in the
+10:59 comments description or just go to the
+11:01 aiprofitboardroom.com
+11:02 to get access. Thanks for watching.

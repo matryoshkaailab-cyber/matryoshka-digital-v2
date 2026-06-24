@@ -1,0 +1,12 @@
+{
+  "template": "content_swarm",
+  "parent_title": "Content swarm: 5 variants @ {TIMESTAMP}",
+  "description": "5 параллельных AI-агентов пишут пост на одну тему. Каждый child — отдельная модель. assignee='hermes' или 'alex' — означает что executor пропустит (нужен AI runner, не bash). Пока заглушка — реальный запуск через n8n workflow.",
+  "children": [
+    {"title": "Post variant: kimi-k2.6", "assignee": "kimi", "priority": 1, "model": "kimi-k2.6", "skills": ["content-write"], "cmd_prompt": "Write a short post (max 280 chars) about VPN privacy for Telegram channel"},
+    {"title": "Post variant: nemotron-3-super", "assignee": "nemotron", "priority": 1, "model": "nvidia/nemotron-3-super-120b-a12b:free", "skills": ["content-write"], "cmd_prompt": "Write a short post (max 280 chars) about VPN privacy for Telegram channel"},
+    {"title": "Post variant: qwen3.6-plus", "assignee": "qwen", "priority": 1, "model": "qwen3.6-plus-free", "skills": ["content-write"], "cmd_prompt": "Write a short post (max 280 chars) about VPN privacy for Telegram channel"},
+    {"title": "Post variant: gemini-flash", "assignee": "gemini", "priority": 1, "model": "gemini-flash", "skills": ["content-write"], "cmd_prompt": "Write a short post (max 280 chars) about VPN privacy for Telegram channel"},
+    {"title": "Post variant: deepseek-v4-flash", "assignee": "deepseek", "priority": 1, "model": "deepseek-v4-flash:free", "skills": ["content-write"], "cmd_prompt": "Write a short post (max 280 chars) about VPN privacy for Telegram channel"}
+  ]
+}

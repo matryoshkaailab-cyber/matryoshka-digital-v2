@@ -1,0 +1,11 @@
+{
+  "task_id": "filewatcher-fix-test-24.06",
+  "from": "alf",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "** Стек ALF подробно **\n---\n** Модель **: Kimi K2.6 (Moonshot AI)\n** Провайдер **: NVIDIA NIM API (integrate.api.nvidia.com/v1)\n** Контекст **: 128K токенов\n---\n**  Что умею **\n- Стратегия, аналитика, аудиты, планирование\n- Исследования через NotebookLM (33 источника), arXiv, веб-поиск\n- Мультимодаль: анализ изображений, TTS\n- Чтение/запись файлов, терминал, браузер, код (Python/bash)\n- Канонические Інструменти Hermes: навыки, cron, делегирование, поиск сессий\n- Fact_store (holographic memory) для долговременных фактов\n---\n** Скорость **\n- ~3-6 секунд на ответ (NVIDIA free tier)\n- Rate limit: ~5 RPM (из Олега)\n---\n**  Ограничения **\n1. ** NVIDIA NIM **: chat/completions стабильный, но был период когда timeout 180s (уже решено — Kimi через NVIDIA работает)\n2. ** Memory char limit **: 2500 символов в основной памяти, остальное — fact_store / файлы\n3. ** Без shared token pool **: отдельный API ключ от HERMES\n4. ** Temperature 1, Top_p 0.95 ** — Олег мандат 24.06.2026\n5. ** NVIDIA free tier rate limit ** ~5 RPM, retries обязательны при 429\n---\n** Почему Kimi K2.6 **\n- Знает кто она (не галлюцинирует на свою идентичность)\n- Отвечает полно на большие промпты (M3 обрезала — уже история)\n- Быстрая (3-6 сек через NVIDIA)\n- 128K контекст — достаточно для аналитики\n---\n** analytically.\n** Сравнение с предыдущими версиями **\n| Версия | Модель | Провайдер | Статус |\n|--------|--------|-----------|--------|\n| v1-v5 | M3, Nemotron | OpenRouter | устарело |\n| v6 | Nemotron 550B | NVIDIA API | патч 24.06, заменён |\n| ** v7 ** | ** Kimi K2.6 ** | ** NVIDIA NIM ** | ** актуальная ** |\n---\n**  Ключевые файлы **\n```\n~/.hermes/profiles/alf/config.yaml          # реальный конфиг\n/root/matryoshka/ALF_FULL.md                 # полный документ\n/root/matryoshka/shared_brain/DIGEST.md      # общая память роя\n/root/matryoshka/.hermes/ALF_STRATEGIC_PLAN_23.06.md   # стратегия\n/root/matryoshka/.hermes/ALF_DEEP_AUDIT_23.06.md       # deep audit\n```\n---\nЕсли нужен deep dive в какой-то аспект — скажи.",
+  "error": "",
+  "executed_by": "ALF",
+  "finished_at": "2026-06-24T13:29:58Z"
+}

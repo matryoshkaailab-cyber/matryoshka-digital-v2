@@ -1,0 +1,9 @@
+{
+  "task_id": "e2e-test-1781871889",
+  "created_by": "hermes",
+  "created_at": "2026-06-19T12:24:49Z",
+  "subject": "E2E TEST: ping ALF",
+  "details": "Тестовая задача — ответь 'pong' чтобы подтвердить что pipeline работает",
+  "priority": "URGENT",
+  "scope": "public"
+}

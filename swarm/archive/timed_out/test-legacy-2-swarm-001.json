@@ -1,0 +1,7 @@
+{
+  "task_id": "test-legacy-2-swarm-001",
+  "created_by": "alf",
+  "created_at": "2026-06-19T13:36:00Z",
+  "subject": "Test legacy → swarm routing",
+  "details": "Тест: роутер должен скопировать в swarm/inbox/alex/test-legacy-2-swarm-001.json"
+}

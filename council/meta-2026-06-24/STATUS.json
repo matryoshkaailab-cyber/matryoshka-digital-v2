@@ -1,0 +1,43 @@
+{
+  "task": "Meta-council: оценка алгоритма Олега",
+  "date": "2026-06-24T09:42:16.509240+00:00",
+  "status": "INVALID — ALF не дал 3-й голос",
+  "votes_received": {
+    "ALEX_AI": {
+      "score": 3,
+      "delivered": true,
+      "via": "ACP, deepseek-v4-flash-free, ses_107082728ffeGP8aGpLiyF1eO9"
+    },
+    "HERMES": {
+      "score": 4,
+      "delivered": true,
+      "via": "MiniMax-M3, прямой"
+    },
+    "ALF": {
+      "score": null,
+      "delivered": false,
+      "via": "file-queue (inbox/alf/meta-council-oleg-algo-v2-1782293835.json)",
+      "status": "PROCESSING застрял >4 минуты, без ответа в outbox",
+      "attempts": 2,
+      "first_attempt": {
+        "task": "meta-council-oleg-algo-1782293453",
+        "response": "Уточняющий вопрос (поймал ошибку в brief: 10 vs 6 шагов)",
+        "duration": "22 сек"
+      },
+      "retry_attempt": {
+        "task": "meta-council-oleg-algo-v2-1782293835",
+        "response": null,
+        "duration": ">4 мин, processing висит"
+      }
+    }
+  },
+  "rule_applied": "Council ВСЕГДА 3 голоса, иначе невалиден. Олег мандат 24.06.2026 0:28.",
+  "skill_updated": "/root/.hermes/profiles/hermes-cli/skills/matryoshka/council-workflow-oleg/SKILL.md",
+  "needs_oleg_decision": "ALF не дал 3-й голос, council невалиден. Что делать?",
+  "options_for_oleg": [
+    "A. Считать 2 голоса валидным council (нарушение нового правила)",
+    "B. Подождать ещё N минут (ALF может разморозиться)",
+    "C. Использовать self-assessment Альфа (его предыдущий уточняющий ответ как позицию)",
+    "D. Отменить meta-council, провести на следующей итерации (когда Альф будет свободен)"
+  ]
+}

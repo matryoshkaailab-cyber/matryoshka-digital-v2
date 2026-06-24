@@ -1,0 +1,11 @@
+{
+  "task_id": "e2e-roya-2-2026-06-19",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": false,
+  "output": "",
+  "error": "no command in task",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-19T19:01:46"
+}

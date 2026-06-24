@@ -1,0 +1,11 @@
+{
+  "task_id": "proof_live_001",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "PROOF_OK: $env:COMPUTERNAME | $(Get-Date -Format yyyy-MM-ddTHH:mm:ss) | HERMES_proof=1\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-19T18:30:42"
+}

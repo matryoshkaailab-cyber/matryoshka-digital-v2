@@ -1,0 +1,11 @@
+{
+  "task_id": "router-alf-1782216834",
+  "from": "alf",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "pong. ALF жив, на связи.",
+  "error": "",
+  "executed_by": "ALF",
+  "finished_at": "2026-06-23T12:14:27Z"
+}

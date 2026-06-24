@@ -1,0 +1,11 @@
+{
+  "task_id": "oleg-params-test-24.06",
+  "from": "alf",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "**ALF v6.0 (24.06.2026 12:30)** — актуальный стек:",
+  "error": "",
+  "executed_by": "ALF",
+  "finished_at": "2026-06-24T11:30:30Z"
+}

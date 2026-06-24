@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATRYOSHKA — Agent OS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid rgba(201, 162, 39, 0.3);
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 2.5em;
+            font-weight: 700;
+            background: linear-gradient(90deg, #c9a227, #f0d060, #c9a227);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(201, 162, 39, 0.3);
+        }
+        
+        .subtitle {
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(201, 162, 39, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            border-color: rgba(201, 162, 39, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(201, 162, 39, 0.1);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+        }
+        
+        .card-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .card-subtitle {
+            font-size: 0.8em;
+            color: #888;
+        }
+        
+        /* Agent Status Cards */
+        .agent-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .status-dot.online {
+            background: #00ff88;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+        
+        .status-dot.offline {
+            background: #ff4444;
+            box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+            animation: none;
+        }
+        
+        .status-dot.warning {
+            background: #ffaa00;
+            box-shadow: 0 0 10px rgba(255, 170, 0, 0.5);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .agent-name {
+            font-weight: 500;
+        }
+        
+        .agent-role {
+            font-size: 0.85em;
+            color: #888;
+            margin-left: 18px;
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+        
+        .stat {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #c9a227;
+        }
+        
+        .stat-label {
+            font-size: 0.75em;
+            color: #888;
+            margin-top: 4px;
+        }
+        
+        /* Cron Jobs */
+        .cron-list {
+            list-style: none;
+        }
+        
+        .cron-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .cron-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cron-time {
+            font-family: monospace;
+            color: #c9a227;
+            font-size: 0.9em;
+        }
+        
+        .cron-name {
+            flex: 1;
+            margin-left: 12px;
+            font-size: 0.9em;
+        }
+        
+        /* Quick Actions */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .action-btn {
+            background: rgba(201, 162, 39, 0.1);
+            border: 1px solid rgba(201, 162, 39, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            color: #c9a227;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85em;
+            text-align: center;
+        }
+        
+        .action-btn:hover {
+            background: rgba(201, 162, 39, 0.2);
+            transform: scale(1.02);
+        }
+        
+        /* Kanban Mini */
+        .kanban-mini {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .kanban-col {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .kanban-count {
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+        
+        .kanban-col.todo .kanban-count { color: #888; }
+        .kanban-col.in-progress .kanban-count { color: #ffaa00; }
+        .kanban-col.done .kanban-count { color: #00ff88; }
+        
+        .kanban-label {
+            font-size: 0.7em;
+            color: #666;
+            margin-top: 4px;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #555;
+            font-size: 0.8em;
+        }
+        
+        .footer a {
+            color: #c9a227;
+            text-decoration: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .logo {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">🪆 MATRYOSHKA Agent OS</div>
+        <div class="subtitle">Цифровой оркестр | Hermes Agent v0.13</div>
+    </div>
+    
+    <div class="grid">
+        <!-- HERMES — Дирижёр -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon" style="background: linear-gradient(135deg, #c9a227, #8b6914);">
+                    🎼
+                </div>
+                <div>
+                    <div class="card-title">HERMES</div>
+                    <div class="card-subtitle">Дирижёр оркестра</div>
+                </div>
+            </div>
+            <div class="agent-status">
+                <div class="status-dot online"></div>
+                <span class="agent-name">Онлайн</span>
+            </div>
+            <div class="stats-grid">
+                <div class="stat">
+                    <div class="stat-value">7</div>
+                    <div class="stat-label">Cron Jobs</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">Агента</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- АЛИНА -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon" style="background: linear-gradient(135deg, #ff6b9d, #c44569);">
+                    🌺
+                </div>
+                <div>
+                    <div class="card-title">АЛИНА</div>
+                    <div class="card-subtitle">Напарник Николая</div>
+                </div>
+            </div>
+            <div class="agent-status">
+                <div class="status-dot online"></div>
+                <span class="agent-name">@NikolaAlinaBot</span>
+            </div>
+            <p class="agent-role">Проект НИКОЛАЙ | Telegram бот</p>
+            <div class="stats-grid">
+                <div class="stat">
+                    <div class="stat-value">1765420</div>
+                    <div class="stat-label">PID</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">Active</div>
+                    <div class="stat-label">Статус</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- АЛЕКС -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon" style="background: linear-gradient(135deg, #4ecdc4, #2d9a94);">
+                    🔵
+                </div>
+                <div>
+                    <div class="card-title">АЛЕКС</div>
+                    <div class="card-subtitle">Технический специалист</div>
+                </div>
+            </div>
+            <div class="agent-status">
+                <div class="status-dot online"></div>
+                <span class="agent-name">Windows PC</span>
+            </div>
+            <p class="agent-role">ws_client v37 | VPS:8446</p>
+            <div class="stats-grid">
+                <div class="stat">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Ботов</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">23824</div>
+                    <div class="stat-label">Router PID</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- АЛИНА -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon" style="background: linear-gradient(135deg, #a66cff, #7b4ec9);">
+                    🌺
+                </div>
+                <div>
+                    <div class="card-title">АЛИНА</div>
+                    <div class="card-subtitle">Ассистент Натальи</div>
+                </div>
+            </div>
+            <div class="agent-status">
+                <div class="status-dot online"></div>
+                <span class="agent-name">@ZarnyAlexaBot</span>
+            </div>
+            <p class="agent-role">Проект НИКОЛАЯ | Гончарная студия</p>
+            <div class="stats-grid">
+                <div class="stat">
+                    <div class="stat-value">461605744</div>
+                    <div class="stat-label">Наталья ID</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">Active</div>
+                    <div class="stat-label">Статус</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Cron Jobs -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                    ⏰
+                </div>
+                <div>
+                    <div class="card-title">Cron Jobs</div>
+                    <div class="card-subtitle">7 активных задач</div>
+                </div>
+            </div>
+            <ul class="cron-list">
+                <li class="cron-item">
+                    <span class="cron-time">03:00</span>
+                    <span class="cron-name">Backup MATRYOSHKA</span>
+                </li>
+                <li class="cron-item">
+                    <span class="cron-time">06:00</span>
+                    <span class="cron-name">Dreaming Sequence</span>
+                </li>
+                <li class="cron-item">
+                    <span class="cron-time">08:00</span>
+                    <span class="cron-name">Утренний отчёт</span>
+                </li>
+                <li class="cron-item">
+                    <span class="cron-time">10:00</span>
+                    <span class="cron-name">Разбор Алины</span>
+                </li>
+                <li class="cron-item">
+                    <span class="cron-time">14:00</span>
+                    <span class="cron-name">Дневной отчёт</span>
+                </li>
+                <li class="cron-item">
+                    <span class="cron-time">16:00 Пт</span>
+                    <span class="cron-name">SEO Content</span>
+                </li>
+                <li class="cron-item">
+                    <span class="cron-time">18:00 Пт</span>
+                    <span class="cron-name">DATALINK Weekly</span>
+                </li>
+                <li class="cron-item">
+                    <span class="cron-time">20:00</span>
+                    <span class="cron-name">Вечерний отчёт</span>
+                </li>
+                <li class="cron-item">
+                    <span class="cron-time">* * *</span>
+                    <span class="cron-name">ALEX Monitor (ежечасно)</span>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                    ⚡
+                </div>
+                <div>
+                    <div class="card-title">Quick Actions</div>
+                    <div class="card-subtitle">Быстрые команды</div>
+                </div>
+            </div>
+            <div class="actions-grid">
+                <button class="action-btn" onclick="alert('Запускаю разбор Алины...')">
+                    🔍 Разбор Алины
+                </button>
+                <button class="action-btn" onclick="alert('Проверяю ALEX...')">
+                    🔵 Проверить ALEX
+                </button>
+                <button class="action-btn" onclick="alert('Генерирую отчёт...')">
+                    📊 Отчёт DATALINK
+                </button>
+                <button class="action-btn" onclick="alert('Запускаю SEO...')">
+                    📝 SEO Content
+                </button>
+                <button class="action-btn" onclick="alert('Создаю бэкап...')">
+                    💾 Backup Now
+                </button>
+                <button class="action-btn" onclick="alert('Перезагружаю...')">
+                    🔄 Перезагрузка
+                </button>
+            </div>
+        </div>
+        
+        <!-- Kanban Mini -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                    📋
+                </div>
+                <div>
+                    <div class="card-title">Kanban</div>
+                    <div class="card-subtitle">Задачи</div>
+                </div>
+            </div>
+            <div class="kanban-mini">
+                <div class="kanban-col todo">
+                    <div class="kanban-count">3</div>
+                    <div class="kanban-label">К делать</div>
+                </div>
+                <div class="kanban-col in-progress">
+                    <div class="kanban-count">2</div>
+                    <div class="kanban-label">В процессе</div>
+                </div>
+                <div class="kanban-col done">
+                    <div class="kanban-count">12</div>
+                    <div class="kanban-label">Готово</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- System Health -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon" style="background: linear-gradient(135deg, #11998e, #38ef7d);">
+                    💚
+                </div>
+                <div>
+                    <div class="card-title">System Health</div>
+                    <div class="card-subtitle">VPS 85.137.166.209</div>
+                </div>
+            </div>
+            <div class="agent-status">
+                <div class="status-dot online"></div>
+                <span class="agent-name">Uptime: 99.9%</span>
+            </div>
+            <div class="stats-grid">
+                <div class="stat">
+                    <div class="stat-value">8GB</div>
+                    <div class="stat-label">RAM</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">50GB</div>
+                    <div class="stat-label">Disk</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>MATRYOSHKA DIGITAL | Agent OS v1.0</p>
+        <p>Hermes Agent | VPS Ubuntu 24.04 LTS</p>
+    </div>
+</body>
+</html>

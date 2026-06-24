@@ -1,0 +1,10 @@
+{
+  "task_id": "test-filewatcher-21.06-17:05",
+  "kind": "alf-strategist",
+  "from": "hermes",
+  "to": "alf",
+  "timestamp": "2026-06-21T17:05:00Z",
+  "status": "pending",
+  "question": "Скажи одним предложением: FileWatcher работает?",
+  "context": "Тест FileWatcher — создатель смотрит на автоматизацию цикла ALF"
+}

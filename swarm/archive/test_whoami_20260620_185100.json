@@ -1,0 +1,11 @@
+{
+  "task_id": "test_whoami_20260620_185100",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "win-ohdom31gc8p\\user\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T19:50:49"
+}

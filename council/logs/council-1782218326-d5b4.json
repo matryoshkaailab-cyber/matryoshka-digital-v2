@@ -1,0 +1,23 @@
+{
+  "council_id": "council-1782218326-d5b4",
+  "alf": {
+    "vote": "for",
+    "reason": "ЗА: watchdog (alf-watchdog.timer, 6 проверок/60с), healthcheck (:8452), FileWatcher v3 (atomic claim с race-fix) и shared_brain WAL (hermes_active_flush.py v2, multi-profile) — всё в Фазе 1, задокументировано в SOUL.md v5.0 и подтверждено коммитами 21–23.06."
+  },
+  "librarian": {
+    "veto": false,
+    "reason": "Decision is positive and KB supports",
+    "sources": [
+      "agents/SHARED_BRAIN_FIX_2026-06-19.md",
+      "agents/ALF_IMPROVEMENT_PLAN_2026-06-19.md",
+      "23.06_AUDIT_AND_FIXES.md"
+    ],
+    "elapsed_sec": 0.087,
+    "timeout_sec": 30,
+    "checked_at": "2026-06-23T12:38:46+00:00"
+  },
+  "decision": "accepted",
+  "reason": "ALF за + Библиотекарь не vetoed",
+  "decided_by": "council",
+  "decided_at": "2026-06-23T12:39:20+00:00"
+}

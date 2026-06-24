@@ -1,0 +1,11 @@
+{
+  "task_id": "alf_procs_v3_20260620_184700",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": false,
+  "output": "",
+  "error": "-NoProfile : €¬п \"-NoProfile\" ­Ґ а бЇ®§­ ­® Є Є Ё¬п Є®¬ ­¤«Ґв , дг­ЄжЁЁ, д ©«  бжҐ­ аЁп Ё«Ё ўлЇ®«­пҐ¬®© Їа®Ја ¬¬л. Џа®ў\nҐамвҐ Їа ўЁ«м­®бвм ­ ЇЁб ­Ёп Ё¬Ґ­Ё,   в Є¦Ґ ­ «ЁзЁҐ Ё Їа ўЁ«м­®бвм ЇгвЁ, Ї®б«Ґ зҐЈ® Ї®ўв®аЁвҐ Ї®ЇлвЄг.\nбва®Є :1 §­ Є:1\n+ -NoProfile -Command \"Get-Process -Name '*alf*' -ErrorAction SilentlyC ...\n+ ~~~~~~~~~~\n    + CategoryInfo          : ObjectNotFound: (-NoProfile:String) [], CommandNotFoundException\n    + FullyQualifiedErrorId : CommandNotFoundException\n \n",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T19:48:59"
+}

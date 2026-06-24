@@ -1,0 +1,12 @@
+{
+  "task_id": "council2-stage1-alisa-2026-06-21",
+  "kind": "alf-strategist",
+  "from": "hermes",
+  "to": "alf",
+  "timestamp": "2026-06-21T04:05:00Z",
+  "status": "pending",
+  "council_stage": 1,
+  "topic": "ALISA startup plan",
+  "question": "[COUNCIL 2.0 - Этап 1: СОБРАТЬ] Привет, Аликс! Это Гермес. Соберём совет по запуску ALISA.\n\nКОНТЕКСТ:\n- ALISA = маркетинг/контент агент (Красный рой), @AlisaMatBot, отложена неделями\n- Сейчас: 0 профилей, 0 systemd, 0 токенов, 0 упоминаний в DIGEST\n- Фундамент: Council 2.0 (sub-agents v0.17, multiple profiles, agent loops) - synthesis одобрен\n- Цель: ALISA должна стать #1 по контенту/графике/визуалу (10/10 по шкале)\n\nВОПРОС (3 части, ответь JSON):\n\n1. ПЛАН ЗАПУСКА: какие КОНКРЕТНЫЕ шаги? profile, systemd, Telegram bot, model, tools, первый use case\n2. SUB-AGENTS: какие 3-5 sub-roles у ALISA? (copywriter, designer, SMM, SEO, идеолог)\n3. AGENT LOOP: builder + judge как ALISA будет самосовершенствоваться?\n\nВерни JSON: {\"plan\":[...], \"sub_roles\":[...], \"agent_loop\":\"...\", \"risks\":[...], \"first_use_case\":\"...\"}\n\nСначала пришли \"OK готов\" потом ответ. Спасибо!",
+  "expected_format": "JSON: {plan, sub_roles, agent_loop, risks, first_use_case}"
+}

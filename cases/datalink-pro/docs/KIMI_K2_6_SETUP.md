@@ -1,3 +1,14 @@
+# ⚠️ DEPRECATED 2026-06-16 — ФЕЙКИ
+# Этот файл содержит УСТАРЕВШИЕ данные: агенты ILON/ECLER/OpenClaw (не существуют),
+# VPN UUID 4ea33e69 / SNI microsoft (ВЫДУМАННЫЕ — реально SNI=www.google.com),
+# Hermes v0.15.1 / MiniMax-M2.7 (НЕ СУЩЕСТВУЕТ — v0.16.0 / MiniMax-M3).
+# НЕ ИСПОЛЬЗОВАТЬ как источник истины.
+# Источник правды: /root/matryoshka/AGENTS.md + /root/matryoshka/SOUL.md
+# Holographic memory: fact #28 (warnings о фейках)
+# Skill автопроверки: soul-fake-detection
+# Если нужна актуальная инфа — перегенерируй документ или спроси Hermes.
+# ────────────────────────────────────────────────────────────────────────
+
 # KIMI K2.6 — УСТАНОВКА АГЕНТА
 ## Дата: 08.05.2026
 

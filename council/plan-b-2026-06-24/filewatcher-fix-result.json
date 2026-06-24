@@ -1,0 +1,11 @@
+{
+  "task_id": "hermes-livecheck-24.06-1782308319",
+  "from": "alf",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "Стек ALF v7.0:\n- **Модель:** `moonshotai/kimi-k2.6`\n- **Провайдер:** NVIDIA NIM (direct, `https://integrate.api.nvidia.com/v1`)\n- **Context window:** 128K tokens\n- **Temperature / top_p:** 1 / 0.95 (Олег мандат 24.06.2026)\n- **Rate limit:** ~5 RPM (free tier), retries включены\n- **Latency:** 3-6 сек типовая\nВерсия Hermes Agent: v0.16.0 (2026.6.5, upstream a376ca00).\nMemory limit: 2500 chars holographic + fact_store deep memory. Profile: `alf`.\nping back — heard you back.",
+  "error": "",
+  "executed_by": "ALF",
+  "finished_at": "2026-06-24T13:39:03Z"
+}

@@ -1,0 +1,11 @@
+{
+  "task_id": "test_pwsh_no_flag_20260620_185100",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": false,
+  "output": "",
+  "error": "-Command : €¬п \"-Command\" ­Ґ а бЇ®§­ ­® Є Є Ё¬п Є®¬ ­¤«Ґв , дг­ЄжЁЁ, д ©«  бжҐ­ аЁп Ё«Ё ўлЇ®«­пҐ¬®© Їа®Ја ¬¬л. Џа®ўҐамв\nҐ Їа ўЁ«м­®бвм ­ ЇЁб ­Ёп Ё¬Ґ­Ё,   в Є¦Ґ ­ «ЁзЁҐ Ё Їа ўЁ«м­®бвм ЇгвЁ, Ї®б«Ґ зҐЈ® Ї®ўв®аЁвҐ Ї®ЇлвЄг.\nбва®Є :1 §­ Є:1\n+ -Command \"Get-Date -Format 'HH:mm:ss'; 'PONG no-flag'\"\n+ ~~~~~~~~\n    + CategoryInfo          : ObjectNotFound: (-Command:String) [], CommandNotFoundException\n    + FullyQualifiedErrorId : CommandNotFoundException\n \n",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T19:50:53"
+}

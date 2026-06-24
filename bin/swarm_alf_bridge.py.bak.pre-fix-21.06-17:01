@@ -1,0 +1,89 @@
+#!/usr/bin/env python3
+"""
+swarm_alf_bridge.py — мост swarm/inbox/alf/ -> ALF Telegram bot.
+Hermes кладёт JSON в /root/matryoshka/swarm/inbox/alf/{task_id}.json,
+этот скрипт читает и шлёт ALF через Telegram Bot API.
+ALF отвечает в Telegram Олегу, ответ ловится watchdog'ом и кладётся в outbox/alf/.
+"""
+import json
+import time
+import requests
+from pathlib import Path
+from datetime import datetime
+
+SWARM_INBOX = Path("/root/matryoshka/swarm/inbox/alf")
+SWARM_OUTBOX = Path("/root/matryoshka/swarm/outbox/alf")
+SWARM_SENT = Path("/root/matryoshka/swarm/inbox/alf/.sent")
+ALF_BOT_TOKEN = "8941776316:AAEQCAS1V9eJ3X6WW6Up9o6BFqe7qO_RcSs"
+ALF_USER_ID = "1951845052"  # Олег
+POLL_INTERVAL = 5
+LOG = Path("/var/log/swarm/alf_bridge.log")
+
+
+def log(msg):
+    ts = datetime.now().isoformat(timespec="seconds")
+    line = f"[{ts}] {msg}"
+    print(line, flush=True)
+    try:
+        LOG.parent.mkdir(parents=True, exist_ok=True)
+        with LOG.open("a", encoding="utf-8") as f:
+            f.write(line + "\n")
+    except Exception:
+        pass
+
+
+def send_to_alf(text):
+    """Send message to ALF via Telegram Bot API (Oleg's chat)."""
+    url = f"https://api.telegram.org/bot{ALF_BOT_TOKEN}/sendMessage"
+    r = requests.post(url, json={"chat_id": ALF_USER_ID, "text": text}, timeout=15)
+    r.raise_for_status()
+    return r.json()
+
+
+def process_inbox():
+    SWARM_SENT.mkdir(parents=True, exist_ok=True)
+    sent = 0
+    for task_file in SWARM_INBOX.glob("*.json"):
+        try:
+            task = json.loads(task_file.read_text(encoding="utf-8"))
+        except Exception as e:
+            log(f"PARSE FAIL {task_file.name}: {e}")
+            task_file.rename(SWARM_SENT / f"{task_file.name}.bad.{int(time.time())}")
+            continue
+        task_id = task.get("task_id", task_file.stem)
+        task_data = task.get("task", {})
+        subject = task_data.get("subject", "")
+        details = task_data.get("details", "")
+        priority = task_data.get("priority", "normal")
+        from_who = task.get("from", "HERMES")
+        msg = (
+            f"\U0001F4E8 [BRIDGE from {from_who}, {datetime.now().strftime('%Y-%m-%d %H:%M')}]\n"
+            f"Task: {task_id}\n"
+            f"Priority: {priority}\n"
+            f"Subject: {subject}\n\n"
+            f"{details}"
+        )
+        try:
+            send_to_alf(msg)
+            log(f"SENT task_id={task_id} priority={priority}")
+            task_file.rename(SWARM_SENT / f"{task_file.name}.sent.{int(time.time())}")
+            sent += 1
+        except Exception as e:
+            log(f"SEND FAIL task_id={task_id}: {e}")
+    return sent
+
+
+def main():
+    log("alf-bridge started")
+    while True:
+        try:
+            n = process_inbox()
+            if n > 0:
+                log(f"processed {n} task(s)")
+        except Exception as e:
+            log(f"loop error: {e}")
+        time.sleep(POLL_INTERVAL)
+
+
+if __name__ == "__main__":
+    main()

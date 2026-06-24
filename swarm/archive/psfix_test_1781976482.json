@@ -1,0 +1,11 @@
+{
+  "task_id": "psfix_test_1781976482",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "Get-Date; 'CWD=' + (Get-Location).Path; 'PID=' + 21332\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T20:28:15"
+}

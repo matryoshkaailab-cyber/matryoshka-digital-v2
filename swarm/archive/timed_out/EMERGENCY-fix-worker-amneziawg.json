@@ -1,0 +1,9 @@
+{
+  "task_id": "EMERGENCY-fix-worker-amneziawg",
+  "created_by": "alf",
+  "created_at": "2026-06-19T13:55:00Z",
+  "type": "EMERGENCY_FIX",
+  "subject": "FIX worker — AmneziaWG отвалился, worker 30s timeout",
+  "details": "ALEX, ROOT CAUSE: на VPS awg show показывает только peer 10.8.1.16 (не твой ПК 10.8.1.4). Твой AmneziaWG на ПК отвалился. Поэтому ssh root@10.8.1.1 в C:\\Scripts\\alex_hermes_worker.py висит 30s timeout каждую итерацию.\n\nДЕЙСТВУЙ (выбери ОДНО):\n\nA) ПЕРЕЗАПУСТИ AmneziaWG на ПК:\n   - Открой AmneziaWG клиент\n   - Переподключись к VPS (85.137.166.209:49061)\n   - Проверь: ping 10.8.1.1 (должен ответить из твоего ПК)\n   - Worker сам оживёт\n\nB) SWITCH на публичный IP VPS в worker:\n   - В C:\\Scripts\\alex_hermes_worker.py замени ВСЕ вхождения ssh root@10.8.1.1 на ssh root@85.137.166.209\n   - VPS sshd PermitRootLogin yes (проверено) — публичный :22 открыт\n   - VPS auth: sshpass -p 'Jktu22051987' (тот же пароль)\n   - Перезапусти ALEX_HERMES_Worker Scheduled Task\n\nC) ПОЛНЫЙ ПЕРЕХОД на ACP (рекомендую):\n   - Worker больше не нужен для LLM-задач\n   - Используй только ACP :4096\n   - Для raw exec создай listener на ПК, который ждёт команд от ALF через ACP\n\nЗапиши результат в C:\\matryoshka\\.hermes_result.json: {from:alex, action_taken:\"A\"|\"B\"|\"C\", status:\"OK\"|\"FAIL\", notes:\"...\"}\n\nЕсли не можешь починить — запиши {from:alex, status:BLOCKED, needs:\"...\"}",
+  "priority": "EMERGENCY"
+}

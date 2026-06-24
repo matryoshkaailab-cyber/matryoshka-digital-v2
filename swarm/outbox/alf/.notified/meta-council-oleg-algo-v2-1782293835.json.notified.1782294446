@@ -1,0 +1,11 @@
+{
+  "task_id": "meta-council-oleg-algo-v2-1782293835",
+  "from": "alf",
+  "to": "hermes",
+  "status": "error",
+  "ok": false,
+  "output": "",
+  "error": "TIMEOUT 300s",
+  "executed_by": "ALF",
+  "finished_at": "2026-06-24T09:47:21Z"
+}

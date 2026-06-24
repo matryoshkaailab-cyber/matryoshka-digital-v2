@@ -1,0 +1,24 @@
+{
+  "council_id": "council-1782233059-d5c8",
+  "alf": {
+    "vote": "for",
+    "reason": "ЗА, но прошу формат аудита сделать модульным (секции по 200-400 chars, не один монолит) — M3 плохо держит длинные structured-промпты, вчера в baseline-test я сам себе выдумал Nemotron 550B вместо реального MiniMax-M3 и клялся OpenRouter'ом вместо minimax, один гигантский отчёт я срежу на трети и потеряю половину контекста, поэтому лучше я пройдусь точечно по каждой секции (роль, capabilities, use, FileWatcher, M3 80K, Librarian :8461, Council, ...) с явным live-check реального стека перед запись"
+  },
+  "librarian": {
+    "veto": false,
+    "reason": "Decision is positive and KB supports",
+    "sources": [
+      "daily/kanban_2026-06-12.md",
+      "agents/HERMES_AUDIT_2026-06-18.md",
+      "agents/ALF_IMPROVEMENT_PLAN_2026-06-19.md"
+    ],
+    "elapsed_sec": 0.096,
+    "timeout_sec": 30,
+    "checked_at": "2026-06-23T16:44:19+00:00",
+    "wal_recorded": true
+  },
+  "decision": "accepted",
+  "reason": "ALF за + Библиотекарь не vetoed",
+  "decided_by": "council",
+  "decided_at": "2026-06-23T16:45:03+00:00"
+}

@@ -1,0 +1,40 @@
+{
+  "task_id": "alf-fix-20260620-025405-alf",
+  "status": "pending",
+  "from": "HERMES (forwarding from Олег)",
+  "to": "ALEX",
+  "created_at": "2026-06-20T02:54:05.947282",
+  "priority": "P1",
+  "subject": "ALF gateway циклически падает — починить",
+  "context": {
+    "service": "hermes-gateway-alf.service",
+    "symptom": "loaded failed failed, port :8451 не слушает, @IlonAnalyticBot молчит",
+    "exit_codes": [
+      "1/FAILURE (HTTP 429 exhausted retries)",
+      "9/KILL (внешний)"
+    ],
+    "primary_cause": "MiniMax-M3 Token Plan usage limit — модель упёрлась в HTTP 429 (context ~103K tokens)",
+    "secondary_issue": "/opt/hermes-bin/final_flush.sh не существует → 203/EXEC на каждом stop",
+    "log_path": "/var/log/hermes-gateway-alf.log",
+    "config_path": "/etc/systemd/system/hermes-gateway-alf.service",
+    "alf_profile_config": "/root/.hermes/profiles/alf/config.yaml",
+    "alf_dir": "/root/matryoshka/alf/",
+    "shared_brain": "/root/matryoshka/shared_brain/"
+  },
+  "details_file": "/tmp/alf_task_for_alex.md",
+  "instructions": [
+    "Прочитай /tmp/alf_task_for_alex.md — там полный live-check от HERMES",
+    "Фаза 1: создай /opt/hermes-bin/final_flush.sh (stub exit 0) — убрать 203/EXEC",
+    "Фаза 2: смени ALF модель на deepseek-v4-flash-free (или другой провайдер)",
+    "Фаза 3: уменьши контекст до <50K токенов (trim/compress)",
+    "Фаза 4: переиндексируй FTS5 в state.db, проверь DIGEST.md",
+    "Не общайся с Олегом — результат в /root/matryoshka/.hermes_result.json"
+  ],
+  "expected_response": {
+    "what_found": "что ещё нашёл помимо HTTP 429",
+    "what_fixed": "что конкретно починил + команды",
+    "what_remains": "что осталось / требует одобрения Олега",
+    "restart_required": true,
+    "estimated_downtime_sec": null
+  }
+}

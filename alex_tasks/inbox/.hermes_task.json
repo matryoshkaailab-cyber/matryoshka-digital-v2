@@ -1,0 +1,9 @@
+{
+  "task_id": "fix_connection_20260611_1345",
+  "command": "fix_connection",
+  "text": "Очисти opencode sessions, перезапусти AlexStack, проверь WS, выполни Get-Date, создай файл RESTART_RESULT_*.md в C:\\matryoshka\\alex_tasks\\",
+  "status": "pending",
+  "created_at": 1781174700,
+  "created_by": "hermes",
+  "priority": "critical"
+}

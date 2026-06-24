@@ -1,0 +1,5 @@
+# Auto-commit memory для ALF и ALINA — каждые 15 мин
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+*/15 * * * * root /usr/bin/python3.12 /root/.hermes/profiles/alf/scripts/commit_memory.py >> /var/log/alf_commit_memory.log 2>&1
+*/15 * * * * root /usr/bin/python3.12 /root/.hermes/profiles/alina/scripts/commit_memory.py >> /var/log/alina_commit_memory.log 2>&1

@@ -1,0 +1,11 @@
+{
+  "task_id": "date_test_20260620_233000",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "2026-06-21 00:30:23 +03:00\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-21T00:30:23"
+}

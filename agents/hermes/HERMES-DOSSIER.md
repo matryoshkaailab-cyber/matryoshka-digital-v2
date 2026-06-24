@@ -405,7 +405,7 @@ hermes tools --enable web      # Включить web
 ├── agents/                           # Досье на агентов
 │   ├── hermes/README.md              # Я (дирижёр)
 │   ├── alex/README.md               # Алекс (Windows ПК)
-│   ├── ekler/README.md              # Эклер (аналитик)
+│   ├── ekler/README.md              # АЛИНА (аналитик)
 │   └── alina/README.md              # Алина (продажник)
 ├── cases/                           # Кейсы клиентов
 │   ├── nikolay/                     # Nikolay
@@ -413,7 +413,7 @@ hermes tools --enable web      # Включить web
 │   │   ├── passport.md
 │   │   ├── pain-log.md
 │   │   └── metrics/
-│   └── ecler/                       # Ecler/Наталья
+│   └── alina/                       # Alina/Наталья
 │       └── passport.md
 ├── bots/                            # Проекты ботов
 │   └── alex/

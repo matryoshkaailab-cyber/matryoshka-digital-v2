@@ -1,0 +1,90 @@
+# SWARM V4.0 — Архитектура роя MATRYOSHKA (утверждено 18.06.2026 22:30)
+
+**Утверждено:** Олегом 18.06.2026 ~22:30 CEST
+**Обсуждение:** 3 участника — HERMES (дирижёр), ALEX (технический), ALF (стратег)
+**Источник:** Сессия Hermes 2026-06-18
+
+---
+
+## 5 решений
+
+### 1. ИЕРАРХИЯ: ГИБРИД (по предложению ALF)
+
+```
+ОЛЕГ (Директор, ID 1951845052)
+  ↓ Telegram (только через HERMES)
+HERMES (Дирижёр, VPS) ← единственная точка входа
+  ├→ ALEX (тех. инженер, ПК Олега, ACP :4096)
+  ├→ ALF  (стратег, VPS, профиль alf, Telegram @IlonAnalyticBot)
+  └→ ALINA (отдельный кейс Николая, VPS, профиль alina-prod)
+```
+
+**Гибрид:**
+- Олег общается только с HERMES (нет прямого доступа к ALF/ALEX/ALINA)
+- ALF может инициировать обмен с ALEX через HERMES (через `.hermes_task_alf.json`)
+- ALEX не общается с ALF напрямую — только через HERMES
+
+### 2. ALF ↔ ALEX: ТОЛЬКО через HERMES
+
+- Протокол: ALF пишет задачу в `/root/matryoshka/.hermes_task_alf.json`
+- HERMES видит файл, решает приоритет, отправляет ALEX через ACP
+- Результат пишется в `/root/matryoshka/.hermes_result.json`
+- ALF читает результат и продолжает работу
+
+### 3. КОНТЕКСТ: Obsidian + session_search (НЕ "или")
+
+- **Obsidian** (`/root/obsidian-vault/` или WebDAV `:8181`) — долговременная правда:
+  - Знания, решения, контекст проекта
+  - Knowledge base Алины, Альфа
+  - AGENTS.md, SOUL.md, PLAN.md
+- **session_search** (Hermes FTS5) — runtime-индекс:
+  - Последние часы оперативки
+  - Быстрый поиск по сообщениям
+  - Авто-cleanup через 30 дней
+- Связь: ALF librarian индексирует Obsidian WebDAV → отдаёт контекст HERMES по запросу
+
+### 4. ALINA: ОТДЕЛЬНЫЙ КЕЙС (навсегда)
+
+- ALINA = клиентский бот Николая, не часть роя Олега
+- Изоляция данных (v3.2 mandate): НИКОГДА не смешивать DATALINK и ALINA
+- ALEX имеет доступ к ALINA только через явную задачу HERMES с `scope: alina`
+- Telegram: @NikolaAlinaBot
+- Профиль: `alina-prod` (отдельный venv `/opt/alina-hermes/venv`)
+
+### 5. АВТОМАРШРУТИЗАЦИЯ: РУЧНАЯ (2-3 мес до автомата)
+
+- Сейчас: Олег → HERMES → ручное решение куда делегировать
+- Через 2-3 мес (когда 50+ задач с известными паттернами):
+  - Лёгкий LLM-классификатор на VPS (`:7460`)
+  - Human-in-the-loop override через Олега
+- До того: ручная маршрутизация через HERMES (текущее состояние)
+
+---
+
+## Что НЕ меняется
+
+- ✅ Канал HERMES↔ALEX: ACP :4096 через AmneziaWG (10.8.1.4)
+- ✅ Telegram боты: @IlonAnalyticBot (ALF), @NikolaAlinaBot (ALINA), HERMES CLI (Олег)
+- ✅ Изолированные venv: /opt/alf-hermes/venv, /opt/alina-hermes/venv
+- ✅ systemd units: hermes-cli-gateway, hermes-gateway-alf, alina-prod-gateway
+
+## Что нужно создать (после фиксации)
+
+1. `/root/matryoshka/.hermes_task_alf.json` — файл-очередь для задач от ALF к ALEX через HERMES
+2. `/root/matryoshka/.archive/swarm_v4_2026-06-18.md` — backup старого AGENTS.md (v3.3)
+3. `/root/.hermes/profiles/hermes-cli/AGENTS.md` — обновлённая версия v4.0
+
+---
+
+## Участники обсуждения
+
+| Кто | Роль | Вклад |
+|-----|------|-------|
+| Олег | Директор | Финальное решение |
+| HERMES | Дирижёр | Координация обсуждения, формализация |
+| ALEX | Технический инженер | Технические аргументы (ACP, протоколы) |
+| ALF | Стратег + библиотекарь | Стратегическое видение (иерархия, контекст) |
+
+---
+
+*Файл создан 18.06.2026 22:30. При изменениях — обновлять существующий файл, не плодить v4.1/v5/etc.*

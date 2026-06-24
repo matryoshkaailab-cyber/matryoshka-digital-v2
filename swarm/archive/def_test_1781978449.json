@@ -1,0 +1,11 @@
+{
+  "task_id": "def_test_1781978449",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": false,
+  "output": "",
+  "error": "  File \"<string>\", line 1\n    import subprocess,sys;_os2=__import__('os');_f='C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\Temp\\\\opencode\\\\ps_task.ps1';open(_f,'w',encoding='utf-8').write('\"Set-Content -Path \\'C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\Temp\\\\opencode\\\\ps_def_test.txt\\' -Value \\'POWERSHELL_WROTE_THIS_42\\'; \\'WRITE_OK\\'\"');r=subprocess.run([r'C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',_f],capture_output=True,text=True,timeout=30);try:_os2.remove(_f);except:pass;sys.stdout.write(r.stdout);sys.stderr.write(r.stderr);sys.exit(r.returncode)\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ^^^\nSyntaxError: invalid syntax\n",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T21:01:02"
+}

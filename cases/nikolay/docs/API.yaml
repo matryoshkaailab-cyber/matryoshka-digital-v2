@@ -1,0 +1,207 @@
+openapi: 3.0.3
+info:
+  title: ALINA HTTP API
+  version: 2.0.0
+  description: |
+    HTTP API для ALINA — тёплый личный ассистент Николая (Hermes Agent).
+    
+    Порт: 8470
+    Auth: Basic Auth (ALINA_API_USER + ALINA_API_UUID)
+    Модель: MiniMax-M3 (с fallback chain)
+    
+  contact:
+    name: HERMES (дирижир MATRYOSHKA DIGITAL)
+    telegram: oleg_industry_bot
+
+servers:
+  - url: http://localhost:8470
+    description: Локальный (VPS)
+  - url: http://85.137.166.209:8470
+    description: VPS SmartApe (Чехия)
+
+security:
+  - BasicAuth: []
+
+paths:
+  /health:
+    get:
+      summary: Health check
+      security: []
+      description: |
+        Проверка работоспособности. Не требует auth.
+        Возвращает статус gateway, server, модель, uptime.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: {type: string, example: ok}
+                  agent: {type: string, example: ALINA}
+                  port: {type: integer, example: 8470}
+                  auth_user: {type: string, example: alina}
+                  primary_model: {type: string, example: MiniMax-M3 (прямой)}
+                  fallback_order: 
+                    type: array
+                    items: {type: string}
+                  uptime: {type: number, description: секунды}
+
+  /chat:
+    post:
+      summary: Обычный диалог с Алиной
+      description: |
+        Отправляет сообщение в модель (default MiniMax-M3).
+        Загружает SOUL.md как system prompt.
+        Fallback chain при ошибках.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message]
+              properties:
+                message: 
+                  type: string
+                  description: Сообщение для Алины
+                  example: "Привет! Как ты?"
+                max_tokens:
+                  type: integer
+                  default: 2000
+                  description: Максимум токенов в ответе
+                temperature:
+                  type: number
+                  default: 0.7
+                  minimum: 0
+                  maximum: 2
+                model:
+                  type: string
+                  enum: [minimax-m3, minimax-m2.7, gemini-flash, claude-haiku, qwen-local]
+                  description: Опционально, конкретная модель
+                system:
+                  type: string
+                  description: Опционально, свой system prompt (перебивает SOUL.md)
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: {type: boolean}
+                  model: {type: string, example: minimax-m3}
+                  text: {type: string, description: Ответ Алины}
+                  usage:
+                    type: object
+                    properties:
+                      total_tokens: {type: integer}
+                      prompt_tokens: {type: integer}
+                      completion_tokens: {type: integer}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: {type: string, example: unauthorized}
+        '503':
+          description: Все модели fallback упали
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: {type: boolean, example: false}
+                  error: {type: string}
+
+  /think:
+    post:
+      summary: Глубокое мышление
+      description: |
+        Аналог /chat, но с system prompt "Думай глубоко".
+        max_tokens по умолчанию 4000.
+        temperature 0.3 (более детерминированный).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message]
+              properties:
+                message: {type: string}
+                max_tokens: {type: integer, default: 4000}
+                temperature: {type: number, default: 0.3}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: {type: boolean}
+                  model: {type: string}
+                  text: {type: string}
+
+  /task:
+    post:
+      summary: Задача от HERMES
+      description: |
+        HERMES отправляет задачу Алине.
+        Результат сохраняется в /root/matryoshka/alina_tasks/DONE_*.md
+        Алина может подумать над задачей 5-10 сек.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [task]
+              properties:
+                task: 
+                  type: string
+                  description: Текст задачи
+                  example: "Аудит карточек Авито за неделю"
+                max_tokens: {type: integer, default: 3000}
+                temperature: {type: number, default: 0.5}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: {type: boolean}
+                  model: {type: string}
+                  text: {type: string, description: Результат}
+                  task_file: 
+                    type: string
+                    description: Путь к сохранённому файлу
+                    example: /root/matryoshka/alina_tasks/DONE_20260617_xxx.md
+
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: |
+        ALINA_API_USER (default: alina) + ALINA_API_UUID (из .env).
+        UUID берётся из /root/.hermes/profiles/alina/.env
+
+  examples:
+    ChatExample:
+      summary: Пример /chat
+      value:
+        ok: true
+        model: minimax-m3
+        text: "Привет, Николай! 🌸 Как день проходит?"
+        usage:
+          total_tokens: 245
+          prompt_tokens: 180
+          completion_tokens: 65

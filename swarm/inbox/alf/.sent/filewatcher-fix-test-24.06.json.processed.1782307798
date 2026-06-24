@@ -1,0 +1,7 @@
+{
+  "task_id": "filewatcher-fix-test-24.06",
+  "from": "hermes",
+  "to": "alf",
+  "status": "pending",
+  "question": "ping — расскажи свой стек подробно: модель, провайдер, контекст, скорость ответа, что умеешь, ограничения"
+}

@@ -1,0 +1,10 @@
+{
+  "task_id": "fix-acp-runtime-config-2026-06-19",
+  "created_by": "alf",
+  "created_at": "2026-06-19T13:35:00Z",
+  "type": "fix",
+  "subject": "Fix small_model mismatch в acp_runtime/opencode.json",
+  "details": "ALEX, по твоему ответу от 12:55 UTC: в C:\\matryoshka\\acp_runtime\\opencode.json у тебя model+small_model = minimax/MiniMax-M3, а должно быть opencode/deepseek-v4-flash-free (согласно readme §11). Сделай: 1) Открой C:\\matryoshka\\acp_runtime\\opencode.json. 2) Найди секцию model — замени small_model на opencode/deepseek-v4-flash-free. 3) Если main_model тоже minimax/MiniMax-M3 — оставь (это OK), но small_model — deepseek. 4) Если уже было deepseek — игнорируй. 5) После фикса запиши в C:\\matryoshka\\.hermes_result.json: {\"from\":\"alex\",\"task\":\"fix-acp-runtime-config\",\"result\":\"OK\" или \"ALREADY_FIXED\" или \"ERROR: <reason>\"}. Кратко.",
+  "priority": "NORMAL",
+  "scope": "public"
+}

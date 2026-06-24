@@ -1,0 +1,11 @@
+{
+  "task_id": "worker_real_test_v6_20260620_194300",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "(Get-Process python -ErrorAction SilentlyContinue | Measure-Object).Count\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T21:05:15"
+}

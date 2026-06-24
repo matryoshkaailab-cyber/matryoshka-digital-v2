@@ -52,3 +52,35 @@ Holdout = 5 зафиксированных Q&A (sanity floor, ловит 80% reg
 - Олег: всё, что я сказал, — корректировки к этому плану
 
 ## ПРИНЯТО (Олег, 21.06.2026 03:35 CEST)
+
+## alf-librarian v1.1 (21.06.2026 03:42 CEST)
+
+- Telegram УБРАН (общий токен с ALF → conflict)
+- File-queue через `.hermes_task_librarian.json` + cron watcher (60s)
+- systemd unit: hermes-gateway-alf-librarian.service — ACTIVE
+- bin/librarian_watcher.py: poll → process → write outbox
+
+### Доступ
+- ALF/ALEX → пишут в `.hermes_task_librarian.json` (kind=librarian)
+- librarian_watcher.py читает каждые 60 сек
+- Результат в `swarm/outbox/librarian/<task_id>.json`
+- Олег может вызвать через Telegram-мост или HTTP /librarian endpoint (TODO)
+
+## alf-librarian v1.2 — ЧАСТИЧНО (21.06.2026 03:46)
+
+**Создано:**
+- /root/.hermes/profiles/alf-librarian/ (config + SOUL.md + .env)
+- personality: librarian
+- toolsets: [notebooklm, research, memory, file, session_search, skills]
+- model: openrouter/minimax/MiniMax-M3 (TODO: minimax provider)
+
+**НЕ РАБОТАЕТ:**
+- v0.17 НЕТ `file` platform (только telegram, slack, signal, webhook, etc)
+- systemd unit удалён (alf-librarian = НЕ gateway, а agent)
+- `hermes chat --profile alf-librarian` возвращает "no final response" (timeout?)
+
+**TODO:**
+- Тест через ALF delegate (sub-agent v0.17): alf-strategist / alf-librarian как sub-agents ОДНОГО gateway
+- Или через ALF-librarian как cron job (hermes -p с prompt)
+- Переключить model на provider=minimax (НЕ openrouter)
+- Создать отдельный Telegram bot через @BotFather (TODO: Олег)

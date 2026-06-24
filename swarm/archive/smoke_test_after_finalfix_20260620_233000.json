@@ -1,0 +1,11 @@
+{
+  "task_id": "smoke_test_after_finalfix_20260620_233000",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "POWERSHELL_EXEC_42_OK\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T23:17:30"
+}

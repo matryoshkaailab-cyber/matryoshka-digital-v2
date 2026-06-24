@@ -1,0 +1,11 @@
+{
+  "task_id": "def_test_1781978660",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "Set-Content -Path 'C:\\Users\\User\\AppData\\Local\\Temp\\opencode\\ps_def_test.txt' -Value 'POWERSHELL_WROTE_THIS_42'; 'WRITE_OK'\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T21:04:27"
+}

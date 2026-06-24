@@ -1,0 +1,11 @@
+{
+  "task_id": "ping_hermes_postfix_20260620_190500",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "Get-Date -Format 'yyyy-MM-dd HH:mm:ss'; 'PONG POST-FIX'\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T20:36:34"
+}

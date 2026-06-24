@@ -1,0 +1,11 @@
+{
+  "task_id": "test_pwsh_exe_20260620_185100",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "19:50:51\nPONG\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T19:50:51"
+}

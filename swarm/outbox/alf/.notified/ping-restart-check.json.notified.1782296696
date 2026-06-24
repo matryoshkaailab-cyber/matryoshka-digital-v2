@@ -1,0 +1,11 @@
+{
+  "task_id": "ping-restart-check",
+  "from": "alf",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "pong — ALF online, v5.0 (M3, 80K ctx, FileWatcher v3, watchdog+healthcheck, shared_brain recovered 23.06)",
+  "error": "",
+  "executed_by": "ALF",
+  "finished_at": "2026-06-24T10:24:53Z"
+}

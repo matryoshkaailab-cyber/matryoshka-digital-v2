@@ -1,0 +1,49 @@
+# 🚨 СРОЧНО: WS_CLIENT РАЗМНОЖИЛСЯ НА ПК ОЛЕГА
+
+**08.06.2026 16:13 — аварийная ситуация**
+
+## СИМПТОМ
+У Олега на ПК **6-7 окон `ws_client.py`** наложены друг на друга + **2 окна opencode**. Скриншот есть.
+
+## ПРИЧИНА
+- `CLEANUP_ENABLED=False` в ws_client v38 — окна не закрываются автоматически
+- RESTART_ALEX.bat + watchdog перезапустили процессы несколько раз
+- Каждый запуск = новое окно cmd (без cleanup)
+- Также: SSE timeout 15s → fallback polling каждые 1-2 сек = нагрузка
+
+## НЕМЕДЛЕННЫЕ ДЕЙСТВИЯ
+
+**Олег закрывает вручную:**
+```powershell
+taskkill /F /IM python.exe /FI "WINDOWTITLE eq ws_client*"
+taskkill /F /IM opencode.exe
+Start-Sleep 3
+start /min "" "C:\Users\User\AppData\Roaming\npm\node_modules\opencode-ai\bin\opencode.exe" serve --port 5001
+start /min cmd /c "C:\matryoshka\ws_client.bat"
+```
+
+**Аликс должен починить на ПК:**
+
+1. **Включить CLEANUP_ENABLED=True** в коде ws_client:
+   - В `ws_client.py` добавить `subprocess.Popen` для cmd-окна с флагом `CREATE_NO_WINDOW` (0x08000000)
+   - Или переключиться на `nssm` service (не показывает окна)
+
+2. **Watchdog — настроить правильно:**
+   - Не должен перезапускать если процесс жив
+   - Проверять PID, а не количество процессов
+
+3. **Проверить Task Scheduler** — нет ли там дублей
+
+4. **SSE вместо polling:**
+   - `GET /api/sse` или `EventSource` для long-lived соединения
+   - Polling каждые 1-2 сек = много нагрузки и окон
+
+## ССЫЛКА
+Скриншот Олега: /root/matryoshka/alex_tasks/2026-06-08_1613_OLG_SCREENSHOT_REF.txt (см. этот файл)
+
+## СРОЧНОСТЬ
+- 🔴 Олег уже видит мешающие окна — нужна очистка ПК
+- 🟡 Архитектура watchdog сломанa — повторится
+- 🟢 После очистки Олег может продолжать работать
+
+— HERMES 08.06.2026 16:13

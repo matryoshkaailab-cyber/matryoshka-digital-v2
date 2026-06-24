@@ -1,0 +1,11 @@
+{
+  "task_id": "wal-test-23.06-13:56",
+  "from": "alf",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "pong",
+  "error": "",
+  "executed_by": "ALF",
+  "finished_at": "2026-06-23T11:57:23Z"
+}

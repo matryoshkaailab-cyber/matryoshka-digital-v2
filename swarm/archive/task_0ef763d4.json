@@ -1,0 +1,11 @@
+{
+  "task_id": "task_0ef763d4",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "root     2128970  1.1  6.7 2547460 550516 ?      Ssl  Jun16  18:59 /usr/local/lib/hermes-agent/venv/bin/python3 /usr/local/bin/hermes gateway run --profile hermes-cli --replace\nroot     2334357  0.5  3.1 1440456 259676 ?      Ssl  Jun17   1:42 /usr/local/lib/hermes-agent/venv/bin/python3 /usr/local/lib/hermes-agent/venv/bin/hermes gateway run --profile alina --replace\nroot     2372137  1.2  2.9 1153968 242480 ?      Ssl  Jun17   0:21 /usr/local/lib/hermes-agent/venv/bin/python -m hermes_cli.main --profile alf gateway run\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-18T01:22:25"
+}

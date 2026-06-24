@@ -1,0 +1,8 @@
+{
+  "trigger": "alf-soul-modified (13560s ago)",
+  "ts": "2026-06-21T03:00:01+02:00",
+  "knowledge_count": 43,
+  "knowledge_dir": "/root/matryoshka/alf/knowledge",
+  "notebook_url": "https://notebooklm.google.com/notebook/38d2a04f-9f73-49c7-baf7-0a289eecfa8a",
+  "action": "ALF persona должна вызвать browser_navigate → https://notebooklm.google.com/notebook/38d2a04f-9f73-49c7-baf7-0a289eecfa8a → добавить новые источники из knowledge/"
+}

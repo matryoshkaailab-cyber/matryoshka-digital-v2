@@ -1,0 +1,290 @@
+{
+  "scope": "Полный аудит MATRYOSHKA DIGITAL по запросу Олега 18.06.2026",
+  "agent": "HERMES",
+  "timestamp": "2026-06-18T15:20:46.554521",
+  "version": "Hermes Agent v0.16.0, Python 3.12, venv=/usr/local/lib/hermes-agent/venv/",
+  "all_processes": [
+    {
+      "pid": "5799",
+      "uptime": "10-04:07:33",
+      "user": "user",
+      "cmd": "/sbin/tini -- node apps/daemon/dist/cli.js --no-open"
+    },
+    {
+      "pid": "5980",
+      "uptime": "10-04:07:33",
+      "user": "oleg",
+      "cmd": "node /usr/local/bin/n8n"
+    },
+    {
+      "pid": "6007",
+      "uptime": "10-04:07:33",
+      "user": "user",
+      "cmd": "node apps/daemon/dist/cli.js --no-open"
+    },
+    {
+      "pid": "1894100",
+      "uptime": "3-12:09:38",
+      "user": "root",
+      "cmd": "/usr/bin/node index.js"
+    },
+    {
+      "pid": "2372137",
+      "uptime": "15:27:12",
+      "user": "root",
+      "cmd": "/usr/local/lib/hermes-agent/venv/bin/python -m hermes_cli.main --profile alf gateway run"
+    },
+    {
+      "pid": "2406051",
+      "uptime": "13:54:19",
+      "user": "root",
+      "cmd": "/usr/local/lib/hermes-agent/venv/bin/python3 /usr/local/bin/hermes gateway run --profile hermes-cli --replace"
+    },
+    {
+      "pid": "2589675",
+      "uptime": "02:26:14",
+      "user": "root",
+      "cmd": "/opt/alina-hermes/venv/bin/python3 /root/matryoshka/alina/alina_metrics.py"
+    },
+    {
+      "pid": "2589679",
+      "uptime": "02:26:14",
+      "user": "root",
+      "cmd": "/opt/alina-hermes/venv/bin/python3 /root/matryoshka/alina/inventory_service.py"
+    },
+    {
+      "pid": "2589683",
+      "uptime": "02:26:14",
+      "user": "root",
+      "cmd": "/opt/alina-hermes/venv/bin/python3 /root/matryoshka/alina/finance_service.py"
+    },
+    {
+      "pid": "2589687",
+      "uptime": "02:26:13",
+      "user": "root",
+      "cmd": "/opt/alina-hermes/venv/bin/python3 /root/matryoshka/alina/auto_reply_service.py"
+    },
+    {
+      "pid": "2589691",
+      "uptime": "02:26:13",
+      "user": "root",
+      "cmd": "/opt/alina-hermes/venv/bin/python3 /root/matryoshka/alina/market_prices_service.py"
+    },
+    {
+      "pid": "2589696",
+      "uptime": "02:26:13",
+      "user": "root",
+      "cmd": "/opt/alina-hermes/venv/bin/python3 /root/matryoshka/alina/docs_service.py"
+    },
+    {
+      "pid": "2589700",
+      "uptime": "02:26:13",
+      "user": "root",
+      "cmd": "/opt/alina-hermes/venv/bin/python3 /root/matryoshka/alina/alina_callback_poller.py"
+    },
+    {
+      "pid": "2591786",
+      "uptime": "02:20:47",
+      "user": "root",
+      "cmd": "/opt/alina-hermes/venv/bin/python3 /root/matryoshka/alina/alina_server.py"
+    },
+    {
+      "pid": "2618009",
+      "uptime": "52:55",
+      "user": "root",
+      "cmd": "/usr/bin/python3 /usr/local/bin/node /root/.hermes/profiles/alf/lsp/bin/bash-language-server start"
+    },
+    {
+      "pid": "2618011",
+      "uptime": "52:55",
+      "user": "root",
+      "cmd": "/usr/local/lib/python3.12/dist-packages/nodejs_wheel/bin/node /root/.hermes/profiles/alf/lsp/bin/bash-language-server start"
+    },
+    {
+      "pid": "2618592",
+      "uptime": "51:55",
+      "user": "root",
+      "cmd": "/opt/alina-hermes/venv/bin/python3 /opt/alina-hermes/venv/bin/hermes gateway run --profile alina-prod --replace"
+    },
+    {
+      "pid": "2633022",
+      "uptime": "00:00",
+      "user": "root",
+      "cmd": "/usr/local/lib/hermes-agent/venv/bin/python3 /tmp/hermes_sandbox_pnqazgpd/script.py"
+    }
+  ],
+  "systemd_units": [
+    {
+      "name": "alina-prod-autoreply.service",
+      "status": "active",
+      "enabled": "enabled"
+    },
+    {
+      "name": "alina-prod-callback-poller.service",
+      "status": "active",
+      "enabled": "enabled"
+    },
+    {
+      "name": "alina-prod-docs.service",
+      "status": "active",
+      "enabled": "enabled"
+    },
+    {
+      "name": "alina-prod-finance.service",
+      "status": "active",
+      "enabled": "enabled"
+    },
+    {
+      "name": "alina-prod-gateway.service",
+      "status": "active",
+      "enabled": "enabled"
+    },
+    {
+      "name": "alina-prod-inventory.service",
+      "status": "active",
+      "enabled": "enabled"
+    },
+    {
+      "name": "alina-prod-market.service",
+      "status": "active",
+      "enabled": "enabled"
+    },
+    {
+      "name": "alina-prod-metrics.service",
+      "status": "active",
+      "enabled": "enabled"
+    },
+    {
+      "name": "alina-prod-server.service",
+      "status": "active",
+      "enabled": "enabled"
+    },
+    {
+      "name": "alina-skills-cleanup.service",
+      "status": "inactive",
+      "enabled": "disabled"
+    },
+    {
+      "name": "alina-skills-cleanup.timer",
+      "status": "inactive",
+      "enabled": "disabled"
+    },
+    {
+      "name": "alina-skills-loop.service",
+      "status": "inactive",
+      "enabled": "enabled"
+    },
+    {
+      "name": "hermes-cli-gateway.service",
+      "status": "active",
+      "enabled": "enabled"
+    },
+    {
+      "name": "hermes-cli-gateway.service.bak.1407",
+      "status": "inactive",
+      "enabled": "not-found"
+    },
+    {
+      "name": "hermes-cli-gateway.service.bak.pre-nvidia-env-20260607_012235",
+      "status": "inactive",
+      "enabled": "not-found"
+    },
+    {
+      "name": "hermes-watchdog.service",
+      "status": "inactive",
+      "enabled": "enabled"
+    },
+    {
+      "name": "hermes-ws.service",
+      "status": "inactive",
+      "enabled": "masked"
+    },
+    {
+      "name": "alina-gateway.service.d:",
+      "status": "inactive",
+      "enabled": "not-found"
+    },
+    {
+      "name": "alina-gateway.service.wants:",
+      "status": "inactive",
+      "enabled": "not-found"
+    },
+    {
+      "name": "alina-skills-loop.service",
+      "status": "inactive",
+      "enabled": "enabled"
+    }
+  ],
+  "disk_top": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/vda2        50G   37G   11G  78% /\n",
+  "api_keys": [
+    "MINIMAX_API_KEY",
+    "TELEGRAM_BOT_TOKEN",
+    "TELEGRAM_ALLOWED_USERS",
+    "TELEGRAM_HOME_CHANNEL",
+    "TELEGRAM_HOME_CHANNEL_THREAD_ID",
+    "APIFY_TOKEN",
+    "APIFY_ALINA_TOKEN",
+    "ALINA_API_USER",
+    "ALINA_API_UUID",
+    "ZAI_API_KEY",
+    "OPENROUTER_API_KEY",
+    "YANDEX_DISK_TOKEN",
+    "YANDEX_REFRESH_TOKEN"
+  ],
+  "ports": [
+    "22",
+    "53",
+    "80",
+    "443",
+    "1080",
+    "5678",
+    "5900",
+    "6080",
+    "7456",
+    "8181",
+    "8443",
+    "8453",
+    "8470",
+    "8471",
+    "8472",
+    "8473",
+    "8474",
+    "8475",
+    "8476",
+    "8477",
+    "8765",
+    "8767",
+    "8880",
+    "9050",
+    "9443",
+    "62789"
+  ],
+  "vpn": "interface: awg0\n  public key: 7pGB+NZJJyE12X20na/N0beBeNPS0fprKScd6cJjRAQ=\n  private key: (hidden)\n  listening port: 49061\n  jc: 6\n",
+  "apify": {
+    "zen-studio~avito-listings-scraper": {
+      "runs": 0,
+      "last_run": "?",
+      "status": "OK"
+    },
+    "fatihtahta~avito-russia-scraper": {
+      "runs": 0,
+      "last_run": "?",
+      "status": "OK"
+    },
+    "worshipful_knife~avito-scraper": {
+      "runs": 0,
+      "last_run": "?",
+      "status": "OK"
+    },
+    "logiover~avito-ru-scraper": {
+      "runs": 0,
+      "last_run": "?",
+      "status": "OK"
+    },
+    "abotapi~avito-ru-scraper": {
+      "runs": 0,
+      "last_run": "?",
+      "status": "OK"
+    }
+  }
+}

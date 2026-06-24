@@ -1,0 +1,17 @@
+{
+  "template": "client_audit",
+  "parent_title": "Client audit @ {TIMESTAMP}",
+  "description": "10 параллельных проверок клиентов (пока hardcoded list — потом из БД)",
+  "children": [
+    {"title": "Audit client #1 (hardcoded)", "assignee": "swarm_executor", "priority": 1, "cmd": "echo 'client #1 audit ok @ '$(date -Iseconds)"},
+    {"title": "Audit client #2", "assignee": "swarm_executor", "priority": 1, "cmd": "echo 'client #2 audit ok @ '$(date -Iseconds)"},
+    {"title": "Audit client #3", "assignee": "swarm_executor", "priority": 1, "cmd": "echo 'client #3 audit ok @ '$(date -Iseconds)"},
+    {"title": "Audit client #4", "assignee": "swarm_executor", "priority": 1, "cmd": "echo 'client #4 audit ok @ '$(date -Iseconds)"},
+    {"title": "Audit client #5", "assignee": "swarm_executor", "priority": 1, "cmd": "echo 'client #5 audit ok @ '$(date -Iseconds)"},
+    {"title": "Audit client #6", "assignee": "swarm_executor", "priority": 1, "cmd": "echo 'client #6 audit ok @ '$(date -Iseconds)"},
+    {"title": "Audit client #7", "assignee": "swarm_executor", "priority": 1, "cmd": "echo 'client #7 audit ok @ '$(date -Iseconds)"},
+    {"title": "Audit client #8", "assignee": "swarm_executor", "priority": 1, "cmd": "echo 'client #8 audit ok @ '$(date -Iseconds)"},
+    {"title": "Audit client #9", "assignee": "swarm_executor", "priority": 1, "cmd": "echo 'client #9 audit ok @ '$(date -Iseconds)"},
+    {"title": "Audit client #10", "assignee": "swarm_executor", "priority": 1, "cmd": "echo 'client #10 audit ok @ '$(date -Iseconds)"}
+  ]
+}

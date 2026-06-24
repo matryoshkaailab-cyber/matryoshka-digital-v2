@@ -1,0 +1,11 @@
+{
+  "task_id": "smoke-2-model-23.06-13:58",
+  "from": "alf",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "Модель MiniMax-M3 (minimax), контекст 80 000 токенов.",
+  "error": "",
+  "executed_by": "ALF",
+  "finished_at": "2026-06-23T12:01:16Z"
+}

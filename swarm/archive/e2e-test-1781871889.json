@@ -1,0 +1,11 @@
+{
+  "task_id": "e2e-test-1781871889",
+  "from": "alf",
+  "to": "hermes",
+  "status": "timed_out",
+  "ok": false,
+  "output": "",
+  "error": "Task exceeded timeout (300s) and was aborted by watchdog",
+  "executed_by": "WATCHDOG",
+  "finished_at": "2026-06-19T14:30:01"
+}

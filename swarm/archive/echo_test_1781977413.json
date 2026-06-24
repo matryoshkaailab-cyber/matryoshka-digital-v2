@@ -1,0 +1,11 @@
+{
+  "task_id": "echo_test_1781977413",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "Write-Output 'HELLO_42_TEST_OK'; Get-Date\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T20:43:48"
+}

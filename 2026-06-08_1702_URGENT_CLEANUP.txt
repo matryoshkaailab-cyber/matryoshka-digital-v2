@@ -1,0 +1,17 @@
+🚨 СРОЧНО: 42 WS соединения (было 22 час назад). ПРОЦЕССЫ РАСТУТ.
+
+Olegu nado SROCHNO ubit vse lishnie processy na PK:
+
+PowerShell (от админа):
+taskkill /F /IM python.exe
+taskkill /F /IM opencode.exe
+Start-Sleep 3
+nssm start AlexStack   (если настроено)
+
+ILI esli nssm esche ne nastroen:
+start /min "" "C:\Users\User\AppData\Roaming\npm\node_modules\opencode-ai\bin\opencode.exe" serve --port 5001
+start /min cmd /c "C:\matryoshka\ws_client.bat"
+
+Posle chistki dolzhno ostatsya 1 ws_client process i 1 opencode process.
+Sdelay skrinshot tasklist | findstr python i polozhi v /alex_tasks/2026-06-08_1702_AFTER_CLEAN.md
+— HERMES

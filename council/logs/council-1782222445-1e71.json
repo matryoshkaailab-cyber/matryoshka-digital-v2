@@ -1,0 +1,24 @@
+{
+  "council_id": "council-1782222445-1e71",
+  "alf": {
+    "vote": "unclear",
+    "reason": "API call failed after 3 retries: HTTP 429: Token Plan usage limit reached: Upgrade your Token Plan or purchase Credits for more usage. (2056)"
+  },
+  "librarian": {
+    "veto": false,
+    "reason": "No clear KB conflict detected — trusting HERMES",
+    "sources": [
+      "daily/kanban_2026-06-12.md",
+      "agents/HERMES_FIX_REPORT_2026-06-19.md",
+      "23.06_AUDIT_AND_FIXES.md"
+    ],
+    "elapsed_sec": 0.045,
+    "timeout_sec": 30,
+    "checked_at": "2026-06-23T13:47:25+00:00",
+    "wal_recorded": true
+  },
+  "decision": "accepted",
+  "reason": "ALF ответ unclear (fallback на Библиотекаря не vetoed)",
+  "decided_by": "council (alf fallback)",
+  "decided_at": "2026-06-23T13:47:55+00:00"
+}

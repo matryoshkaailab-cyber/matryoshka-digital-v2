@@ -1,0 +1,5 @@
+# Hermes Auto-Commit Memory — каждые 15 мин
+# Коммитит summary последней сессии в memory_store.db
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+*/15 * * * * root /usr/bin/python3.12 /root/.hermes/profiles/hermes-cli/scripts/commit_memory.py >> /var/log/hermes_commit_memory.log 2>&1

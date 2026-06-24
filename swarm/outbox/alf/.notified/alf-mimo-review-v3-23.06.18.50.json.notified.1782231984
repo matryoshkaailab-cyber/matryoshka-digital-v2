@@ -1,0 +1,11 @@
+{
+  "task_id": "alf-mimo-review-v3-23.06.18.50",
+  "from": "alf",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "  ┊ review diff",
+  "error": "",
+  "executed_by": "ALF",
+  "finished_at": "2026-06-23T16:26:23Z"
+}

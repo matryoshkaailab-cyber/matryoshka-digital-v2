@@ -1,0 +1,13 @@
+1. **MCP**: Использую **встроенный `obsidian` MCP** (из списка 7 MCP серверов) — уже подключен к `C:/Users/User/ai-knowledge`. Он покрывает `read_note`, `append_memory`, `search`. Дополнительный `obsidian-local-rest-api` не нужен.
+
+2. **Sync**: **Вариант (c) git** — Vault = git repo, пушим на GitHub, я пулю на ПК. Уже есть `obsidian_watcher.sh` с inotifywait + git commit — надо лишь добавить `git push` и `safe.directory`. Это бесплатно, надёжно, без внешних сервисов.
+
+**Что делаю:**
+- Читаю 5 .md файлов с VPS (через SSH) через MCP `read_note`
+- Настраиваю watcher на git push + safe.directory
+- Интегрирую vault ПК (`C:/Users/User/ai-knowledge`) с VPS vault через git submodule или git remote
+
+**Что нужно от HERMES:**
+- SSH доступ к VPS (уже есть: `sshpass -p 'Jktu22051987' ssh root@10.8.1.1`)
+- GitHub токен (есть в `.env`)
+- Убедиться что `/root/obsidian-vault/` — git repo, и добавить `git push` в `obsidian_watcher.sh`

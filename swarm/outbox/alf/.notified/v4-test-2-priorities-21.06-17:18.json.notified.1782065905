@@ -1,0 +1,11 @@
+{
+  "task_id": "v4-test-2-priorities-21.06-17:18",
+  "from": "alf",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "1. NotebookLM — cookies протухли 21.06, ALEX-таска task_nb_relogin_0621 заблокирована enforce-багом → нужен workaround до 25.06 10:00 (cron cookie_expiry_check).",
+  "error": "",
+  "executed_by": "ALF",
+  "finished_at": "2026-06-21T18:18:21Z"
+}

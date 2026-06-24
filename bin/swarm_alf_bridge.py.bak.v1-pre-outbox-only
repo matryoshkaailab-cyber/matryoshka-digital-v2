@@ -1,0 +1,130 @@
+#!/usr/bin/env python3
+"""
+swarm_alf_bridge.py — НОТИФИКАТОР inbox/outbox ALF (ФИКС 21.06.2026).
+
+До фикса: bridge читал inbox/alf/*.json и слал содержимое задачи в Telegram chat_id=Олег.
+  Проблема: ALF polling не реагирует на bot-to-bot messages, поэтому задача не обрабатывалась.
+  Олег видел "Task: ..." в личке, но это не помогало — ALF не видел.
+
+После фикса (по вердикту Аликса ИИ 21.06.2026): bridge — НОТИФИКАТОР.
+  - inbox/alf/*.json: ALF не pollingит эту папку (FileWatcher P1 отложен).
+    Bridge читает новые файлы и шлёт Олегу ALERT "есть новая задача, попроси Альфа в чате".
+    Файл перемещается в .sent/ чтобы не дублировать.
+  - outbox/alf/*.json: ALF handler не пишет сюда (только Telegram-ответы).
+    Но если в будущем handler начнёт писать — bridge прочитает и занотифицирует Олега.
+"""
+import json
+import time
+import requests
+from pathlib import Path
+from datetime import datetime
+
+SWARM_INBOX = Path("/root/matryoshka/swarm/inbox/alf")
+SWARM_OUTBOX = Path("/root/matryoshka/swarm/outbox/alf")
+SWARM_SENT = Path("/root/matryoshka/swarm/inbox/alf/.sent")
+ALF_BOT_TOKEN="8941776316:AAEQCAS1V9eJ3X6WW6Up9o6BFqe7qO_RcSs"  # ALF bot token
+OLEG_CHAT_ID = "1951845052"  # Олег (Telegram user_id)
+POLL_INTERVAL = 5
+LOG = Path("/var/log/swarm/alf_bridge.log")
+
+
+def log(msg):
+    ts = datetime.now().isoformat(timespec="seconds")
+    line = f"[{ts}] {msg}"
+    print(line, flush=True)
+    try:
+        LOG.parent.mkdir(parents=True, exist_ok=True)
+        with LOG.open("a", encoding="utf-8") as f:
+            f.write(line + "\n")
+    except Exception:
+        pass
+
+
+def notify_oleg(text: str) -> bool:
+    """Send notification message to Oleg via ALF bot (in Telegram)."""
+    url = f"https://api.telegram.org/bot{ALF_BOT_TOKEN}/sendMessage"
+    try:
+        r = requests.post(url, json={"chat_id": OLEG_CHAT_ID, "text": text}, timeout=15)
+        if r.status_code == 200:
+            return True
+        log(f"sendMessage FAIL: {r.status_code} {r.text[:200]}")
+        return False
+    except Exception as e:
+        log(f"sendMessage EXC: {e}")
+        return False
+
+
+def process_inbox() -> int:
+    """Check inbox/alf/ for new tasks, send Oleg ALERT (not ALF), move to .sent/."""
+    SWARM_SENT.mkdir(parents=True, exist_ok=True)
+    sent = 0
+    for task_file in SWARM_INBOX.glob("*.json"):
+        if task_file.parent.name == ".sent":  # skip .sent
+            continue
+        try:
+            task = json.loads(task_file.read_text(encoding="utf-8"))
+        except Exception as e:
+            log(f"PARSE FAIL {task_file.name}: {e}")
+            task_file.rename(SWARM_SENT / f"{task_file.name}.bad.{int(time.time())}")
+            continue
+
+        task_id = task.get("task_id", task_file.stem)
+        subject = task.get("subject", task.get("question", "")[:80])
+
+        # Уведомление Олегу (НЕ ALF!) что есть задача
+        msg = (
+            f"🔔 [BRIDGE-NOTIFY] Новая задача для ALF:\n"
+            f"Task: {task_id}\n"
+            f"Subject: {subject[:120]}\n\n"
+            f"⚠️ ALF FileWatcher не реализован (P1 отложен), задача не обработается автоматически.\n"
+            f"Действие: попроси Альфа в chat (`hermes -p alf chat -q \"...\"`) или через Telegram @IlonAnalyticBot."
+        )
+        notify_oleg(msg)
+        log(f"ALERT SENT to Oleg: task_id={task_id}")
+        task_file.rename(SWARM_SENT / f"{task_file.name}.notified.{int(time.time())}")
+        sent += 1
+    return sent
+
+
+def process_outbox() -> int:
+    """Check outbox/alf/ for ALF responses, notify Oleg (when handler starts writing)."""
+    if not SWARM_OUTBOX.exists():
+        return 0
+    sent = 0
+    SWARM_SENT.mkdir(parents=True, exist_ok=True)
+    for resp_file in SWARM_OUTBOX.glob("*.json"):
+        try:
+            resp = json.loads(resp_file.read_text(encoding="utf-8"))
+        except Exception as e:
+            log(f"OUTBOX PARSE FAIL {resp_file.name}: {e}")
+            continue
+        task_id = resp.get("task_id", resp_file.stem)
+        output = resp.get("output", "")[:500]
+        msg = (
+            f"✅ [BRIDGE-OUTBOX] ALF ответ на задачу:\n"
+            f"Task: {task_id}\n"
+            f"Status: {resp.get('status', '?')}\n"
+            f"Output (первые 500 chars):\n{output}"
+        )
+        notify_oleg(msg)
+        log(f"OUTBOX NOTIFY to Oleg: task_id={task_id}")
+        # Не удаляем файл, оставляем как историю (можно добавить .processed потом)
+        sent += 1
+    return sent
+
+
+def main():
+    log("=== ALF bridge NOTIFIER started (fix 21.06.2026) ===")
+    while True:
+        try:
+            n1 = process_inbox()
+            n2 = process_outbox()
+            if n1 + n2 > 0:
+                log(f"processed {n1} inbox + {n2} outbox")
+        except Exception as e:
+            log(f"loop error: {e}")
+        time.sleep(POLL_INTERVAL)
+
+
+if __name__ == "__main__":
+    main()

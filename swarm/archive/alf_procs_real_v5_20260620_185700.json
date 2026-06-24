@@ -1,0 +1,11 @@
+{
+  "task_id": "alf_procs_real_v5_20260620_185700",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "\n   Id ProcessName StartTime           Path                                                            \n   -- ----------- ---------           ----                                                            \n 1624 opencode                                                                                        \n 3068 opencode    20.06.2026 14:28:18                                                                 \n11000 opencode                                                                                        \n14172 opencode                                                                                        \n 2016 python      20.06.2026 18:55:37 C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python312\\python.exe\n10828 python                                                                                          \n\n\n\n",
+  "error": "",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T19:56:00"
+}

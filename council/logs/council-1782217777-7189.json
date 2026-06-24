@@ -1,0 +1,23 @@
+{
+  "council_id": "council-1782217777-7189",
+  "alf": {
+    "vote": "against",
+    "reason": "ПРОТИВ — недостаточно контекста о надёжности Router :8400 (uptime, ownership, текущая архитектура council), голосовать за единую точку отказа без аудита не могу."
+  },
+  "librarian": {
+    "veto": false,
+    "reason": "No clear KB conflict detected — trusting HERMES",
+    "sources": [
+      "agents/ALF_IMPROVEMENT_PLAN_2026-06-19.md",
+      "agents/HERMES_FIX_REPORT_2026-06-19.md",
+      "agents/HERMES_AUDIT_2026-06-18.md"
+    ],
+    "elapsed_sec": 0.054,
+    "timeout_sec": 30,
+    "checked_at": "2026-06-23T12:29:37+00:00"
+  },
+  "decision": "rejected",
+  "reason": "ALF проголосовал ПРОТИВ",
+  "decided_by": "alf-strateg",
+  "decided_at": "2026-06-23T12:30:10+00:00"
+}

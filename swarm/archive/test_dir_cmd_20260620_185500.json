@@ -1,0 +1,11 @@
+{
+  "task_id": "test_dir_cmd_20260620_185500",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": false,
+  "output": "",
+  "error": "out-file : ЋЎкҐЄв FileStream Ї®«гзЁ« § Їа®б ­  ®вЄалвЁҐ гбва®©бвў , Є®в®а®Ґ ­Ґ пў«пҐвбп д ©«®¬. „«п Ї®¤¤Ґа¦ЄЁ в ЄЁе гбв\nа®©бвў Є Є \"com1:\" Ё«Ё \"lpt1:\" ўл§®ўЁвҐ ¬Ґв®¤ CreateFile, § вҐ¬ ЁбЇ®«м§г©вҐ Є®­бвагЄв®ал FileStream, Є®в®алҐ ў Є зҐбвўҐ\n IntPtr ЇаЁ­Ё¬ ов ¤ҐбЄаЁЇв®ал Ћ‘.\nбва®Є :1 §­ Є:1\n+ dir \"C:\\matryoshka\" /AD /B /S 2>nul | findstr /I /R \"\\\\alf\\\\ \\| alan\"\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n    + CategoryInfo          : OpenError: (:) [Out-File], NotSupportedException\n    + FullyQualifiedErrorId : FileOpenFailure,Microsoft.PowerShell.Commands.OutFileCommand\n \n",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-20T19:54:36"
+}

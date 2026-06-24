@@ -1,0 +1,11 @@
+{
+  "task_id": "alf-fix-council-2026-06-21-001",
+  "from": "alex",
+  "to": "hermes",
+  "status": "done",
+  "ok": false,
+  "output": "",
+  "error": "C:\\Users\\User\\AppData\\Local\\Temp\\opencode\\ps_task.ps1:30 §­ Є:81\n+ ... ify polling via getUpdates (ђ?ђ\u0007 ђ?ђ?ђ>ђ\u0014ђзђ? ђ+‘<‘'‘? 409 Conflict)\"\n+                                                                        ~\nЌҐЇаҐ¤ўЁ¤Ґ­­ п «ҐЄбҐ¬  \")\" ў ўла ¦Ґ­ЁЁ Ё«Ё ®ЇҐа в®аҐ.\nC:\\Users\\User\\AppData\\Local\\Temp\\opencode\\ps_task.ps1:32 §­ Є:24\n+ ... max-time 5 \"https://api.telegram.org/bot${TOKEN}/getUpdates?timeout=0 ...\n+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nЌҐЇаҐ¤ўЁ¤Ґ­­ п «ҐЄбҐ¬  \"https://api.telegram.org/bot${TOKEN}/getUpdates?timeout=0\" | head -10\necho \"[10]\" ў ўла ¦Ґ­ЁЁ Ё«Ё ®ЇҐа в®аҐ.\nC:\\Users\\User\\AppData\\Local\\Temp\\opencode\\ps_task.ps1:37 §­ Є:26\n+ echo \"=== ALF FIX END ===\"\n+                          ~\n‚ бва®ЄҐ ®вбгвбвўгҐв § ўҐаи ойЁ© бЁ¬ў®«: \".\n    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException\n    + FullyQualifiedErrorId : UnexpectedToken\n \n",
+  "executed_by": "ALEX",
+  "finished_at": "2026-06-21T16:23:26"
+}

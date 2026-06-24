@@ -1,0 +1,15 @@
+{
+  "schema_version": "v4.0",
+  "owner": "alf",
+  "status": "pending",
+  "created_at": "2026-06-21T15:54:32",
+  "timeout": 60,
+  "task_id": "verify-1782046472",
+  "from": "hermes-cli",
+  "task": {
+    "type": "ping",
+    "priority": "high",
+    "subject": "Bridge verify #2",
+    "details": "ALF, ping verify. ts=2026-06-21T15:54:32"
+  }
+}

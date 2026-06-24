@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AmneziaVPN — карта подключений</title>
+<style>
+  body { background: #0a0e27; color: #e0e0e0; font-family: -apple-system, sans-serif; padding: 20px; margin: 0; }
+  h1 { color: #c9a227; text-align: center; }
+  .container { max-width: 1400px; margin: 0 auto; }
+  .row { display: flex; align-items: center; margin: 15px 0; }
+  .node { background: #1a1f3a; border: 2px solid #c9a227; border-radius: 12px; padding: 15px; min-width: 200px; text-align: center; }
+  .node.server { background: #2a1a3a; border-color: #9c27b0; }
+  .node.active { background: #1a3a1a; border-color: #4caf50; box-shadow: 0 0 20px #4caf50; }
+  .node.oled { background: #3a1a1a; border-color: #f44336; box-shadow: 0 0 25px #f44336; }
+  .arrow { font-size: 24px; color: #4caf50; margin: 0 20px; }
+  .arrow.up { color: #4caf50; }
+  .stats { font-size: 12px; color: #888; margin-top: 5px; }
+  .handshake { color: #4caf50; font-weight: bold; }
+  .ip { color: #c9a227; font-family: monospace; }
+  .section { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; margin: 20px 0; }
+  .legend { display: flex; gap: 20px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .dot { width: 16px; height: 16px; border-radius: 4px; }
+  .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+  .metric { background: #1a1f3a; padding: 20px; border-radius: 12px; text-align: center; }
+  .metric-value { font-size: 32px; color: #c9a227; font-weight: bold; }
+  .metric-label { font-size: 14px; color: #888; margin-top: 5px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  th { background: #1a1f3a; color: #c9a227; padding: 10px; text-align: left; }
+  td { padding: 8px 10px; border-bottom: 1px solid #2a2f4a; }
+  .status-online { color: #4caf50; font-weight: bold; }
+  .status-idle { color: #888; }
+  h2 { color: #c9a227; border-bottom: 1px solid #c9a227; padding-bottom: 8px; }
+  .flow { display: flex; align-items: center; justify-content: space-around; padding: 20px; }
+  .flow-item { text-align: center; }
+  .flow-arrow { font-size: 36px; color: #4caf50; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🛡️ AmneziaVPN — Карта подключений (12 июня 2026, 17:30)</h1>
+
+  <div class="summary">
+    <div class="metric">
+      <div class="metric-value">12</div>
+      <div class="metric-label">пиров в awg0</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value">2+</div>
+      <div class="metric-label">онлайн сейчас</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value">138.9 GB</div>
+      <div class="metric-label">исходящий трафик</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value">17.7 GB</div>
+      <div class="metric-label">входящий трафик</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🌐 Архитектура</h2>
+    <div class="flow">
+      <div class="flow-item">
+        <div class="node client oled">
+          📱 <b>Олег (Rus)</b><br>
+          <span class="ip">85.249.x.x</span><br>
+          <div class="stats">→ 10.8.1.7</div>
+          <div class="stats handshake">handshake 9 сек</div>
+          <div class="stats">RX 2.36 GB / TX 20.72 GB 🔥</div>
+        </div>
+      </div>
+      <div class="flow-arrow">⇄</div>
+      <div class="flow-item">
+        <div class="node server">
+          🖥️ <b>VPS 85.137.166.209</b><br>
+          <span class="ip">awg0 (10.8.1.1/24)</span><br>
+          <div class="stats">UDP :49061 (контейнер 43842)</div>
+          <div class="stats">Docker: amnezia-awg2</div>
+        </div>
+      </div>
+      <div class="flow-arrow">⇄</div>
+      <div class="flow-item">
+        <div class="node client active">
+          👤 <b>Клиент #1</b><br>
+          <span class="ip">91.214.122.136</span><br>
+          <div class="stats">→ 10.8.1.12</div>
+          <div class="stats handshake">handshake 5 сек</div>
+          <div class="stats">RX 584 MB / TX 3.33 GB</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📋 Таблица всех пиров (awg0)</h2>
+    <table>
+      <tr>
+        <th>IP в VPN</th>
+        <th>Public Key (сокращённо)</th>
+        <th>Статус</th>
+        <th>Примечание</th>
+      </tr>
+      <tr><td class="ip">10.8.1.4/32</td><td>I3pkuKv...</td><td class="status-online">🟢 в конфиге</td><td>peer 1</td></tr>
+      <tr><td class="ip">10.8.1.5/32</td><td>h/akM2n...</td><td class="status-online">🟢 в конфиге</td><td>peer 2</td></tr>
+      <tr><td class="ip">10.8.1.6/32</td><td>mve/cUI...</td><td class="status-online">🟢 в конфиге</td><td>peer 3</td></tr>
+      <tr><td class="ip">10.8.1.7/32</td><td>hNwsKWm...</td><td class="status-online">🟢 ОНЛАЙН</td><td><b>Олег</b> (2.36 GB / 20.72 GB)</td></tr>
+      <tr><td class="ip">10.8.1.8-10</td><td>(другие)</td><td class="status-idle">⚪ в конфиге</td><td>peers 5-7</td></tr>
+      <tr><td class="ip">10.8.1.12/32</td><td>DaPF7pO...</td><td class="status-online">🟢 ОНЛАЙН</td><td><b>Клиент #1</b> (584 MB / 3.33 GB)</td></tr>
+      <tr><td class="ip">10.8.1.13+</td><td>YXOjqrW...</td><td class="status-idle">⚪ в конфиге</td><td>peers 9-12</td></tr>
+    </table>
+    <p style="color: #888; font-size: 12px; margin-top: 10px;">* Точные IP 10.8.1.8-11 и 13+ не показываю — handshake &gt;5 мин (возможно оффлайн)</p>
+  </div>
+
+  <div class="grid">
+    <div class="section">
+      <h2>🟢 Кто ОНЛАЙН</h2>
+      <ul>
+        <li><b>10.8.1.7</b> — Олег (85.249.161.237, handshake 9 сек назад)</li>
+        <li><b>10.8.1.12</b> — Клиент #1 (91.214.122.136, handshake 5 сек назад)</li>
+      </ul>
+      <p style="color: #4caf50;">Минимум <b>2 клиента активны прямо сейчас</b>. Возможно больше (handshake &lt; 5 мин могут не попасть в моментальный снимок).</p>
+    </div>
+
+    <div class="section">
+      <h2>📊 Статистика VPS</h2>
+      <ul>
+        <li>Всего пиров: <b>12</b> (awg0)</li>
+        <li>Резервные конфиги: <b>4</b> (awg1-awg4, по 1 peer)</li>
+        <li>Uptime контейнера: <b>4 дня</b></li>
+        <li>MTU: <b>1376</b> (AmneziaWG obfuscation)</li>
+        <li>Порт: <b>UDP 49061</b> (на хосте 43842)</li>
+        <li>Сеть: <b>10.8.1.0/24</b> + 10.8.10-13/24</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🎨 Легенда</h2>
+    <div class="legend">
+      <div class="legend-item"><div class="dot" style="background:#4caf50"></div>Онлайн (handshake &lt; 2 мин)</div>
+      <div class="legend-item"><div class="dot" style="background:#888"></div>В конфиге, оффлайн</div>
+      <div class="legend-item"><div class="dot" style="background:#f44336"></div>Олег (особый)</div>
+      <div class="legend-item"><div class="dot" style="background:#9c27b0"></div>VPS сервер</div>
+    </div>
+  </div>
+
+  <div class="section" style="border: 2px solid #f44336; background: rgba(244, 67, 54, 0.1);">
+    <h2>🤦 Моя ошибка</h2>
+    <p>В предыдущем аудите я написал: <i>"AmneziaWG не работает, команда не установлена, 0 клиентов"</i></p>
+    <p><b>Это было неправдой.</b> Команда <code>/usr/bin/awg</code> установлена. Контейнер работает 4 дня. 12 пиров, 2+ онлайн. Гигабайты трафика.</p>
+    <p>Сорян за дезу, Олег. Доложил честно как есть.</p>
+  </div>
+
+  <div class="section">
+    <h2>📝 Задание Аликсу</h2>
+    <p>Написал Аликсу задачу <code>2026-06-04_1440_amnezia_real_status.md</code> в /alex_tasks/:</p>
+    <ul>
+      <li>Подтвердить актуальную картину (awg show с ПК)</li>
+      <li>Кто эти 5-6 человек (список клиентов)</li>
+      <li>План коммерческого запуска (что мешает, кто ответственный)</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>

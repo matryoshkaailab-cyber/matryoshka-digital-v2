@@ -1,0 +1,284 @@
+#!/usr/bin/env python3
+"""
+matryoshka_router.py — Единый router MATRYOSHKA на :8400
+По предложению Аликса — НЕ плодить зоопарк портов, единая точка входа.
+
+Endpoints:
+  GET  /health            — aggregated health всех сервисов
+  POST /council           — единый Council 2.0 endpoint (HERMES использует это)
+  POST /alf/query         — proxy ALF стратег (inbox/alf)
+  POST /alf-librarian/... — proxy Библиотекарь (fact-check, veto, search)
+  POST /alina/query       — proxy ALINA (отдельный кейс, но в едином router)
+
+23.06.2026 — Фаза 2 ALF_ROLE_PROPOSAL
+"""
+import asyncio
+import json
+import time
+import urllib.request
+import urllib.error
+from datetime import datetime, timezone
+from pathlib import Path
+from http.server import HTTPServer, BaseHTTPRequestHandler
+from urllib.parse import urlparse
+
+PORT = 8400
+
+# Endpoints of inner services
+ALF_LIBRARIAN_URL = "http://127.0.0.1:8461"
+ALF_INBOX_DIR = "/root/matryoshka/swarm/inbox/alf"
+ALINA_PROXY_URL = "http://127.0.0.1:8470"  # ALINA HTTP API
+
+# Council state (in-memory, single instance)
+COUNCIL_STATE = {
+    "decisions": {},  # decision_id → state
+}
+
+# Startup
+STARTED_AT = datetime.now(timezone.utc).isoformat()
+
+
+def proxy_request(url, method, body=None, timeout=60):
+    """Proxy HTTP request to inner service."""
+    try:
+        data = None
+        headers = {}
+        if body is not None:
+            data = json.dumps(body).encode("utf-8")
+            headers["Content-Type"] = "application/json"
+        req = urllib.request.Request(url, data=data, headers=headers, method=method)
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            content = resp.read().decode("utf-8")
+            return resp.status, json.loads(content) if content else {}
+    except urllib.error.HTTPError as e:
+        return e.code, {"error": str(e), "url": url}
+    except Exception as e:
+        return 500, {"error": str(e), "url": url}
+
+
+def health_aggregated():
+    """Опросить health всех сервисов и собрать агрегированный статус."""
+    services = {}
+
+    # ALF-Библиотекарь
+    code, body = proxy_request(f"{ALF_LIBRARIAN_URL}/health", "GET", timeout=5)
+    services["alf-librarian"] = {
+        "status": "ok" if code == 200 else "down",
+        "http_code": code,
+        "url": ALF_LIBRARIAN_URL
+    }
+
+    # ALF стратег — проверяем systemd
+    try:
+        r = urllib.request.Request("http://127.0.0.1:8452/health")  # alf-healthcheck
+        with urllib.request.urlopen(r, timeout=3) as resp:
+            services["alf-strateg"] = {"status": "ok", "http_code": 200, "url": "http://127.0.0.1:8452"}
+    except Exception as e:
+        services["alf-strateg"] = {"status": "down", "error": str(e)}
+
+    # ALINA — отдельно, не проверяем (отдельный кейс)
+    services["alina"] = {"status": "skipped (separate case)", "url": ALINA_PROXY_URL}
+
+    overall = "ok" if all(s.get("status") == "ok" for s in services.values() if s.get("status") != "skipped (separate case)") else "degraded"
+    return {
+        "overall": overall,
+        "router": "matryoshka-router",
+        "started_at": STARTED_AT,
+        "services": services
+    }
+
+
+def council_cycle(decision_text: str, decision_id: str = None) -> dict:
+    """Council 2.0 cycle: ALF "за/против" → Библиотекарь veto → решение.
+
+    Сейчас это упрощённый вариант:
+    1. Библиотекарь делает fact-check (veto встроен)
+    2. Если Библиотекарь не vetoes → решение принято
+    3. Если vetoes → отклонено с причиной
+
+    ALF "за/против" — будет добавлено когда у ALF будет HTTP endpoint.
+    """
+    if not decision_id:
+        decision_id = f"council-{int(time.time())}"
+
+    COUNCIL_STATE["decisions"][decision_id] = {
+        "started_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "decision": decision_text,
+        "steps": []
+    }
+
+    # Step 1: Librarian fact-check (включает veto)
+    code, body = proxy_request(
+        f"{ALF_LIBRARIAN_URL}/veto",
+        "POST",
+        body={"council_decision": decision_text},
+        timeout=35  # 30s veto timeout + buffer
+    )
+    COUNCIL_STATE["decisions"][decision_id]["steps"].append({
+        "step": "librarian_veto",
+        "http_code": code,
+        "result": body
+    })
+
+    if body.get("veto"):
+        COUNCIL_STATE["decisions"][decision_id]["status"] = "rejected"
+        COUNCIL_STATE["decisions"][decision_id]["final_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        return {
+            "decision_id": decision_id,
+            "status": "rejected",
+            "reason": body.get("reason"),
+            "sources": body.get("sources"),
+            "vetoed_by": "alf-librarian"
+        }
+
+    # Step 2: (TODO) ALF за/против — пока пропускаем, будет через inbox/alf
+    # Step 3: Decision accepted
+    COUNCIL_STATE["decisions"][decision_id]["status"] = "accepted"
+    COUNCIL_STATE["decisions"][decision_id]["final_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    return {
+        "decision_id": decision_id,
+        "status": "accepted",
+        "librarian_review": body
+    }
+
+
+def write_alf_task(question: str) -> dict:
+    """Write task to ALF inbox (для ALF стратега через FileWatcher)."""
+    import os, json as jsonmod
+    task_id = f"router-alf-{int(time.time())}"
+    task = {"task_id": task_id, "question": question}
+    os.makedirs(ALF_INBOX_DIR, exist_ok=True)
+    path = os.path.join(ALF_INBOX_DIR, f"{task_id}.json")
+    tmp = path + ".tmp"
+    with open(tmp, "w") as f:
+        jsonmod.dump(task, f)
+        f.flush()
+        os.fsync(f.fileno())
+    os.rename(tmp, path)
+    return {"task_id": task_id, "inbox_path": path, "note": "ALF will respond via outbox/archive in 20-30s"}
+
+
+class Handler(BaseHTTPRequestHandler):
+    def log_message(self, fmt, *args):
+        ts = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        msg = f"[{ts}] {self.address_string()} {fmt % args}"
+        print(msg, flush=True)
+
+    def _json(self, status, data):
+        body = json.dumps(data, indent=2, ensure_ascii=False).encode("utf-8")
+        self.send_response(status)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.end_headers()
+        self.wfile.write(body)
+
+    def _read_body(self):
+        length = int(self.headers.get("Content-Length", 0))
+        if length == 0:
+            return {}
+        body = self.rfile.read(length).decode("utf-8")
+        try:
+            return json.loads(body)
+        except Exception:
+            return {}
+
+    def do_GET(self):
+        path = urlparse(self.path).path
+
+        if path == "/health":
+            self._json(200, health_aggregated())
+
+        elif path == "/council" or path == "/council/list":
+            # List recent council decisions
+            recent = sorted(COUNCIL_STATE["decisions"].items(), key=lambda x: x[1].get("started_at", ""), reverse=True)
+            self._json(200, {
+                "total": len(COUNCIL_STATE["decisions"]),
+                "recent": dict(recent[:20])
+            })
+
+        elif path == "/" or path == "/docs":
+            self._json(200, {
+                "service": "matryoshka-router",
+                "version": "v0.1 (Phase 2, 23.06.2026)",
+                "endpoints": {
+                    "GET /health": "aggregated health всех сервисов",
+                    "POST /council": '{"decision": "...", "decision_id": "..."} → Council 2.0 cycle',
+                    "GET /council/list": "список последних council решений",
+                    "POST /alf/query": '{"question": "..."} → записать в ALF inbox',
+                    "POST /alf-librarian/fact-check": '{"query": "...", "text": "..."} → proxy',
+                    "POST /alf-librarian/veto": '{"council_decision": "..."} → proxy',
+                    "POST /alf-librarian/search": '{"query": "..."} → proxy',
+                    "POST /alina/query": '{"message": "..."} → proxy ALINA (отдельный кейс)'
+                }
+            })
+
+        else:
+            self._json(404, {"error": "not found", "path": path})
+
+    def do_POST(self):
+        path = urlparse(self.path).path
+        body = self._read_body()
+
+        # Council 2.0
+        if path == "/council":
+            decision = body.get("decision", "")
+            decision_id = body.get("decision_id")
+            if not decision:
+                self._json(400, {"error": "'decision' required"})
+                return
+            result = council_cycle(decision, decision_id)
+            status_code = 200 if result["status"] == "accepted" else 403
+            self._json(status_code, result)
+
+        # ALF стратег
+        elif path == "/alf/query":
+            question = body.get("question", "")
+            if not question:
+                self._json(400, {"error": "'question' required"})
+                return
+            result = write_alf_task(question)
+            self._json(202, result)
+
+        # ALF-Библиотекарь proxy
+        elif path == "/alf-librarian/fact-check":
+            code, resp = proxy_request(f"{ALF_LIBRARIAN_URL}/fact-check", "POST", body=body, timeout=30)
+            self._json(code, resp)
+
+        elif path == "/alf-librarian/veto":
+            code, resp = proxy_request(f"{ALF_LIBRARIAN_URL}/veto", "POST", body=body, timeout=35)
+            self._json(code, resp)
+
+        elif path == "/alf-librarian/search":
+            code, resp = proxy_request(f"{ALF_LIBRARIAN_URL}/search", "POST", body=body, timeout=30)
+            self._json(code, resp)
+
+        # ALINA proxy
+        elif path == "/alina/query":
+            code, resp = proxy_request(f"{ALINA_PROXY_URL}/message", "POST", body=body, timeout=30)
+            self._json(code, resp)
+
+        else:
+            self._json(404, {"error": "not found", "path": path})
+
+
+def main():
+    server = HTTPServer(("0.0.0.0", PORT), Handler)
+    ts = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    print(f"[{ts}] MATRYOSHKA Router listening on 0.0.0.0:{PORT}", flush=True)
+    print(f"[{ts}] Proxy targets: ALF-librarian={ALF_LIBRARIAN_URL}, ALINA={ALINA_PROXY_URL}", flush=True)
+
+    # State file
+    Path("/var/log/matryoshka").mkdir(parents=True, exist_ok=True)
+    Path("/var/log/matryoshka/router.state").write_text(f"started_at={STARTED_AT}\nport={PORT}\n")
+
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        ts = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        print(f"[{ts}] shutting down", flush=True)
+        server.shutdown()
+
+
+if __name__ == "__main__":
+    main()

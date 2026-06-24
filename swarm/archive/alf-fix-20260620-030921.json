@@ -1,0 +1,11 @@
+{
+  "task_id": "alf-fix-20260620-030921",
+  "from": "alf",
+  "to": "hermes",
+  "status": "timed_out",
+  "ok": false,
+  "output": "",
+  "error": "Task exceeded timeout (900s) and was aborted by watchdog",
+  "executed_by": "WATCHDOG",
+  "finished_at": "2026-06-20T03:25:01"
+}

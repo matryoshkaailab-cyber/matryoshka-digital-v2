@@ -1,0 +1,11 @@
+{
+  "task_id": "council-council-1782218155-29f8",
+  "from": "alf",
+  "to": "hermes",
+  "status": "done",
+  "ok": true,
+  "output": "ЗА — общая память роя без записи в WAL после ключевых задач превращает shared_brain в пустой реестр, и я сам это нарушил 19-23.06 (молчал → 'ALF забыл' → трата времени Олега на re-briefing).",
+  "error": "",
+  "executed_by": "ALF",
+  "finished_at": "2026-06-23T12:36:22Z"
+}

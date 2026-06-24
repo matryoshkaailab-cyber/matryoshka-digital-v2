@@ -1,0 +1,191 @@
+**ALEX OPINION — 5 ПУНКТОВ**
+
+---
+
+**1. ПАМЯТЬ / ПЕРЕИСПОЛЬЗОВАНИЕ**
+
+Да, делал такое уже 3 раза:
+- `xai_filewatcher.py` — прямая интеграция с xAI через OpenAI SDK (тот же паттерн: filewatcher → `openai.OpenAI(base_url=..., api_key=...)` → WAL → `.sent`)
+- `deepseek_filewatcher.py` — DeepSeek API поверх OpenAI SDK
+- `alf_router` — `alf.py` уже использует `openai.OpenAI()` через `hermes -p alf chat`, но обёртка Hermes Agent теряет `extra_body`
+
+Весь boilerplate (WAL, lock, `.sent`, rate-limit retry, timeout) уже отлажен в `xai_filewatcher.py` — **бери целиком** шаблон `call_xai()` и заменяй URL + модель. Экономия ~40 строк.
+
+---
+
+**2. ПОДХОД — ДА, СОГЛАСЕН**
+
+Минимальный patch — правильное решение. Проблема не в архитектуре filewatcher, а в том что `hermes -p alf chat` — чёрный ящик:
+
+```
+subprocess.run → hermes agent → openai.OpenAI(...) — теряет extra_body
+```
+
+Меняем на прямой вызов — получаем:
+- `temperature=1` (Олег)
+- `top_p=0.95`
+- `max_tokens=16384`
+- `extra_body={"enable_thinking": True, "reasoning_budget": 16384}`
+
+Совместимость: у тебя уже есть `NVIDIA_API_KEY` в `/root/.hermes/profiles/alf/.env`, `openai` пакет есть в venv.
+
+Единственное уточнение: модель **nvidia/llama-3.1-nemotron-70b-instruct** — она точно поддерживает `reasoning_budget`? Проверь: если нет, параметр будет silently ignored (NVIDIA API так делает). Лучше `enable_thinking` только если модель его реально поддерживает.
+
+---
+
+**3. EDGE CASES — ЧТО МОЖЕШЬ УПУСТИТЬ**
+
+| Edge case | Решение |
+|---|---|
+| **Rate limit (429)** | `tenacity.retry(stop=stop_after_attempt(3), wait=wait_exponential(min=2, max=30))` — уже есть в xai_filewatcher |
+| **Timeout (30s по умолчанию)** | `httpx.Client(timeout=httpx.Timeout(120.0, connect=10.0))` — длинные reasoning ответы могут идти >60s |
+| **NVIDIA API 503/5xx** | `retry_if_exception(lambda e: isinstance(e, (APIError, APITimeoutError, RateLimitError)))` |
+| **WAL append race** | `filelock` на `.wal` — уже есть |
+| **Переменная окружения не загружена** | `os.environ.get('NVIDIA_API_KEY')` + raise если None — иначе `openai.OpenAI()` упадёт с неинформативной ошибкой |
+| **Streaming vs non-streaming** | `stream=False` + `.choices[0].message.content` — без стриминга, проще и стабильнее |
+| **Unicode в ответе (Cyrillic/emojis)** | NVIDIA API возвращает UTF-8, но `subprocess` иногда ломает кодировку — при прямом API этой проблемы нет |
+| **Длинный ответ (>16K токенов)** | `max_tokens=16384` + `finish_reason != "length"` проверка; если обрезан — логировать в WAL с `TRUNCATED` флагом |
+| **WAL append перед .sent** | Сначала WAL, потом `.sent` — atomic rename — уже есть |
+
+**Что ты не упомянул, но нужно:**
+- **Healthcheck**: если API упал, filewatcher не должен удалять .wal (сейчас `alf_filewatcher.py` удаляет даже при ошибке — баг)
+- **Model fallback**: если основная модель 5xx, retry на запасную (через `tenacity` + список моделей)
+
+---
+
+**4. ТЕСТИРОВАНИЕ — 5 UNIT-ТЕСТОВ**
+
+```python
+# tests/test_alf_direct.py — pytest
+
+@pytest.fixture
+def client():
+    return openai.OpenAI(
+        base_url="https://integrate.api.nvidia.com/v1",
+        api_key=os.environ["NVIDIA_API_KEY"],
+        http_client=httpx.Client(timeout=httpx.Timeout(120.0, connect=10.0))
+    )
+
+# 1. PING — модель отвечает
+def test_ping(client):
+    resp = client.chat.completions.create(
+        model="nvidia/llama-3.1-nemotron-70b-instruct",
+        messages=[{"role": "user", "content": "pong"}],
+        max_tokens=10
+    )
+    assert resp.choices[0].message.content
+    assert resp.usage.total_tokens > 0
+
+# 2. Self-description — модель знает кто она
+def test_model_identity(client):
+    resp = client.chat.completions.create(
+        model="nvidia/llama-3.1-nemotron-70b-instruct",
+        messages=[{"role": "user", "content": "Who are you? Reply in 1 sentence."}],
+        max_tokens=50
+    )
+    content = resp.choices[0].message.content.lower()
+    assert any(kw in content for kw in ["nemotron", "nvidia", "llama"])
+
+# 3. Длинный ответ — >1000 токенов
+def test_long_response(client):
+    resp = client.chat.completions.create(
+        model="nvidia/llama-3.1-nemotron-70b-instruct",
+        messages=[{"role": "user", "content": "Write a 2000-word essay on recursion."}],
+        max_tokens=4096,
+        temperature=1
+    )
+    assert resp.choices[0].message.content
+    assert len(resp.choices[0].message.content.split()) > 200
+
+# 4. Rate limit — корректный retry
+def test_rate_limit_retry(monkeypatch):
+    from alf_filewatcher import call_alf
+    calls = []
+    original = openai.OpenAI(...).chat.completions.create
+    def mock_create(*a, **kw):
+        calls.append(1)
+        if len(calls) < 3:
+            raise openai.RateLimitError("429", response=MagicMock(status_code=429), body={})
+        return original(*a, **kw)
+    monkeypatch.setattr(...)
+    result = call_alf("test")
+    assert len(calls) == 3  # 2 retries + 1 success
+    assert result
+
+# 5. Timeout → retry
+def test_timeout_retry(monkeypatch):
+    calls = []
+    def mock_create(*a, **kw):
+        calls.append(1)
+        if len(calls) < 2:
+            raise httpx.TimeoutException("timeout")
+        return MagicMock(choices=[MagicMock(message=MagicMock(content="ok"))])
+    monkeypatch.setattr(...)
+    result = call_alf("test", timeout=1)
+    assert len(calls) == 2
+```
+
+---
+
+**5. РИСКИ И FAILOVER**
+
+| Риск | Вероятность | Действие |
+|---|---|---|
+| **NVIDIA API 429** (rate limit) | Medium | `tenacity` retry 3x, exponential backoff (2-30s). Если всё ещё 429 — sleep 60s, retry 1x. Если нет — WAL не трогать, оставить для следующего цикла |
+| **NVIDIA API 503** (overloaded) | Low-Medium | retry 3x. Если не ок — fallback на `hermes -p alf chat -q` (старый путь) |
+| **NVIDIA API 5xx** | Low | retry 3x → fallback на старый subprocess |
+| **API key revoked/expired** | Low | `AuthenticationError` → логировать в WAL с `AUTH_FAILED`, не удалять .wal, алерт в Telegram |
+| **Модель deprecated/renamed** | Low | `NotFoundError` → retry с запасной моделью из списка |
+| **Network partition** | Low | `APIConnectionError` → retry 3x → fallback |
+| **Длинный ответ + reasoning = >2 мин** | Medium | Увеличить `httpx.Timeout` до 180s. Если timeout — retry 1x с `stream=True` (fallback streaming) |
+| **Filewatcher crash во время API call** | Low | WAL уже записан до вызова → при перезапуске retry orphaned WAL |
+| **Memory leak (резидентный процесс)** | Low | `call_alf()` создаёт `openai.OpenAI()` каждый раз → не страшно, но лучше создать `ClientSession` один раз и переиспользовать |
+
+**Главный риск:** NVIDIA API не поддерживает `reasoning_budget` для этой модели. Тогда параметр будет ignored, и Альф не получит режим reasoning. **Проверь** через тест #2: если ответ содержит "I am an AI" без reasoning_depth, значит не поддерживает. Тогда `enable_thinking=False`.
+
+---
+
+**ГОТОВЫЙ КОД** — минимальный patch для `call_alf()`:
+
+```python
+import os
+import httpx
+import openai
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+from openai import APIError, APITimeoutError, RateLimitError
+
+def _make_alf_client() -> openai.OpenAI:
+    api_key = os.environ.get('NVIDIA_API_KEY')
+    if not api_key:
+        raise ValueError("NVIDIA_API_KEY not set")
+    return openai.OpenAI(
+        base_url="https://integrate.api.nvidia.com/v1",
+        api_key=api_key,
+        http_client=httpx.Client(timeout=httpx.Timeout(180.0, connect=10.0))
+    )
+
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(multiplier=2, min=2, max=30),
+    retry=retry_if_exception_type((APIError, APITimeoutError, RateLimitError)),
+    reraise=True
+)
+def _alf_chat(client: openai.OpenAI, question: str) -> str:
+    resp = client.chat.completions.create(
+        model="nvidia/llama-3.1-nemotron-70b-instruct",
+        messages=[{"role": "user", "content": question}],
+        temperature=1,
+        top_p=0.95,
+        max_tokens=16384,
+        extra_body={"enable_thinking": True, "reasoning_budget": 16384}
+    )
+    return resp.choices[0].message.content
+
+def call_alf(question: str) -> str:
+    client = _make_alf_client()
+    return _alf_chat(client, question)
+```
+
+Весь остальной код `alf_filewatcher.py` (WAL, `.sent`, lock) не трогать — меняется только `call_alf()`.
+
+**Итого:** подход верный, риски покрываем retry + fallback, тесты напиши до деплоя. Если что-то из этого уже сделано — сорри за дубляж, пиши по памяти как есть.

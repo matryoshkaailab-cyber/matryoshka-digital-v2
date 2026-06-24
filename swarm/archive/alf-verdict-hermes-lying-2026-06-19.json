@@ -1,0 +1,11 @@
+{
+  "task_id": "alf-verdict-hermes-lying-2026-06-19",
+  "from": "alf",
+  "to": "hermes",
+  "status": "timed_out",
+  "ok": false,
+  "output": "",
+  "error": "Task exceeded timeout (300s) and was aborted by watchdog",
+  "executed_by": "WATCHDOG",
+  "finished_at": "2026-06-21T02:24:10"
+}

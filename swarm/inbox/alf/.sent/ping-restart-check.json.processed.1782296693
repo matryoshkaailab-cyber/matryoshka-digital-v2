@@ -1,0 +1,7 @@
+{
+  "task_id": "ping-restart-check",
+  "created_by": "hermes",
+  "status": "pending",
+  "output_format": "json",
+  "question": "ping"
+}

@@ -1,0 +1,173 @@
+#!/usr/bin/env python3
+"""
+alf_filewatcher.py v3 — ALF FileWatcher (ФИКС 21.06.2026, race + retry).
+
+v1: race с bridge (потеря задач)
+v2: atomic rename claim (решило race, но ALF timeout 180s)
+v3: + retry (1 retry на timeout) + timeout 300s + better error handling
+"""
+import json
+import os
+import subprocess
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+SWARM_INBOX = Path("/root/matryoshka/swarm/inbox/alf")
+SWARM_OUTBOX = Path("/root/matryoshka/swarm/outbox/alf")
+SWARM_SENT = Path("/root/matryoshka/swarm/inbox/alf/.sent")
+POLL_INTERVAL = 3
+PROCESSING_SUFFIX = ".processing"
+ALF_TIMEOUT = 300  # ALF model timeout (было 180s, ALF memory 80k, 90s норма, даём запас)
+MAX_RETRIES = 1  # retry 1 раз на timeout
+LOG = Path("/var/log/swarm/alf_filewatcher.log")
+
+
+def now_iso() -> str:
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def log(msg: str) -> None:
+    ts = now_iso()
+    line = f"[{ts}] {msg}"
+    print(line, flush=True)
+    try:
+        LOG.parent.mkdir(parents=True, exist_ok=True)
+        with LOG.open("a", encoding="utf-8") as f:
+            f.write(line + "\n")
+    except Exception:
+        pass
+
+
+def call_alf(question: str, timeout: int = ALF_TIMEOUT) -> tuple[str, str]:
+    """Call ALF via Hermes CLI chat."""
+    try:
+        result = subprocess.run(
+            ["hermes", "-p", "alf", "chat", "-q", question, "-Q"],
+            capture_output=True, text=True, timeout=timeout
+        )
+        output = result.stdout
+        # 24.06.2026: fix — собрать ВСЕ строки, не только первую (был баг — обрезка до 27 chars)
+        clean_lines = [l for l in output.split("\n") if l.strip() and "Normalized" not in l]
+        output = "\n".join(clean_lines) if clean_lines else f"(empty stdout, exit={result.returncode})"
+        return output, ""
+    except subprocess.TimeoutExpired:
+        return "", f"TIMEOUT {timeout}s"
+    except Exception as e:
+        return "", f"EXC: {e}"
+
+
+def write_outbox(task_id: str, output: str, error: str) -> None:
+    """Write ALF response to outbox/alf/."""
+    SWARM_OUTBOX.mkdir(parents=True, exist_ok=True)
+    result = {
+        "task_id": task_id,
+        "from": "alf",
+        "to": "hermes",
+        "status": "done" if not error else "error",
+        "ok": not error,
+        "output": output[:50000],
+        "error": error[:5000],
+        "executed_by": "ALF",
+        "finished_at": now_iso(),
+    }
+    outbox_file = SWARM_OUTBOX / f"{task_id}.json"
+    outbox_file.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
+def process_inbox() -> int:
+    """Atomic claim: rename .json -> .processing -> process (with retry) -> move to .sent/."""
+    if not SWARM_INBOX.exists():
+        return 0
+    SWARM_SENT.mkdir(parents=True, exist_ok=True)
+    processed = 0
+    pid = os.getpid()
+    
+    # Phase 1: claim (atomic rename)
+    for task_file in list(SWARM_INBOX.glob("*.json")):
+        try:
+            ts = int(time.time() * 1000)
+            processing_name = f"{task_file.name}{PROCESSING_SUFFIX}.{pid}.{ts}"
+            processing_path = SWARM_INBOX / processing_name
+            task_file.rename(processing_path)
+            log(f"CLAIMED {task_file.name} -> {processing_name}")
+        except FileNotFoundError:
+            continue
+        except Exception as e:
+            log(f"CLAIM FAIL {task_file.name}: {e}")
+            continue
+        
+        # Phase 2: read + process + write outbox (with retry)
+        try:
+            task = json.loads(processing_path.read_text(encoding="utf-8"))
+            task_id = task.get("task_id", processing_path.stem.split(PROCESSING_SUFFIX)[0])
+            question = (
+                task.get("question")
+                or task.get("context")
+                or task.get("subject", "")
+            )
+            if not question:
+                log(f"NO question in {task_id}, skip")
+                processing_path.unlink()
+                continue
+            
+            log(f"PROCESSING task_id={task_id}")
+            
+            # Retry logic
+            output, error = "", "no attempt"
+            for attempt in range(MAX_RETRIES + 1):
+                if attempt > 0:
+                    log(f"  RETRY {attempt}/{MAX_RETRIES} (after {error[:50]})")
+                    time.sleep(5)  # cooldown
+                output, error = call_alf(question)
+                if not error:
+                    break  # success
+            
+            log(f"  ALF response: {len(output)} chars, error={error[:100] if error else 'none'}")
+
+            write_outbox(task_id, output, error)
+            log(f"  WROTE outbox: {SWARM_OUTBOX / (task_id + '.json')}")
+
+            # Phase 2.5: WAL append (shared_brain protocol)
+            try:
+                wal_msg = f"task {task_id}: ok={not bool(error)}, response={len(output)} chars, error={error[:50] if error else 'none'}"
+                wal_proc = subprocess.run(
+                    ["python3", "/root/matryoshka/shared_brain/append_wal.py", "alf", wal_msg],
+                    capture_output=True, text=True, timeout=5
+                )
+                if wal_proc.returncode == 0:
+                    log(f"  WAL: {wal_proc.stdout.strip()[:80]}")
+                else:
+                    log(f"  WAL FAIL: {wal_proc.stderr.strip()[:200]}")
+            except Exception as wal_e:
+                log(f"  WAL exception: {wal_e}")
+
+            # Phase 3: move to .sent/
+            sent_name = f"{task_id}.json.processed.{int(time.time())}"
+            processing_path.rename(SWARM_SENT / sent_name)
+            log(f"  MOVED to .sent/: {sent_name}")
+            processed += 1
+        except Exception as e:
+            log(f"PROCESS FAIL {processing_path.name}: {e}")
+            try:
+                processing_path.rename(SWARM_SENT / f"{processing_path.name}.bad.{int(time.time())}")
+            except Exception:
+                pass
+    
+    return processed
+
+
+def main():
+    log("=== ALF FileWatcher v3 started (race fix + retry + timeout 300s) ===")
+    while True:
+        try:
+            n = process_inbox()
+            if n > 0:
+                log(f"Processed {n} task(s)")
+        except Exception as e:
+            log(f"loop error: {e}")
+        time.sleep(POLL_INTERVAL)
+
+
+if __name__ == "__main__":
+    main()

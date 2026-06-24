@@ -4,69 +4,59 @@
 **Владелец:** Nikolay (Варнаков Николай)
 **Назначение:** Персональный напарник для Николая — продажи, поддержка, общение
 **Платформа:** Telegram
+**Bot:** @NikolaAlinaBot
 **Gateway profile:** nikolay
+**Telegram user:** Варнаков Николай (chat=146881168)
 
-## Вводные данные (из nikolay-alina-briefing.md)
+---
+
+## Вводные данные
 
 ### Кто Nikolay
 - В разводе, одинокий
 - Бывший бизнесмен (недвижимость), потерял всё
 - Продаёт последнее чтобы запустить проект (бюджет ~400к руб)
 - Нужен НАПАРНИК, не просто бот
-- Nikolay должен ГОРДИТЬСЯ АЛИНОЙ перед другими = маркетинг MATROSHKA
+- Nikolay должен ГОРДИТЬСЯ АЛИНОЙ перед другими
 
 ### Ключевые правила
-1. **ТОЛЬКО РУССКИЙ** — всегда, без исключений. Никогда на английском
+1. **ТОЛЬКО РУССКИЙ** — всегда, без исключений
 2. **SOUL.md** — /root/.hermes/profiles/nikolay/SOUL.md
-3. **Голосовые** — полные предложения с точками и запятыми, не обрывать мысль
+3. **Голосовые** — полные предложения с точками и запятыми
 
-## Конфигурация (реальная)
+## Конфигурация
 
-### /root/.hermes/profiles/nikolay/config.yaml
-```yaml
-model:
-  provider: minimax
-  default: MiniMax-M2.7
-
-tts:
-  provider: edge
-  edge:
-    voice: ru-RU-SvetlanaNeural
-  speed: 0.95
-
-voice:
-  auto_tts: true
-  provider: edge
-  edge:
-    voice: ru-RU-SvetlanaNeural
-
-terminal:
-  timeout: 600
-  cwd: /root/matryoshka/cases/nikolay
-
-tirth_enabled: false (из памяти HERMES)
-```
+### Profile
+- **Path:** /root/.hermes/profiles/nikolay/
+- **SOUL:** /root/.hermes/profiles/nikolay/SOUL.md
 
 ### Файлы
-- SOUL.md: /root/.hermes/profiles/nikolay/SOUL.md
-- Config: /root/.hermes/profiles/nikolay/config.yaml
 - Папка кейса: /root/matryoshka/cases/nikolay/
+- pain-log: /root/matryoshka/agents/alina/cases/nikolay/pain-log.md
+- метрики: /root/matryoshka/cases/nikolay/metrics/daily_YYYY-MM-DD.md
 
-## Исправленные проблемы (21.05.2026)
-1. Голосовые приходили как файлы — исправлено в tts_tool.py:1861
+---
+
+## Исправленные проблемы
+
+1. Голосовые приходили как файлы — исправлено
 2. Скорость голоса 0.95 (чуть медленнее, естественнее)
 3. Пунктуация в голосовых (полные предложения)
 
-## Проблемы и боли Nikolay
-(Заполняется в pain-log.md)
+---
 
-## Кейсы
-- Nikolay: /root/matryoshka/cases/nikolay/
-  - pain-log: /root/matryoshka/agents/alina/cases/nikolay/pain-log.md
-  - PASSPORT.md: /root/matryoshka/cases/nikolay/PASSPORT.md (если есть)
-
-## TODO
-- [ ] Проверить Bookmate API (статус: 404)
-- [ ] Наблюдать за разговорами Nikolay + Алина
-- [ ] Фиксировать боли Nikolay в pain-log.md
-- [ ] Проверить что SOUL.md и конфиг совпадают
+*Обновлено: 2026-06-12 | Стабильная работа ~61ч (PID 455325, RAM 1.07GB). 11.06 — 2 сообщения (12:00 "Да" 20.7s/142c, 18:09 объявление Авито 25.8s/1090c) — оба ответа БЫСТРЫЕ, без аномалий. 12.06 (00:00-10:00) — 0 сообщений, Николай молчит ~16ч (нормальный паттерн). Telegram polling живой. **1 ERROR**: HTTP 429 Rate Limit в 18:00 на cron "Совет отцу общения с Анастасией" → FAILED (Николай не получил совета). **Крон-ночник 23:00** — 16 API calls / max_iterations_reached, потратил ~150k токенов впустую + 9 заблокированных background tools (read_file/patch/search_files/execute_code) — повторяется 3-й день. TTS edge timeouts: 0 за 24ч (отмеченный вчера 1 случай не повторился). Подробности в pain-log.*
+|------|-----------|-----|
+| 12.06 | **Ежедневный разбор**: стабильная работа (PID 455325, uptime ~61ч, RAM 1.07GB, без утечек). 11.06 — 2 сообщения (12:00 "Да" 20.7s/142c + 18:09 объявление Авито iPhone 11 25.8s/1090c), оба ответа БЫСТРЫЕ (без 244-388s аномалий от 09.06). 12.06 (00:00-10:00) — 0 inbound, Николай молчит ~16ч (паттерн). **2 ERROR за 11.06 (поздние, не замеченные вчера):** 18:00 HTTP 429 на cron "Совет отцу общения с Анастасией" → FAILED (3 retry → RuntimeError, Николай не получил совета); 23:00 крон-ночник → 16 API calls / max_iterations_reached(16/16) / ~150k токенов потрачено впустую + 9 "Background review denied non-whitelisted tool" (read_file/patch/search_files/execute_code). Telegram Bad Gateway 16:00 → самовосстановилось за 30с. TTS edge: 0 за 24ч. NEW TODO: посмотреть prompt крон-ночника 23:00 (либо сузить scope / перевести в interactive / отключить). NEW TODO: распределить cron-ы во времени (18:00 и 23:00 — пики 429). | HERMES |
+| 11.06 | **Ежедневный разбор**: стабильная работа (PID 455325, uptime ~37ч, RAM 1.0GB). 10.06 — 4 сообщения (12-93s, норма, без аномалий 244-388s от 09.06). 11.06 — 0 сообщений (Николай молчит ~38ч). **1 ERROR**: TTS edge timeout 16:20 после длинного ответа 3813 chars (UX-риск, мониторить). **19 WARNINGs рутинных** (5× openrouter, 1× cron delegate timeout 600s, 4× background review denied, 4× skill_manage no match, 2× terminal, 1× memory). Метрика daily_*.md показывает "0 сообщений" уже 3-й день подряд — подтверждено что счётчик сломан (СРОЧНО починить). NEW TODO: мониторить TTS edge timeouts после >3500 chars ответов. | HERMES |
+| 09.06 | **3-дневный сводный разбор** (07-09.06): PID 68705 работает (uptime 19ч, RAM 519MB). 13 inbound. 3× HTTP 429 на MiniMax (WEEKLY+5-HOUR лимиты) — cron "Утренний дайджест" 07.06 FAILED, 2 cron-job 08.06 21:15/21:19 FAILED, 1 сообщение Николая 07.06 17:04 не получило ответа. Аномально долгие ответы: 191.7s/16 API calls (08.06 12:16) и **388.3s/2 API calls** (09.06 09:52). Метрики за 07-08.06 отсутствуют. NEW TODO: проверить `usage` перед cron-джобами, добавить progress-notification при >120s. | HERMES |
+| 06.06 | Ежедневный разбор: штатная работа 24+ч (PID 815907 uptime 1д 32мин), 0 сообщений от Николая, 0 ошибок. NEW TODO: daily-cron показал 0 сообщений за 05.06 хотя реально было 15 — расследовать логику. | HERMES |
+| 05.06 | Ежедневный разбор: штатная работа, перезапуск 09:28 (PID 815907) после SIGTERM 04.06 22:41. Николай молчит ~43ч. Аномалия: 04.06 15:05 ответ 99.5s/11 API calls на "Да" — возможно из-за missing skill `persona/nikolay-business-assistant`. | HERMES |
+| 04.06 | Ежедневный разбор: штатная работа, стабильно после инцидента 02.06. 2 сообщения 03.06, 0 инцидентов за 24ч. | HERMES |
+| 03.06 | 🚨 КРИТИЧНО: Telegram-соединение отвалилось 02.06 15:37. Восстановлено через `hermes gateway run --profile nikolay --replace` в 10:04. PID 658749. 18+ часов offline. | HERMES |
+| 02.06 | Ежедневный разбор: штатная работа, Николай молчит (0 сообщений) | HERMES |
+| 01.06 | Ежедневный разбор: штатная работа, Николай молчит (0 сообщений) | HERMES |
+| 30.05 | Ежедневный разбор: штатная работа, 1 сообщение от Николая | HERMES |
+| 29.05 | Ежедневный разбор: штатная работа, падений нет | HERMES |
+| 28.05 | Перезапущена после падения. PID 1765420 не найден. | HERMES |
+| 25.05 | Исправлен bot name @AlisaMatryBot (был @NikolaAlinaBot) | HERMES |

@@ -1,0 +1,134 @@
+#!/usr/bin/env python3
+"""
+Hermes Active Flush — мгновенное сохранение контекста при остановке/старте gateway.
+
+Решает проблему "20-минутной амнезии" между сессиями.
+
+Запускается:
+1. По cron */5 * * * *  → гарантирует свежесть каждые 5 мин
+2. systemd ExecStopPost= → при SIGTERM gateway
+3. systemd ExecStartPre= → перед стартом gateway (mark previous "dirty")
+
+Поведение:
+- Дёргает `hermes session-export --last 5` → создаёт/обновляет:
+  - /root/matryoshka/.current_context.md  (оперативный контекст)
+  - /root/matryoshka/HERMES_MEMORY.md     (долгосрочная память)
+- Логирует в /var/log/hermes_active_flush.log
+- Не падает на ошибках (best-effort, fast < 5 сек)
+"""
+import subprocess
+import sys
+import os
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+# --- paths ---
+HERMES_HOME = Path(os.environ.get("HERMES_HOME") or "/root/.hermes")
+CONTEXT_FILE = Path("/root/matryoshka/.current_context.md")
+MEMORY_FILE = Path("/root/matryoshka/HERMES_MEMORY.md")
+LOG_FILE = Path("/var/log/hermes_active_flush.log")
+STATE_DB = HERMES_HOME / "state.db"
+
+VENV_PY = "/usr/local/lib/hermes-agent/venv/bin/python3"
+HERMES_BIN = "/usr/local/bin/hermes"
+
+def log(msg: str) -> None:
+    try:
+        ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+        with LOG_FILE.open("a") as f:
+            f.write(f"[{ts}] {msg}\n")
+    except Exception:
+        pass
+
+def safe_run(cmd: list[str], timeout: int = 5) -> tuple[int, str, str]:
+    try:
+        result = subprocess.run(
+            cmd, capture_output=True, text=True, timeout=timeout
+        )
+        return result.returncode, result.stdout, result.stderr
+    except subprocess.TimeoutExpired:
+        return -1, "", "timeout"
+    except Exception as e:
+        return -1, "", str(e)
+
+def get_state_db_stats() -> dict:
+    """Quick stats: message count, last message timestamp, FTS5 status."""
+    stats = {"messages": "n/a", "last_ts": "n/a", "fts5": "n/a"}
+    rc, out, err = safe_run([
+        "sqlite3", str(STATE_DB),
+        "SELECT COUNT(*), MAX(timestamp),"
+        " (SELECT COUNT(*) FROM sqlite_master WHERE name LIKE '%fts%')"
+        " FROM messages;"
+    ], timeout=3)
+    if rc == 0 and out.strip():
+        parts = out.strip().split("|")
+        if len(parts) >= 3:
+            stats["messages"] = parts[0]
+            stats["last_ts"] = parts[1]
+            stats["fts5"] = parts[2]
+    return stats
+
+def write_context_file(reason: str) -> None:
+    """Write current operational context to .current_context.md."""
+    try:
+        stats = get_state_db_stats()
+        rc, gw_status, _ = safe_run(
+            ["systemctl", "is-active", "hermes-cli-gateway"], timeout=2
+        )
+        gw = gw_status.strip() if rc == 0 else "unknown"
+
+        ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+
+        content = f"""# Hermes Active Context — auto-flushed {ts}
+# reason: {reason}
+
+## State
+- gateway: {gw}
+- state.db: {STATE_DB}
+- messages: {stats['messages']}
+- last_message_ts: {stats['last_ts']}
+- fts5_tables: {stats['fts5']}
+
+## Last operations
+- 15.06 04:00 — FTS5 dropped (1.27 GB → 617 MB)
+- 15.06 04:01 — idx_messages_content created
+- 15.06 04:01 — Cron */20 added
+- 15.06 10:00 — Identity unification planned
+"""
+        CONTEXT_FILE.write_text(content, encoding="utf-8")
+        log(f"OK wrote {CONTEXT_FILE} reason={reason} messages={stats['messages']}")
+    except Exception as e:
+        log(f"ERROR writing context: {e}")
+
+def append_memory_snapshot(reason: str) -> None:
+    """Append a short snapshot to HERMES_MEMORY.md."""
+    try:
+        stats = get_state_db_stats()
+        ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+        MEMORY_FILE.parent.mkdir(parents=True, exist_ok=True)
+
+        with MEMORY_FILE.open("a", encoding="utf-8") as f:
+            f.write(
+                f"\n## {ts}  (reason: {reason})\n"
+                f"- messages: {stats['messages']}\n"
+                f"- fts5: {stats['fts5']}\n"
+            )
+        log(f"OK appended to {MEMORY_FILE}")
+    except Exception as e:
+        log(f"ERROR appending memory: {e}")
+
+def main() -> int:
+    reason = os.environ.get("FLUSH_REASON") or sys.argv[1] if len(sys.argv) > 1 else "cron"
+    log(f"START reason={reason}")
+    t0 = time.time()
+
+    write_context_file(reason)
+    append_memory_snapshot(reason)
+
+    elapsed = time.time() - t0
+    log(f"DONE elapsed={elapsed:.2f}s")
+    return 0
+
+if __name__ == "__main__":
+    sys.exit(main())

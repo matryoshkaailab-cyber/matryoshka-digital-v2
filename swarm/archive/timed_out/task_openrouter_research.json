@@ -1,0 +1,9 @@
+{
+  "task_id": "task_openrouter_research",
+  "from": "hermes",
+  "to": "alf",
+  "command": "ИССЛЕДОВАНИЕ OPENROUTER МОДЕЛЕЙ ДЛЯ ALF",
+  "context": "Олег поставил задачу: подобрать ЛУЧШУЮ модель на OpenRouter для ALF (стратег/аналитик MATRYOSHKA) по соотношению ЦЕНА/КАЧЕСТВО. Нужна аналитическая, reasoning-сильная, но не самая дорогая.\n\nЧТО ДЕЛАТЬ:\n1. Открой https://openrouter.ai/models — получи актуальный список моделей, цены input/output, контекст\n2. Используй web_search для поиска свежих бенчмарков (LMSys Arena, BigCodeBench, MMLU, GPQA, HumanEval, MT-Bench, AlpacaEval, BigBench, AIME, MATH) — июнь 2026\n3. Сузь до 8-12 кандидатов в разных ценовых категориях: бюджет (<$1/M), средний ($1-5/M), премиум ($5-15/M), топ ($15+/M). Кандидаты должны быть актуальны в июне 2026\n4. Для каждой модели дай: provider, $/M input, $/M output, контекст, бенчмарки (что есть), сильные стороны, ограничения\n5. Оцени цена/качество = score/M token (можно через свой расчёт — придумай формулу, задокументируй)\n6. Дай финальный список из 3 РЕКОМЕНДАЦИЙ: лучшая overall, лучшая для быстрых задач, лучшая для глубокой аналитики. С обоснованием.\n7. Если NotebookLM матчит — сверься с /notebooklm ask 'OpenRouter models'\n\nОТВЕТ: подробный markdown с таблицами. Положи в /root/matryoshka/swarm/outbox/alf/task_openrouter_research.json через swarm_respond.py\n\nСрок: до 5 минут. Если нужно больше — пришли промежуточный отчёт.",
+  "timeout": 600,
+  "created_at": "2026-06-18T00:30:00"
+}

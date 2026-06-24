@@ -1,0 +1,97 @@
+#!/bin/bash
+# alex_send.sh — единственный способ общения VPS↔ALEX
+# Usage: alex_send.sh "текст запроса" [таймаут_сек] [model]
+#   model: NVIDIA/moonshotai/kimi-k2.6 (по умолчанию, отвечает осмысленно)
+#          minimaxai/minimax-m3 (default opencode.json, часто пустой ответ)
+set -e
+
+QUERY="${1:?Usage: alex_send.sh 'запрос' [timeout] [model]}"
+TIMEOUT="${2:-60}"
+MODEL="${3:-deepseek-v4-flash-free}"
+ENDPOINT="http://10.8.1.4:4096"
+
+# 1. Health check
+if ! curl -s -m 5 -f "$ENDPOINT/health" > /dev/null; then
+    echo "❌ $ENDPOINT/health не отвечает" >&2
+    exit 1
+fi
+
+# 2. Создать сессию
+SESSION_JSON=$(curl -s -X POST "$ENDPOINT/session" \
+  -H 'Content-Type: application/json' -d '{}' -m 10)
+SESSION=$(echo "$SESSION_JSON" | python3 -c "import sys,json;d=json.load(sys.stdin);print(d.get('id',''))" 2>/dev/null || true)
+if [ -z "$SESSION" ]; then
+    echo "❌ Не удалось создать сессию" >&2
+    echo "Response: $SESSION_JSON" >&2
+    exit 2
+fi
+
+# 3. Отправить prompt_async — model как ОБЪЕКТ {providerID, modelID}
+SESSION_JSON=$(curl -s "$ENDPOINT/session/$SESSION" -m 5)
+PROVIDER_ID=$(echo "$SESSION_JSON" | python3 -c "
+import sys,json
+d=json.load(sys.stdin)
+m=d.get('model') or {}
+print(m.get('providerID',''))" 2>/dev/null || echo "")
+# Если модель не указана — дефолт MiniMax/deepseek-v4-flash-free
+[ -z "$PROVIDER_ID" ] && PROVIDER_ID="MiniMax"
+# Если юзер передал полный путь NVIDIA/foo — split
+if [[ "$MODEL" == *"/"* ]]; then
+    PROVIDER_ID="${MODEL%%/*}"
+    MODEL_ID="${MODEL#*/}"
+else
+    MODEL_ID="$MODEL"
+fi
+PAYLOAD=$(python3 -c "
+import json,sys
+print(json.dumps({
+    'model': {'providerID': sys.argv[1], 'modelID': sys.argv[2]},
+    'parts':[{'type':'text','text':sys.argv[3]}]
+}))" "$PROVIDER_ID" "$MODEL_ID" "$QUERY")
+curl -s -X POST "$ENDPOINT/session/$SESSION/prompt_async" \
+  -H 'Content-Type: application/json' \
+  -d "$PAYLOAD" -m 10 > /tmp/prompt_async_resp.json
+if grep -q '"name":"' /tmp/prompt_async_resp.json 2>/dev/null; then
+    echo "❌ prompt_async error: $(cat /tmp/prompt_async_resp.json)" >&2
+    exit 4
+fi
+
+# 4. Polling /message — ждём assistant с НЕпустым parts и tokens.output>0
+ELAPSED=0
+INTERVAL=2
+while [ $ELAPSED -lt $TIMEOUT ]; do
+    sleep $INTERVAL
+    ELAPSED=$((ELAPSED + INTERVAL))
+    RESP=$(curl -s "$ENDPOINT/session/$SESSION/message")
+    TEXT=$(echo "$RESP" | python3 -c "
+import sys, json
+try:
+    d = json.loads(sys.stdin.read())
+    # opencode 1.17.3: top-level — массив сообщений (НЕ {messages:[]})
+    if isinstance(d, dict):
+        msgs = d.get('messages', list(d.values())[0] if d else [])
+    else:
+        msgs = d
+    best = ''
+    for m in msgs:
+        info = m.get('info') or {}
+        # assistant: role=None ИЛИ 'assistant', плюс наличие finish
+        role = m.get('role') or info.get('role','')
+        if info.get('finish') or role == 'assistant':
+            for p in m.get('parts', []):
+                if p.get('type') == 'text' and p.get('text'):
+                    best = p['text']  # берём ПОСЛЕДНИЙ (перезаписывает)
+    print(best)
+    sys.exit(0 if best else 1)
+except Exception as e:
+    sys.exit(2)
+" 2>/dev/null)
+    if [ -n "$TEXT" ]; then
+        echo "$TEXT"
+        exit 0
+    fi
+done
+
+echo "❌ Таймаут ${TIMEOUT}с, ответа нет" >&2
+echo "Сессия: $SESSION" >&2
+exit 3
